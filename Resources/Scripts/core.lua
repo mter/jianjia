@@ -1,0 +1,32 @@
+
+scr = {}
+_b = string.byte
+package.path = package.path .. ';./Resources/Scripts/?.lua'
+
+config = {
+    SCREEN_WIDTH = 1024,
+    SCREEN_HEIGHT = 768,
+    TITLE = '›Û›Á£∫√∞œ’÷Æ¬√',
+    VER = 'v0.1',
+}
+
+require('screen_start')
+require('screen_game')
+require('screen_fight')
+require('screen_about')
+
+function theWorld_GameInit()
+    theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)
+    theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqy',  25)
+	-- theSound:LoadMusic(1, "Resources/Sounds/bgm1.mid")
+	ScreenStart.new()
+	ScreenGame.new()
+	ScreenFight.new()
+	ScreenAbout.new()
+	theWorld:PushScreen(ScreenStart.scr)
+end
+
+theWorld:Init(config.TITLE, config.SCREEN_WIDTH, config.SCREEN_HEIGHT)
+theWorld:InitPhysics()
+theWorld_GameInit()
+theWorld:StartGame()
