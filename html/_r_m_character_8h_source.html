@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.3.1"/>
+<title>流光: Flux/view/RPGMaker/RMCharacter.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">流光
+   &#160;<span id="projectnumber">0.07pre4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.3.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="pages.html"><span>相关页面</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>页</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_5711eb44cb52397ed84cf47646f1d3a1.html">Flux</a></li><li class="navelem"><a class="el" href="dir_8ba72e756ee5898a1571a0a77bb3dcc6.html">view</a></li><li class="navelem"><a class="el" href="dir_370986d6ab8a5133094dd54ab91b2870.html">RPGMaker</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">RMCharacter.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef RM_CHARACTER_H</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define RM_CHARACTER_H</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../base/World.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../base/View.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;RMCharacter.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;RPGMaker_base.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">enum</span> RMDirection {RD_NONE=0, RD_LEFT=1, RD_RIGHT=2, RD_TOP=4, RD_BOTTOM=8};</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="class_r_m_character.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a> : <span class="keyword">public</span> <a class="code" href="class_view.html" title="显示：控件">View</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">float</span> speed;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    RMDirection dir, lastdir;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> PhyInit();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>(<a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr, <a class="code" href="class_view.html" title="显示：控件">View</a>* parent=NULL);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="code" href="class_r_m_character.html#a01f4c80c2ccb96b7cac0976a0fdacdd3">   34</a></span>&#160;    <a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>* <a class="code" href="class_r_m_character.html#a01f4c80c2ccb96b7cac0976a0fdacdd3">SetDir</a>(RMDirection dir) {this-&gt;dir = dir;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="class_r_m_character.html#a01c52273b5be53a6aa572248874a56ef">   39</a></span>&#160;    RMDirection <a class="code" href="class_r_m_character.html#a01c52273b5be53a6aa572248874a56ef">GetDir</a>() {<span class="keywordflow">return</span> dir!=RD_NONE ? dir : lastdir;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="code" href="class_r_m_character.html#a6e78d185f0c23821294a0239f1674cc6">   44</a></span>&#160;    <a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>* <a class="code" href="class_r_m_character.html#a6e78d185f0c23821294a0239f1674cc6">SetPhy</a>(b2BodyType bdtype=b2_dynamicBody, <span class="keywordtype">bool</span> fixedRotation=<span class="keyword">true</span>) {<a class="code" href="class_view.html#a8cff20e3726a421e276eeec064b87190">View::SetPhy</a>(bdtype, fixedRotation);<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="class_r_m_character.html#afbc1e91abb1b270447865c1ccac0a4e8">   50</a></span>&#160;    <a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>* <a class="code" href="class_r_m_character.html#afbc1e91abb1b270447865c1ccac0a4e8">SetSpeed</a>(<span class="keywordtype">float</span> speed) {this-&gt;speed=speed;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_r_m_character.html#ad08c41d29058a15dacee121ed198c1dd">move</a>(RMDirection _dir);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_r_m_character.html#ace33689badd5fa143f4ee2cbf1e25d1e">move_cancel</a>(RMDirection _dir);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="class_r_m_character.html#a992f9bc65eeb9446febc0ec8e2897a95">   65</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_r_m_character.html#a992f9bc65eeb9446febc0ec8e2897a95">IsMoving</a>() {<span class="keywordflow">return</span> dir!=RD_NONE;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_r_m_character.html#a03eeada8ca7188fd6dbc40bcd8afb97d">Reset</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_r_m_character.html#a009e41b7154c421334aa0cedbaf01c72">CheckFacing</a>(<a class="code" href="class_view.html" title="显示：控件">View</a>* v, <span class="keywordtype">float</span> offset=0.5f);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 五月 5日 星期日 15:04:17 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.3.1
+</small></address>
+</body>
+</html>

@@ -7,14 +7,24 @@ ScreenGame = {
 
 		-- 基础设定
         ScreenGame.scr = flux.RMScreen()
-		
+
 		-- OnPush 事件
         ScreenGame.scr:lua_OnPush(wrap(function(this)
 			ScreenGame.scr:SetPlayer(ScreenGame.player)
-			this:AddView(ScreenGame.player)
-			this:AddView(ScreenGame.v1, -2)
-			this:AddView(ScreenGame.t1, -2)
+		
         end))
+
+		-- AfterPush 事件
+        ScreenGame.scr:lua_AfterPush(wrap(function(this)
+			ShowText(101, {'选择阵营'})
+		end))
+		
+        ScreenGame.scr:lua_OnResume(wrap(function(this, from, ret)
+			if from == 101 then
+				ScreenAlignmentChoose.new()
+				theWorld:PushScreen(ScreenAlignmentChoose.scr, flux.SCREEN_APPEND)
+			end
+		end))
 
 		-- 按键响应
         ScreenGame.scr:lua_KeyInput(wrap(function(this, key, state)
@@ -41,6 +51,10 @@ ScreenGame = {
 			ScreenGame.t1:SetValueMode(1):SetPosition(0, 5.5)
             ScreenGame.v1 = flux.View(this)
 			ScreenGame.v1:SetValueMode(1):SetSprite('Resources/Images/fight.jpg'):SetSize(1.3,1.5):SetPosition(0,7):SetPhy(flux.b2_staticBody):PhyNewFixture(101)
+
+			this:AddView(ScreenGame.player)
+			this:AddView(ScreenGame.v1, -2)
+			this:AddView(ScreenGame.t1, -2)
 
             -- 注册按键
             this:RegKey(_b'Z')

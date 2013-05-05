@@ -12,11 +12,6 @@ ScreenStart = {
         theSound:LoadSound(101, "Resources/Sounds/se001.ogg")
         theSound:LoadSound(102, "Resources/Sounds/se002.ogg")
         ScreenStart.scr = flux.Screen()
-		
-		-- OnPush 事件
-        ScreenStart.scr:lua_OnPush(wrap(function(this)
-		
-        end))
 
 		-- 按键响应
         ScreenStart.scr:lua_KeyInput(wrap(function(this, key, state)

@@ -14,6 +14,8 @@ require('screen_start')
 require('screen_game')
 require('screen_fight')
 require('screen_about')
+require('screen_alignment_choose')
+require('screen_text')
 
 function theWorld_GameInit()
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)
