@@ -28,7 +28,7 @@ function ShowText(fromcode, textlist, ch_info)
 				t = flux.TextView(this, nil, 'wqy', ScreenText.textlist[1][1])
 			end
             t:SetHUD(true)
-            t:SetColor(1,1,1)
+            t:SetTextColor(1,1,1)
             t:SetPosition(0, -6)
             this:AddView(t)
 

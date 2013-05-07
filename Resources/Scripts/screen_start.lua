@@ -51,7 +51,7 @@ ScreenStart = {
         ScreenStart.scr:lua_Init(wrap(function(this)
             -- ±ÍÃ‚
             ScreenStart.Title = flux.TextView(this, nil, "wqyL", config.TITLE)
-            ScreenStart.Title:SetColor(0,0,1.0):SetPosition(0, 5):SetHUD(true)
+            ScreenStart.Title:SetTextColor(0,0,1.0):SetPosition(0, 5):SetHUD(true)
 
             -- ≤Àµ•
             ScreenStart.Menu = {

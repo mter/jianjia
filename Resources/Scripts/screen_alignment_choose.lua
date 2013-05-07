@@ -89,11 +89,11 @@ ScreenAlignmentChoose = {
 			}
 
 			ScreenAlignmentChoose.Items = {
-				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetColor(0,0,0),
-				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetColor(0,0,0),
-				flux.View(this):SetSize(ScreenAlignmentChoose.bigSize):SetColor(0,0,0),
-				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetColor(0,0,0),
-				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetColor(0,0,0),
+				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetSprite('Resources/Images/alignment1.jpg'),
+				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetSprite('Resources/Images/alignment2.jpg'),
+				flux.View(this):SetSize(ScreenAlignmentChoose.bigSize):SetSprite('Resources/Images/alignment3.jpg'),
+				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetSprite('Resources/Images/alignment4.jpg'),
+				flux.View(this):SetSize(ScreenAlignmentChoose.normalSize):SetSprite('Resources/Images/alignment5.jpg'),
 			}
 
 			for k,v in pairs(ScreenAlignmentChoose.Items) do

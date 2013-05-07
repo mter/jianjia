@@ -10,6 +10,9 @@ config = {
     VER = 'v0.1',
 }
 
+json = require ("dkjson")
+
+require('sys')
 require('screen_start')
 require('screen_game')
 require('screen_fight')
@@ -28,7 +31,9 @@ function theWorld_GameInit()
 	theWorld:PushScreen(ScreenStart.scr)
 end
 
+sys.init()
 theWorld:Init(config.TITLE, config.SCREEN_WIDTH, config.SCREEN_HEIGHT)
 theWorld:InitPhysics()
 theWorld_GameInit()
 theWorld:StartGame()
+sys.save()
