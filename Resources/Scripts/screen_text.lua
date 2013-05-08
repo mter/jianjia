@@ -22,7 +22,7 @@ function SetNext(this,curpos,ch_info)
 		if ScreenText.t==nil then
 			ScreenText.t = flux.TextView(this, nil, 'wqy',text):SetAlign(flux.ALIGN_TOPLEFT)
 			ScreenText.t:SetHUD(true)
-			ScreenText.t:SetColor(TextColor.UnfinshRead)
+			ScreenText.t:SetTextColor(TextColor.UnfinshRead)
 			this:AddView(ScreenText.t,8)
 		end
 		ScreenText.t:SetText(text):SetPosition(-11,-4.5)
@@ -39,9 +39,9 @@ function SetNext(this,curpos,ch_info)
 		end
 	else
 		--名字
-		if ScreenText.name ==nil then
-			ScreenText.name = flux.TextView(this, nil, 'wqy',text[1])
-			ScreenText.name:SetHUD(true):SetColor(TextColor.Name):SetAlign(flux.ALIGN_TOPLEFT):SetPosition(-11,-3.4)
+		if ScreenText.name == nil then
+			ScreenText.name = flux.TextView(this, nil, 'wqy',text[1]):SetTextColor(TextColor.Name)
+			ScreenText.name:SetHUD(true):SetAlign(flux.ALIGN_TOPLEFT):SetPosition(-11,-3.4)
 			this:AddView(ScreenText.name,5)
 		else
 			ScreenText.name:AnimCancel()
@@ -57,7 +57,7 @@ function SetNext(this,curpos,ch_info)
 		if ScreenText.t==nil then
 			ScreenText.t = flux.TextView(this, nil, 'wqy',msg):SetAlign(flux.ALIGN_TOPLEFT)
 			ScreenText.t:SetHUD(true)
-			ScreenText.t:SetColor(TextColor.UnfinshRead)
+			ScreenText.t:SetTextColor(TextColor.UnfinshRead)
 			this:AddView(ScreenText.t,8)
 		end
 		ScreenText.t:SetText(msg):SetPosition(-11,-4.5)
@@ -66,7 +66,7 @@ function SetNext(this,curpos,ch_info)
 			ScreenText.portrait:AnimCancel()
 			ScreenText.portrait:SetSprite(ch_info[text[3]]):SetSize(8.8,20.34)--:SetAlpha(1)
 		else 
-			ScreenText.portrait = flux.View(this):SetSprite(ch_info[text[3]]):SetSize(8.8,20.34)--:SetAlpha(1)
+			ScreenText.portrait = flux.View(this):SetSprite(ch_info[text[3]]):SetSize(8.8,20.34):SetHUD(true)--:SetAlpha(1)
 			this:AddView(ScreenText.portrait,-2)
 		end
 		--立绘位置
@@ -95,12 +95,13 @@ function SetNext(this,curpos,ch_info)
 			end
 			--添加分支
 			for i=1,#text[6] do
-				ScreenText.switchCase[i]=flux.TextView(this,nil,'wqy','>   '..text[6][i]):SetColor(TextColor.SwitchCase):SetPosition(-9,-5+-1*i):SetAlign(flux.ALIGN_LEFT)
+				ScreenText.switchCase[i]=flux.TextView(this,nil,'wqy','>   '..text[6][i]):SetTextColor(TextColor.SwitchCase)
+				ScreenText.switchCase[i]:SetPosition(-9,-5+-1*i):SetAlign(flux.ALIGN_LEFT):SetHUD(true)
 				this:AddView(ScreenText.switchCase[i])
 			end
 			--显示选中条
 			if ScreenText.selection==nil then 
-				ScreenText.selection=flux.View(this):SetSize(1,1):SetSprite('Resources/Images/hand.png'):SetAlign(flux.ALIGN_LEFT)
+				ScreenText.selection=flux.View(this):SetSize(1,1):SetSprite('Resources/Images/hand.png'):SetAlign(flux.ALIGN_LEFT):SetHUD(true)
 				this:AddView(ScreenText.selection)
 			end
 			ScreenText.selection:SetAlpha(1):SetPosition(-10.3,-5-ScreenText.curSelection)
