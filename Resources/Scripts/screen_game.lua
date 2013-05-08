@@ -111,6 +111,8 @@ ScreenGame = {
 			ScreenGame.wharf = flux.TextView(this, nil, 'wqyL', '码头'):SetTextColor(1,1,1)
 			ScreenGame.wharf:SetColor(0.45, 0.25, 0.55):SetPosition(27, 68):SetSize(15, 33)
 			this:AddView(ScreenGame.wharf)
+			
+			ScreenGame.head = flux.TextView(this, nil, 'wqy', '村长'):SetTextColor(1,1,1)
 
             -- 注册按键
             this:RegKey(_b'Z')

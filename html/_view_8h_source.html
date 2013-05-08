@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">流光
-   &#160;<span id="projectnumber">0.07pre4</span>
+   &#160;<span id="projectnumber">0.07pre5</span>
    </div>
   </td>
  </tr>
@@ -88,220 +88,216 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;_base.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Animation.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define BLOCK_SIZE 32</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_world.html" title="显示：“世界”">World</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_screen.html" title="显示：窗体">Screen</a>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span><a class="code" href="class_camera.html">Camera</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>ContactListener;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">enum</span> ViewFlip {None=0, Horizon=1, Vertical=2, HV=3};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">enum</span> ViewShapeType {SHAPE_DEFAULT, SHAPE_SQUARE, SHAPE_CIRCLE, SHAPE_POLYGON};</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">enum</span> ViewValueMode {VALUE_MODE_WORLD=0, VALUE_MODE_BLOCK=1, VALUE_MODE_PX=2};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="class_view.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_view.html" title="显示：控件">View</a> {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_world.html" title="显示：“世界”">World</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_camera.html">Camera</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>ContactListener;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// 贴图坐标(标准，水平翻转，垂直翻转，翻转)</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">float</span> UV[8];</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">float</span> UV_FH[8];</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">float</span> UV_FV[8];</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">float</span> UV_FHV[8];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// 顶点坐标</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">float</span> vertex_list[8];</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> _HUD;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    ViewFlip flip;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    b2Body* phyBody;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">float</span> x,y,z;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">float</span> width,height;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// 半径，只在圆模式起效</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">float</span> radius;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// 顶点列表，只在多边形模式起效</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// vertices_cur 为当前push到的位置，PushVertex一次加一，直到达到vertices_num</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">float</span>* vertices;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">int</span> vertices_cur;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">int</span> vertices_num;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;Shape.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define BLOCK_SIZE 32</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_world.html" title="显示：“世界”">World</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span><a class="code" href="class_screen.html" title="显示：窗体">Screen</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="class_camera.html">Camera</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span><a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>ContactListener;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">enum</span> ViewAlign {ALIGN_LEFT, ALIGN_CENTER, ALIGN_TOP, ALIGN_TOPLEFT};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">enum</span> ViewShapeType {SHAPE_DEFAULT, SHAPE_SQUARE, SHAPE_CIRCLE, SHAPE_POLYGON};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">enum</span> ViewValueMode {VALUE_MODE_WORLD=0, VALUE_MODE_BLOCK=1, VALUE_MODE_PX=2};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="class_view.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_view.html" title="显示：控件">View</a> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_world.html" title="显示：“世界”">World</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_camera.html">Camera</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色">RMCharacter</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>ContactListener;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// 顶点坐标</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">float</span> vertex_list[8];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> _HUD;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">float</span> x,y,z;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">float</span> width,height;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// 半径，只在圆模式起效</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">float</span> radius;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// 顶点列表，只在多边形模式起效</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// vertices_cur 为当前push到的位置，PushVertex一次加一，直到达到vertices_num</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">float</span>* vertices;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> vertices_cur;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">int</span> vertices_num;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// 标尺类型，SetPosition/SetSize 等操作时以何为基准</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// 种类为 世界(默认,OpenGL世界坐标)，格子，像素三种</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    ViewValueMode value_mode;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// 标尺类型，SetPosition/SetSize 等操作时以何为基准</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// 种类为 世界(默认,OpenGL世界坐标)，格子，像素三种</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    ViewValueMode value_mode;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">bool</span> visible;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* parent;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> color;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> _rotation;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> PushAnim(Animation* anim, <span class="keywordtype">int</span> linkAt);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    AnimationList anim_list;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// 是否需要渲染</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// 条件是三个：color.A &amp;&amp; width &amp;&amp; height</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> is_render;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* parent;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> color;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">float</span> _rotation;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> PushAnim(Animation* anim, <span class="keywordtype">int</span> linkAt);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    AnimationList anim_list;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span>* tag;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    vector&lt;int&gt; tex;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> tex_frame;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">int</span> tex_to_frame;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span>* tag;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    int16 group_index; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">//b2Vec2 gravity;</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">float</span> restitution;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">float</span> density;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">float</span> friction;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    ViewShapeType shape_type;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> PhySync(b2Vec2 v, float32 angle);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> ConvertToCurPos(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> ConvertToRealPos(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    GLenum _disable_flag;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    map&lt;int, int&gt; _touching_list;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> PhyInit() {};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>(<a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr, <a class="code" href="class_view.html" title="显示：控件">View</a>* parent=NULL);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    ~<a class="code" href="class_view.html" title="显示：控件">View</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderBegin();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderDo();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderEnd();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span> dt);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="code" href="class_view.html#aad177a8794f28fd72e0df8e5cac8d1ff">  114</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_view.html#aad177a8794f28fd72e0df8e5cac8d1ff">IsTouchBy</a>(<span class="keywordtype">int</span> index) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        map&lt;int, int&gt;::iterator it = _touching_list.find(index);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">return</span> (it != _touching_list.end());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    };</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="code" href="class_view.html#af30808e232799d6408d1c636655c3eee">  122</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af30808e232799d6408d1c636655c3eee">SetScreen</a>(<a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr) {this-&gt;scr = scr;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="class_view.html#a1779a10fce41277fea3aac5ce6b6fe85">  127</a></span>&#160;    <a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* <a class="code" href="class_view.html#a1779a10fce41277fea3aac5ce6b6fe85">GetScreen</a>() {<span class="keywordflow">return</span> scr;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="code" href="class_view.html#a095535c2ec77d5243aa1bd9f962619c3">  133</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a095535c2ec77d5243aa1bd9f962619c3">SetDisableFlag</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> flag) {_disable_flag = flag;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ae225dc72ca171e973bee41f1409169ee">SetValueMode</a>(ViewValueMode value_mode);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    ViewValueMode <a class="code" href="class_view.html#aa09bd88c416f5ec99c0305443d77b98c">GetValueMode</a>();</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="code" href="class_view.html#a94362930ee6ab00e053d089c5e9b36e6">  155</a></span>&#160;    b2Body *<a class="code" href="class_view.html#a94362930ee6ab00e053d089c5e9b36e6">GetBody</a>() { <span class="keywordflow">return</span> phyBody; }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="code" href="class_view.html#a9bee7f003af9ff2e90620d9d8bab51cf">  161</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a9bee7f003af9ff2e90620d9d8bab51cf">SetRestitution</a>(<span class="keywordtype">float</span> restitution) {this-&gt;restitution=restitution;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="code" href="class_view.html#ad24adcbe51bdf6eaf89cc64c1834594b">  167</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ad24adcbe51bdf6eaf89cc64c1834594b">SetDensity</a>(<span class="keywordtype">float</span> density) {this-&gt;density=density;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="code" href="class_view.html#a0f9a6e994791253d81758603126d1c4a">  173</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a0f9a6e994791253d81758603126d1c4a">SetFriction</a>(<span class="keywordtype">float</span> friction) {this-&gt;friction=friction;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">    * 设置重力</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">    * @param x 横向重力，默认为 0</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">    * @param y 纵向重力，默认为 G</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="comment">//View* SetGravity(float x, float y) {this-&gt;gravity = b2Vec2(x, y);return this;}</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    b2Fixture* <a class="code" href="class_view.html#a23e1c9edf027ea4711e393c9758d3a0e">PhyNewFixture</a>(<span class="keywordtype">int</span> phyindex=0, <span class="keywordtype">bool</span> isSensor=<span class="keyword">false</span>, <span class="keywordtype">float</span> width=0, <span class="keywordtype">float</span> height=0, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> center=<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a>(0,0), ViewShapeType shape_type=SHAPE_DEFAULT);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8cff20e3726a421e276eeec064b87190">SetPhy</a>(b2BodyType bdtype=b2_dynamicBody, <span class="keywordtype">bool</span> fixedRotation=<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a34e5bc2b3d7dc5fa73b02cbe81f14f25">SetPhyActive</a>(<span class="keywordtype">bool</span> flag);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a10c6e3171cb35fba31761d1b1b8ffe59">SetPhyGroupIndex</a>(int16 group_index);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
-<div class="line"><a name="l00225"></a><span class="lineno"><a class="code" href="class_view.html#ad762f80fb588b6b8f14b8996e084113f">  225</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ad762f80fb588b6b8f14b8996e084113f">SetFrame</a>(<span class="keywordtype">int</span> frame) {<span class="keywordflow">if</span> (tex_frame!=frame) this-&gt;tex_frame = frame;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8dcf4e5bfb065502e4ee39521f4551f2">SetSprite</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn, <span class="keywordtype">int</span> frame_num = 1);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a0c65082803dc522bc2919a4700feb3b2">SetSpriteFrame</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn, <span class="keywordtype">int</span> frame);</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aa97f5188f453b30c097461df2cddb37c">SetFlip</a>(ViewFlip flip);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af2d6209de99634a2bd7d6c6142d71d49">SetSize</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno"><a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">  261</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">SetSize</a>(<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v) {<span class="keywordflow">return</span> <a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">SetSize</a>(v.x, v.y);};</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> <a class="code" href="class_view.html#a8399603ba1eafc3c8e02902c342bc8d6">GetSize</a>();</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ab13245c56243a5b0af99d728486c227e">SetRadius</a>(<span class="keywordtype">float</span> r);</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aeb01366daf22b5f96df6615604aed0f8">SetVertexNum</a>(<span class="keywordtype">int</span> num);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a4be5746e666eb32a58ed85a22360e3b8">PushVertex</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8b31fc6047cdf3990c09a34be695f919">SetPosition</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
-<div class="line"><a name="l00301"></a><span class="lineno"><a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">  301</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">SetPosition</a>(<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v) {<span class="keywordflow">return</span> <a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">SetPosition</a>(v.x, v.y);};</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8b31fc6047cdf3990c09a34be695f919">SetPosition</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <a class="code" href="class_vector3.html" title="x,y,z 三维向量">Vector3</a> <a class="code" href="class_view.html#a2e6b87767db41e817df1a726901e19c5">GetPosition</a>();</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ac3eb95cc065dfc07a3086bc3084e4877">SetHUD</a>(<span class="keywordtype">bool</span> b);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a5a16203ff342e97f55024447a2532e8a">SetColor</a>(<span class="keyword">const</span> <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> &amp;c);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a5a16203ff342e97f55024447a2532e8a">SetColor</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> a=1.0f);</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;</div>
-<div class="line"><a name="l00339"></a><span class="lineno"><a class="code" href="class_view.html#a9aa8f31cdd859aecfd26430e9f15586a">  339</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a9aa8f31cdd859aecfd26430e9f15586a">SetAlpha</a>(<span class="keywordtype">float</span> alpha) {color.<a class="code" href="class_color.html#a44c3ff4cf70465b77c937f2f72d4bac8">A</a> = alpha;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;</div>
-<div class="line"><a name="l00344"></a><span class="lineno"><a class="code" href="class_view.html#a4683a96441f56a0eeadd76db207b8fa3">  344</a></span>&#160;    <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a>&amp; <a class="code" href="class_view.html#a4683a96441f56a0eeadd76db207b8fa3">GetColor</a>() {<span class="keywordflow">return</span> color;}</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a37871475b7d8a188647b98abca10f5aa">SetRotation</a>(<span class="keywordtype">float</span> rotation);</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
-<div class="line"><a name="l00355"></a><span class="lineno"><a class="code" href="class_view.html#a65f067342ab26c4bae916846acb1bbd4">  355</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_view.html#a65f067342ab26c4bae916846acb1bbd4">GetRotation</a>() {<span class="keywordflow">return</span> _rotation;};</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aef50fe84d4a17ef458c10f020df3128f">FadeIn</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aa7acc98973ad81c084b684aad48afa0d">FadeOut</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a4b0d7226371a1dd7d1beb981beae8100">FadeTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> value, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a>&amp; newPos, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector3.html" title="x,y,z 三维向量">Vector3</a>&amp; newPos, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af69649ebd11f03a9c8bcb581f340a3f5">RotateTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> from_angle, <span class="keywordtype">float</span> angle, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af69649ebd11f03a9c8bcb581f340a3f5">RotateTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> angle, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a1740e5e309dc6163b123c55a2bf84a5f">Sleep</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a9a299d84984cf50b3da7a629cffd9a72">RecolorTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> color, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a69408b9940f94326ef293d63852e9fe1">ResizeTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a69408b9940f94326ef293d63852e9fe1">ResizeTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a3c6c8c3763e8204800ccc4c62c7284c3">PlayFrame</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">int</span> start, <span class="keywordtype">int</span> end, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a72047c9f1a001d883c01fe664523a9ab">AnimDo</a>();</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a619d38d9fbd443915611892430b5fe70">Loop</a>(<span class="keywordtype">int</span> index=0);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#ab033afa9c0472c4d65b9f73e35421975">AnimCancel</a>();</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a251550384b3abe8c55121640babc77bd">SetAnimPause</a>(<span class="keywordtype">bool</span> pause);</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* GetParent();</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> BlockSize();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">//b2Vec2 gravity;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    ViewShapeType shape_type;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> PhySync(b2Vec2 v, float32 angle);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> ConvertToCurPos(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> ConvertToRealPos(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    GLenum _disable_flag;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> PhyInit() {};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    ViewAlign viewalign;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="class_view_physics.html" title="View 的物理模块">ViewPhysics</a>* phy;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="class_view_texture.html" title="View 的贴图模块">ViewTexture</a>* tex;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>(<a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr, <a class="code" href="class_view.html" title="显示：控件">View</a>* parent=NULL);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    ~<a class="code" href="class_view.html" title="显示：控件">View</a>();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderBegin();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderDo();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RenderEnd();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span> dt);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="code" href="class_view.html#aad177a8794f28fd72e0df8e5cac8d1ff">  107</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_view.html#aad177a8794f28fd72e0df8e5cac8d1ff">IsTouchBy</a>(<span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">if</span> (phy) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            map&lt;int, int&gt;::iterator it = phy-&gt;touching_list.find(index);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">return</span> (it != phy-&gt;touching_list.end());</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    };</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="code" href="class_view.html#af30808e232799d6408d1c636655c3eee">  118</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af30808e232799d6408d1c636655c3eee">SetScreen</a>(<a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* scr) {this-&gt;scr = scr;<span class="keywordflow">return</span> <span class="keyword">this</span>;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="code" href="class_view.html#a1779a10fce41277fea3aac5ce6b6fe85">  123</a></span>&#160;    <a class="code" href="class_screen.html" title="显示：窗体">Screen</a>* <a class="code" href="class_view.html#a1779a10fce41277fea3aac5ce6b6fe85">GetScreen</a>() {<span class="keywordflow">return</span> scr;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="code" href="class_view.html#a095535c2ec77d5243aa1bd9f962619c3">  129</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a095535c2ec77d5243aa1bd9f962619c3">SetDisableFlag</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> flag) {_disable_flag = flag;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* SetValueMode(ViewValueMode value_mode);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    ViewValueMode <a class="code" href="class_view.html#aa09bd88c416f5ec99c0305443d77b98c">GetValueMode</a>();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="code" href="class_view.html#a94362930ee6ab00e053d089c5e9b36e6">  151</a></span>&#160;    b2Body *<a class="code" href="class_view.html#a94362930ee6ab00e053d089c5e9b36e6">GetBody</a>() {<span class="keywordflow">if</span> (phy) <span class="keywordflow">return</span> phy-&gt;body; <span class="keywordflow">return</span> NULL;}</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a3b57979989bca66d4c18f2c4de0e0766">SetRestitution</a>(<span class="keywordtype">float</span> restitution);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a2a2967e8866422ffeb8c652824fe66ed">SetDensity</a>(<span class="keywordtype">float</span> density);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a17461afcb99ec8e0e844e7b622efb066">SetFriction</a>(<span class="keywordtype">float</span> friction);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">    * 设置重力</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">    * @param x 横向重力，默认为 0</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">    * @param y 纵向重力，默认为 G</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="comment">//View* SetGravity(float x, float y) {this-&gt;gravity = b2Vec2(x, y);return this;}</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    b2Fixture* PhyNewFixture(<span class="keywordtype">int</span> phyindex=0, <span class="keywordtype">bool</span> isSensor=<span class="keyword">false</span>, <span class="keywordtype">float</span> width=0, <span class="keywordtype">float</span> height=0, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> center=<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a>(0,0), ViewShapeType shape_type=SHAPE_DEFAULT);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8cff20e3726a421e276eeec064b87190">SetPhy</a>(b2BodyType bdtype=b2_dynamicBody, <span class="keywordtype">bool</span> fixedRotation=<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a34e5bc2b3d7dc5fa73b02cbe81f14f25">SetPhyActive</a>(<span class="keywordtype">bool</span> flag);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a10c6e3171cb35fba31761d1b1b8ffe59">SetPhyGroupIndex</a>(int16 group_index);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a901fe7d4a452ad119b42b7d0291cb754">SetFrame</a>(<span class="keywordtype">int</span> frame);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8dcf4e5bfb065502e4ee39521f4551f2">SetSprite</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn, <span class="keywordtype">int</span> frame_num = 1);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a0c65082803dc522bc2919a4700feb3b2">SetSpriteFrame</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn, <span class="keywordtype">int</span> frame);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* SetFlip(ViewFlip flip);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* SetAlign(ViewAlign algin) {viewalign = algin;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af2d6209de99634a2bd7d6c6142d71d49">SetSize</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height);</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">  264</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">SetSize</a>(<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v) {<span class="keywordflow">return</span> <a class="code" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">SetSize</a>(v.x, v.y);};</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> <a class="code" href="class_view.html#a8399603ba1eafc3c8e02902c342bc8d6">GetSize</a>();</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ab13245c56243a5b0af99d728486c227e">SetRadius</a>(<span class="keywordtype">float</span> r);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aeb01366daf22b5f96df6615604aed0f8">SetVertexNum</a>(<span class="keywordtype">int</span> num);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a4be5746e666eb32a58ed85a22360e3b8">PushVertex</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8b31fc6047cdf3990c09a34be695f919">SetPosition</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y);</div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">  304</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">SetPosition</a>(<a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v) {<span class="keywordflow">return</span> <a class="code" href="class_view.html#a40e947af6d5d8106bbac7c0dc9cd3615">SetPosition</a>(v.x, v.y);};</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a8b31fc6047cdf3990c09a34be695f919">SetPosition</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <a class="code" href="class_vector3.html" title="x,y,z 三维向量">Vector3</a> <a class="code" href="class_view.html#a2e6b87767db41e817df1a726901e19c5">GetPosition</a>();</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#ac3eb95cc065dfc07a3086bc3084e4877">SetHUD</a>(<span class="keywordtype">bool</span> b);</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a5a16203ff342e97f55024447a2532e8a">SetColor</a>(<span class="keyword">const</span> <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> &amp;c);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a5a16203ff342e97f55024447a2532e8a">SetColor</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> a=1.0f);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;</div>
+<div class="line"><a name="l00342"></a><span class="lineno"><a class="code" href="class_view.html#a9aa8f31cdd859aecfd26430e9f15586a">  342</a></span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a9aa8f31cdd859aecfd26430e9f15586a">SetAlpha</a>(<span class="keywordtype">float</span> alpha) {color.<a class="code" href="class_color.html#a44c3ff4cf70465b77c937f2f72d4bac8">A</a> = alpha;<span class="keywordflow">return</span> <span class="keyword">this</span>;};</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;</div>
+<div class="line"><a name="l00347"></a><span class="lineno"><a class="code" href="class_view.html#a4683a96441f56a0eeadd76db207b8fa3">  347</a></span>&#160;    <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a>&amp; <a class="code" href="class_view.html#a4683a96441f56a0eeadd76db207b8fa3">GetColor</a>() {<span class="keywordflow">return</span> color;}</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a37871475b7d8a188647b98abca10f5aa">SetRotation</a>(<span class="keywordtype">float</span> rotation);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;</div>
+<div class="line"><a name="l00358"></a><span class="lineno"><a class="code" href="class_view.html#a65f067342ab26c4bae916846acb1bbd4">  358</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="class_view.html#a65f067342ab26c4bae916846acb1bbd4">GetRotation</a>() {<span class="keywordflow">return</span> _rotation;};</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aef50fe84d4a17ef458c10f020df3128f">FadeIn</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#aa7acc98973ad81c084b684aad48afa0d">FadeOut</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a4b0d7226371a1dd7d1beb981beae8100">FadeTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> value, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a>&amp; newPos, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector3.html" title="x,y,z 三维向量">Vector3</a>&amp; newPos, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a01a396d3bdefa35c902e902686af26d8">MoveTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af69649ebd11f03a9c8bcb581f340a3f5">RotateTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> from_angle, <span class="keywordtype">float</span> angle, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#af69649ebd11f03a9c8bcb581f340a3f5">RotateTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> angle, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a1740e5e309dc6163b123c55a2bf84a5f">Sleep</a>(<span class="keywordtype">double</span> speed, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a9a299d84984cf50b3da7a629cffd9a72">RecolorTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_color.html" title="用于表示色彩信息的类">Color</a> color, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a69408b9940f94326ef293d63852e9fe1">ResizeTo</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a69408b9940f94326ef293d63852e9fe1">ResizeTo</a>(<span class="keywordtype">double</span> speed, <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> v, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* <a class="code" href="class_view.html#a3c6c8c3763e8204800ccc4c62c7284c3">PlayFrame</a>(<span class="keywordtype">double</span> speed, <span class="keywordtype">int</span> start, <span class="keywordtype">int</span> end, <span class="keyword">const</span> <span class="keywordtype">char</span>* callback=NULL, <span class="keywordtype">int</span> linkAt=-1);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a72047c9f1a001d883c01fe664523a9ab">AnimDo</a>();</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a619d38d9fbd443915611892430b5fe70">Loop</a>(<span class="keywordtype">int</span> index=0);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#ab033afa9c0472c4d65b9f73e35421975">AnimCancel</a>();</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a251550384b3abe8c55121640babc77bd">SetAnimPause</a>(<span class="keywordtype">bool</span> pause);</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div>
-<div class="line"><a name="l00449"></a><span class="lineno"><a class="code" href="class_view.html#a46c72100561bee73f2c270c62b7de240">  449</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_view.html#a46c72100561bee73f2c270c62b7de240">SetVisible</a>(<span class="keywordtype">bool</span> b) {visible = b;};</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keywordtype">void</span> SetTag(<span class="keywordtype">void</span>* tag) {this-&gt;tag = tag;};</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="keywordtype">void</span>* GetTag() {<span class="keywordflow">return</span> tag;};</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="comment">//void SetVertex(int n, ...);</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="comment">//void SetSpriteSize(int size);</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;};</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <a class="code" href="class_view.html" title="显示：控件">View</a>* GetParent();</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_vector2.html" title="x,y 二维向量">Vector2</a> BlockSize();</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <span class="keywordtype">void</span> SetTag(<span class="keywordtype">void</span>* tag) {this-&gt;tag = tag;};</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keywordtype">void</span>* GetTag() {<span class="keywordflow">return</span> tag;};</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="comment">//void SetVertex(int n, ...);</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="comment">//void SetSpriteSize(int size);</span></div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;};</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-生成于 2013年 五月 5日 星期日 15:04:17 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
+生成于 2013年 五月 8日 星期三 14:41:46 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

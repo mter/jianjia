@@ -39,10 +39,11 @@ function character.new()
 		defense = 0,
 		dtr = 0,
 
-		-- 四系数
+		-- 四系数：平衡，暴击伤害倍数，释放成功系数，暴击率
 		balance = 5,
 		crit_dmg = 0,
 		cast = 0,
+		cast_success_rate = 0,
 		crit_rate = 0,
 
 		-- 六边
@@ -118,7 +119,7 @@ function character.update_player_by_level(p)
 	-- 魔法攻击 = [智力*0.75, 智力*3.5]
 	p.atk_magic_min = p.intelligence * 0.75
 	p.atk_magic_max = p.intelligence * 3.5
-	
+
 	-- 护甲 = 力量 * 1.5 + 等级*0.25
 	p.armor = p.strength * 1.5 + p.level * 0.25
 	-- 抗性 = 魔能 * 1.7 + 等级*1.5
@@ -129,12 +130,29 @@ function character.update_player_by_level(p)
 	-- 暴击伤害比率 = (敏捷 / 150) ^ 1.25 + 1
 	p.crit_dmg = (p.agility / 150) ^ 1.25 + 1
 	-- 施法成功系数
-	p.cast = p.intelligence * 7.5 + p.level
+	p.cast = (p.intelligence ^ 1.35 + p.level * 7)
+	p.cast_success_rate =  p.cast ^ 0.8 / 998
 	-- 暴击概率
 	p.crit_rate = (p.will / 400) ^ 0.8
 	-- 伤害减免
 	p.dtr = p.armor ^ 0.5 / 35
 end
+
+math.randomseed(os.time())
+
+function character.attack(p, e, way)
+	-- way 1 物理
+	-- way 2 魔法
+	way = way or 1
+	if way == 1 then
+		-- (math.random(p.atk_min, p.atk_max) + (p.atk_max - p.atk_min)*p.will ^ 0.5 / 50 - e.defense) * p.
+	end
+end
+
+-- [[敌人部分]]
+
+-- [roll（攻击min，攻击max）+ （攻击max-攻击min)*意志^0.5/50 - 防御/魔抗]*(1-伤害抵挡）* 暴击倍数
+
 
 sys = {
 

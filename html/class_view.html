@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">流光
-   &#160;<span id="projectnumber">0.07pre4</span>
+   &#160;<span id="projectnumber">0.07pre5</span>
    </div>
   </td>
  </tr>
@@ -100,9 +100,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
   <img src="class_view.png" usemap="#View_map" alt=""/>
   <map id="View_map" name="View_map">
 <area href="class_land.html" title="控件 - 横版：地形物控件" alt="Land" shape="rect" coords="0,56,88,80"/>
-<area href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色" alt="RMCharacter" shape="rect" coords="98,56,186,80"/>
-<area href="class_text_view.html" title="控件：文本控件" alt="TextView" shape="rect" coords="196,56,284,80"/>
+<area href="class_menu_view.html" title="内置的菜单类" alt="MenuView" shape="rect" coords="98,56,186,80"/>
+<area href="class_r_m_character.html" title="45度角或上帝视角的 2D 游戏角色" alt="RMCharacter" shape="rect" coords="196,56,284,80"/>
 <area href="class_text_view.html" title="控件：文本控件" alt="TextView" shape="rect" coords="294,56,382,80"/>
+<area href="class_text_view.html" title="控件：文本控件" alt="TextView" shape="rect" coords="392,56,480,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -116,34 +117,28 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:a1779a10fce41277fea3aac5ce6b6fe85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a095535c2ec77d5243aa1bd9f962619c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a095535c2ec77d5243aa1bd9f962619c3">SetDisableFlag</a> (unsigned int flag)</td></tr>
 <tr class="separator:a095535c2ec77d5243aa1bd9f962619c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae225dc72ca171e973bee41f1409169ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#ae225dc72ca171e973bee41f1409169ee">SetValueMode</a> (ViewValueMode value_mode)</td></tr>
-<tr class="separator:ae225dc72ca171e973bee41f1409169ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa09bd88c416f5ec99c0305443d77b98c"><td class="memItemLeft" align="right" valign="top">ViewValueMode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#aa09bd88c416f5ec99c0305443d77b98c">GetValueMode</a> ()</td></tr>
 <tr class="separator:aa09bd88c416f5ec99c0305443d77b98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94362930ee6ab00e053d089c5e9b36e6"><td class="memItemLeft" align="right" valign="top">b2Body *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a94362930ee6ab00e053d089c5e9b36e6">GetBody</a> ()</td></tr>
 <tr class="separator:a94362930ee6ab00e053d089c5e9b36e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bee7f003af9ff2e90620d9d8bab51cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a9bee7f003af9ff2e90620d9d8bab51cf">SetRestitution</a> (float restitution)</td></tr>
-<tr class="separator:a9bee7f003af9ff2e90620d9d8bab51cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad24adcbe51bdf6eaf89cc64c1834594b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#ad24adcbe51bdf6eaf89cc64c1834594b">SetDensity</a> (float density)</td></tr>
-<tr class="separator:ad24adcbe51bdf6eaf89cc64c1834594b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f9a6e994791253d81758603126d1c4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a0f9a6e994791253d81758603126d1c4a">SetFriction</a> (float friction)</td></tr>
-<tr class="separator:a0f9a6e994791253d81758603126d1c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23e1c9edf027ea4711e393c9758d3a0e"><td class="memItemLeft" align="right" valign="top">b2Fixture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a23e1c9edf027ea4711e393c9758d3a0e">PhyNewFixture</a> (int phyindex=0, bool isSensor=false, float width=0, float height=0, <a class="el" href="class_vector2.html">Vector2</a> center=<a class="el" href="class_vector2.html">Vector2</a>(0, 0), ViewShapeType shape_type=SHAPE_DEFAULT)</td></tr>
-<tr class="separator:a23e1c9edf027ea4711e393c9758d3a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b57979989bca66d4c18f2c4de0e0766"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a3b57979989bca66d4c18f2c4de0e0766">SetRestitution</a> (float restitution)</td></tr>
+<tr class="separator:a3b57979989bca66d4c18f2c4de0e0766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a2967e8866422ffeb8c652824fe66ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a2a2967e8866422ffeb8c652824fe66ed">SetDensity</a> (float density)</td></tr>
+<tr class="separator:a2a2967e8866422ffeb8c652824fe66ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17461afcb99ec8e0e844e7b622efb066"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a17461afcb99ec8e0e844e7b622efb066">SetFriction</a> (float friction)</td></tr>
+<tr class="separator:a17461afcb99ec8e0e844e7b622efb066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cff20e3726a421e276eeec064b87190"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a8cff20e3726a421e276eeec064b87190">SetPhy</a> (b2BodyType bdtype=b2_dynamicBody, bool fixedRotation=false)</td></tr>
 <tr class="separator:a8cff20e3726a421e276eeec064b87190"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34e5bc2b3d7dc5fa73b02cbe81f14f25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a34e5bc2b3d7dc5fa73b02cbe81f14f25">SetPhyActive</a> (bool flag)</td></tr>
 <tr class="separator:a34e5bc2b3d7dc5fa73b02cbe81f14f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10c6e3171cb35fba31761d1b1b8ffe59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a10c6e3171cb35fba31761d1b1b8ffe59">SetPhyGroupIndex</a> (int16 group_index)</td></tr>
 <tr class="separator:a10c6e3171cb35fba31761d1b1b8ffe59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad762f80fb588b6b8f14b8996e084113f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#ad762f80fb588b6b8f14b8996e084113f">SetFrame</a> (int frame)</td></tr>
-<tr class="separator:ad762f80fb588b6b8f14b8996e084113f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a901fe7d4a452ad119b42b7d0291cb754"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a901fe7d4a452ad119b42b7d0291cb754">SetFrame</a> (int frame)</td></tr>
+<tr class="separator:a901fe7d4a452ad119b42b7d0291cb754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8dcf4e5bfb065502e4ee39521f4551f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a8dcf4e5bfb065502e4ee39521f4551f2">SetSprite</a> (const string &amp;fn, int frame_num=1)</td></tr>
 <tr class="separator:a8dcf4e5bfb065502e4ee39521f4551f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c65082803dc522bc2919a4700feb3b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a0c65082803dc522bc2919a4700feb3b2">SetSpriteFrame</a> (const string &amp;fn, int frame)</td></tr>
 <tr class="separator:a0c65082803dc522bc2919a4700feb3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa97f5188f453b30c097461df2cddb37c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#aa97f5188f453b30c097461df2cddb37c">SetFlip</a> (ViewFlip flip)</td></tr>
-<tr class="separator:aa97f5188f453b30c097461df2cddb37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2d6209de99634a2bd7d6c6142d71d49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#af2d6209de99634a2bd7d6c6142d71d49">SetSize</a> (float width, float height)</td></tr>
 <tr class="separator:af2d6209de99634a2bd7d6c6142d71d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9bd91c7bfc8a38a40b8002a23aa76af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_view.html">View</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#ae9bd91c7bfc8a38a40b8002a23aa76af">SetSize</a> (<a class="el" href="class_vector2.html">Vector2</a> v)</td></tr>
@@ -206,8 +201,6 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ab033afa9c0472c4d65b9f73e35421975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a251550384b3abe8c55121640babc77bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a251550384b3abe8c55121640babc77bd">SetAnimPause</a> (bool pause)</td></tr>
 <tr class="separator:a251550384b3abe8c55121640babc77bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46c72100561bee73f2c270c62b7de240"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a46c72100561bee73f2c270c62b7de240">SetVisible</a> (bool b)</td></tr>
-<tr class="separator:a46c72100561bee73f2c270c62b7de240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 友元</h2></td></tr>
@@ -596,75 +589,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="a23e1c9edf027ea4711e393c9758d3a0e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">b2Fixture * View::PhyNewFixture </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>phyindex</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isSensor</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_vector2.html">Vector2</a>&#160;</td>
-          <td class="paramname"><em>center</em> = <code><a class="el" href="class_vector2.html">Vector2</a>(0,0)</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ViewShapeType&#160;</td>
-          <td class="paramname"><em>shape_type</em> = <code>SHAPE_DEFAULT</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>构建物理实体 </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">phyindex</td><td>物理索引，碰撞时可以通过索引确认物体的种类 </td></tr>
-    <tr><td class="paramname">isSensor</td><td>是否为传感器，若为传感器，则其他物体可以从这个物体上直接通过，但同样会触发碰撞事件 </td></tr>
-    <tr><td class="paramname">width</td><td>物理实体的宽度，默认为与显示宽度相同 </td></tr>
-    <tr><td class="paramname">height</td><td>物理实体的高度，默认为与显示高度相同 </td></tr>
-    <tr><td class="paramname">center</td><td>物理实体的中心点，默认为 (0,0) 即显示位置的正中央。若为(0,-1)，就是显示位置的靠下一格 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>参见</dt><dd>ViewShapeType </dd></dl>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shape_type</td><td>物理形状 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>物理实体的指针 </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a3c6c8c3763e8204800ccc4c62c7284c3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1019,26 +943,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="ad24adcbe51bdf6eaf89cc64c1834594b"></a>
+<a class="anchor" id="a2a2967e8866422ffeb8c652824fe66ed"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a>* View::SetDensity </td>
+          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetDensity </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>density</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>设置物体密度 </p>
 <dl class="params"><dt>参数</dt><dd>
@@ -1075,50 +991,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="aa97f5188f453b30c097461df2cddb37c"></a>
+<a class="anchor" id="a901fe7d4a452ad119b42b7d0291cb754"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetFlip </td>
-          <td>(</td>
-          <td class="paramtype">ViewFlip&#160;</td>
-          <td class="paramname"><em>flip</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>设置贴图的翻转模式 </p>
-<dl class="section see"><dt>参见</dt><dd>ViewFlip </dd></dl>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flip</td><td>水平翻转，垂直翻转，水平+垂直翻转 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ad762f80fb588b6b8f14b8996e084113f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a>* View::SetFrame </td>
+          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetFrame </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>frame</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>贴图相关 设定当前帧 控件的贴图列表中存在多帧时，用此函数决定现在显示哪一帧 </p>
 <dl class="params"><dt>参数</dt><dd>
@@ -1130,26 +1014,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="a0f9a6e994791253d81758603126d1c4a"></a>
+<a class="anchor" id="a17461afcb99ec8e0e844e7b622efb066"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a>* View::SetFriction </td>
+          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetFriction </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>friction</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>设置摩擦系数 </p>
 <dl class="params"><dt>参数</dt><dd>
@@ -1381,26 +1257,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="a9bee7f003af9ff2e90620d9d8bab51cf"></a>
+<a class="anchor" id="a3b57979989bca66d4c18f2c4de0e0766"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a>* View::SetRestitution </td>
+          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetRestitution </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>restitution</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>设置反弹系数 </p>
 <dl class="params"><dt>参数</dt><dd>
@@ -1586,24 +1454,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 
 </div>
 </div>
-<a class="anchor" id="ae225dc72ca171e973bee41f1409169ee"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_view.html">View</a> * View::SetValueMode </td>
-          <td>(</td>
-          <td class="paramtype">ViewValueMode&#160;</td>
-          <td class="paramname"><em>value_mode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>设置控件的坐标模式 </p>
-<dl class="section see"><dt>参见</dt><dd>ViewValueMode value_mode 坐标模式，分为OpenGL世界坐标，一格32像素的格子坐标，使用像素的像素坐标。 </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aeb01366daf22b5f96df6615604aed0f8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1624,31 +1474,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a46c72100561bee73f2c270c62b7de240"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void View::SetVisible </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>b</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">弃用:</a></b></dt><dd>不要使用此方法。 </dd></dl>
 
 </div>
 </div>
@@ -1692,7 +1517,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-生成于 2013年 五月 5日 星期日 15:04:17 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
+生成于 2013年 五月 8日 星期三 14:41:46 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
