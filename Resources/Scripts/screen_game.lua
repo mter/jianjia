@@ -63,6 +63,9 @@ ScreenGame = {
 			this:AddView(ScreenGame.player)
 			this:AddView(ScreenGame.v1, -2)
 			this:AddView(ScreenGame.t1, -2)
+			
+			ScreenGame.grass = flux.View(this):SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
+			this:AddView(ScreenGame.grass, -1)
 
 			ScreenGame.school = flux.TextView(this, nil, 'wqyL', 'ѧУ'):SetTextColor(1,1,1)
 			ScreenGame.school:SetColor(0,0,1):SetSize(25, 12):SetPosition(0, 40)

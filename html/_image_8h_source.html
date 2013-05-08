@@ -88,14 +88,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;_base.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">void</span> ImageInit();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> LoadTexture(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="code" href="class_img_info.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_img_info.html">ImgInfo</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ILuint imgRef;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">int</span> width, height;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> ImageInit();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> LoadTexture(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fn);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<a class="code" href="class_img_info.html">ImgInfo</a>* GetImgInfo(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-生成于 2013年 五月 8日 星期三 14:41:45 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
+生成于 2013年 五月 8日 星期三 20:18:11 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
