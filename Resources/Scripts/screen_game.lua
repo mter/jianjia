@@ -43,6 +43,10 @@ ScreenGame = {
 					if ScreenGame.player:CheckFacing(ScreenGame.v1, 0.5) then
 						print('进入战斗!')
 						--theWorld:PushScreen(ScreenFight.scr, flux.SCREEN_APPEND)
+						callback = function (selection)
+							print("你选中了"..selection .. "项")
+						end
+						ShowText(105, {{"紧握小黄书的男人","一二三四五六非的凤飞飞飞萨芬大打算发达费大幅度发大水",2,1,102,{'分支1','分支2'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
 					end
                 end
             end
@@ -65,7 +69,7 @@ ScreenGame = {
 			this:AddView(ScreenGame.t1, -2)
 			
 			ScreenGame.grass = flux.View(this):SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
-			this:AddView(ScreenGame.grass, -1)
+			this:AddView(ScreenGame.grass, -5)
 
 			ScreenGame.school = flux.TextView(this, nil, 'wqyL', '学校'):SetTextColor(1,1,1)
 			ScreenGame.school:SetColor(0,0,1):SetSize(25, 12):SetPosition(0, 40)
