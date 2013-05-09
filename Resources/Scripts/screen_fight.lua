@@ -1,5 +1,6 @@
+
 local function createFightPlayerBoard(player)
-	local name = 'ÒÁ·½'
+	local name = player.name
 	local hp_max = player.hp_max
 	local hp_now = player.hp
 	local mp_max = player.mp_max

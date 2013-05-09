@@ -14,20 +14,20 @@ json = require ("dkjson")
 
 require('sys')
 require('screen_start')
-require('screen_game')
 require('screen_fight')
 require('screen_about')
 require('screen_alignment_choose')
 require('screen_text')
+require('screen_game')
 
 function theWorld_GameInit()
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqy',  25)
 	-- theSound:LoadMusic(1, "Resources/Sounds/bgm1.mid")
 	ScreenStart.new()
-	ScreenGame.new()
 	ScreenFight.new()
 	ScreenAbout.new()
+	ScreenGame.new()
 	theWorld:PushScreen(ScreenStart.scr)
 end
 

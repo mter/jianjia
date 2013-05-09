@@ -42,9 +42,13 @@ ScreenGame = {
                 if key == flux.GLFW_KEY_ESC then
                     -- MsgBox(101, "是否想要回到标题页面？")
 				elseif key == _b'Z' then
-					if ScreenGame.player:CheckFacing(ScreenGame.v1, 0.5) then
+					if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
 						print('进入战斗!')
+						print(ShowText)
 						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
+					elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
+						print('木桩！战个痛！')
+						ShowFight()
 					elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
 						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
 					end
@@ -59,14 +63,15 @@ ScreenGame = {
 			ScreenGame.player:SetColor(1,0,0)
 			ScreenGame.player:SetPhy()
 
-            ScreenGame.t1 = flux.TextView(this, nil, 'wqy', '陛下')
-			ScreenGame.t1:SetPosition(5, 12.5)
-            ScreenGame.v1 = flux.View(this)
-			ScreenGame.v1:SetSprite('Resources/Images/fight.jpg'):SetSize(1.3,1.5):SetPosition(3,14):SetPhy(flux.b2_staticBody):PhyNewFixture(101)
+            ScreenGame.boss = flux.TextView(this, nil, 'wqy', ''):SetTextColor(1,1,1)
+			ScreenGame.boss:SetSize(1.079, 1.245):SetPosition(3, 12.5):SetSprite('Resources/Images/fight.jpg'):SetPhy(flux.b2_staticBody):PhyNewFixture()
+
+            ScreenGame.dummy = flux.TextView(this, nil, 'wqy', '木桩'):SetTextColor(1,1,1)
+			ScreenGame.dummy:SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
 			this:AddView(ScreenGame.player)
-			this:AddView(ScreenGame.v1, 0)
-			this:AddView(ScreenGame.t1, 0)
+			this:AddView(ScreenGame.boss)
+			this:AddView(ScreenGame.dummy)
 			
 			ScreenGame.grass = flux.View(this):SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
 			this:AddView(ScreenGame.grass, -1)
