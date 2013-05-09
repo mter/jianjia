@@ -10,13 +10,17 @@
 --对话内容颜色205 205 180,
 --选择颜色0.55,0.55,0.48
 --阅读完毕颜色139 139 122
-TextColor={
+
+ScreenText = {}
+
+local TextColor={
 	Name=flux.Color(0.18,0.62,0.34),
 	UnfinshRead=flux.Color(0.8,0.8,0.71),
 	FinishRead=flux.Color(0.55,0.55,0.48),--139 139 122
 	SwitchCase=flux.Color(0.42,0.57,0.14),
-	}
-function SetNext(this,curpos,ch_info)
+}
+
+local function SetNext(this,curpos,ch_info)
 	local text = ScreenText.textlist[curpos]
 	if type(text) == 'string' then		
 		if ScreenText.t==nil then
@@ -128,16 +132,16 @@ function SetNext(this,curpos,ch_info)
 		end
 	end
 end
+
 --窗体序列号,对话内容,立绘,背景图
 function ShowText(fromcode,textlist,ch_info,bgpic)
 	-- fromcode=100
 	-- textlist{{'名字','第一句话', 立绘编号, 立绘位置, 语音,{'分支1','分支2'...},callback}, '第二句话'}
 	-- textlist{{'名字','第一句话', 立绘编号, 立绘位置, 语音,{'分支1','分支2'...},callback}, {{'分支1res'},{'分支2res'}...}}
 	-- ch_info = {'pic1', 'pic2', ...}
-    if scr.ScreenText == nil then
-        ScreenText = {}
-        scr.ScreenText = flux.Screen()
-		scr.ScreenText:lua_Init(wrap(function(this)
+    if ScreenText.scr == nil then
+        ScreenText.scr = flux.Screen()
+		ScreenText.scr:lua_Init(wrap(function(this)
             local bg = flux.View(this)
             bg:SetHUD(true)
 			bg:SetSize(24, 6)
@@ -161,20 +165,19 @@ function ShowText(fromcode,textlist,ch_info,bgpic)
 
             -- 保存引用
            ScreenText.bg = bg
-
-			scr.ScreenText:lua_OnPush(wrap(function(this)
-				SetNext(this,1,ch_info)
-				theWorld:PhyPause()
-			end))
-			
 		end))
-		
+
+		ScreenText.scr:lua_OnPush(wrap(function(this)
+			theWorld:PhyPause()
+			SetNext(this,1,ch_info)
+		end))
+
 		--恢复
-        scr.ScreenText:lua_OnPop(wrap(function(this)
+        ScreenText.scr:lua_OnPop(wrap(function(this)
 			theWorld:PhyContinue()
 		end))
 
-        scr.ScreenText:lua_KeyInput(wrap(function(this, key, state)
+        ScreenText.scr:lua_KeyInput(wrap(function(this, key, state)
             if state == flux.GLFW_PRESS then
                 if key == flux.GLFW_KEY_ENTER or key == flux.GLFW_KEY_SPACE or key == _b'Z' or key == flux.GLFW_KEY_RIGHT then
 					--enter选中当前选项
@@ -258,5 +261,14 @@ function ShowText(fromcode,textlist,ch_info,bgpic)
 	ScreenText.fromcode = fromcode
 	ScreenText.textlist = textlist
 	ScreenText.curpos = 2
-    theWorld:PushScreen(scr['ScreenText'], flux.SCREEN_APPEND)
+    theWorld:PushScreen(ScreenText.scr, flux.SCREEN_APPEND)
+end
+
+-- 随机对话函数
+-- 传入一个 table ，table中的每个项，都是一套 ShowText 的参数。
+-- 随机选择一套参数进行调用，以实现 NPC 的随机对话功能
+function RandomShowText(t)
+	local index = math.random(1, #t)
+	local select = t[index]
+	ShowText(select[1], select[2], select[3], select[4])
 end

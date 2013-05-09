@@ -19,14 +19,16 @@ ScreenGame = {
         ScreenGame.scr:lua_AfterPush(wrap(function(this)
 			if not data.ch then
 				data.ch = {
-					yf = character.new()
+					yf = character.new('伊方')
 				}
 				ShowText(101, {'选择阵营'})
 			end
 		end))
 
         ScreenGame.scr:lua_OnResume(wrap(function(this, from, ret)
-			if from == 101 then
+			if from == 0 then
+				ScreenGame.player:Reset()
+			elseif from == 101 then
 				ScreenAlignmentChoose.new()
 				theWorld:PushScreen(ScreenAlignmentChoose.scr, flux.SCREEN_APPEND)
 			elseif from == 1001 then
@@ -42,11 +44,9 @@ ScreenGame = {
 				elseif key == _b'Z' then
 					if ScreenGame.player:CheckFacing(ScreenGame.v1, 0.5) then
 						print('进入战斗!')
-						--theWorld:PushScreen(ScreenFight.scr, flux.SCREEN_APPEND)
-						callback = function (selection)
-							print("你选中了"..selection .. "项")
-						end
-						ShowText(105, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
+						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
+					elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
+						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
 					end
                 end
             end
@@ -60,13 +60,13 @@ ScreenGame = {
 			ScreenGame.player:SetPhy()
 
             ScreenGame.t1 = flux.TextView(this, nil, 'wqy', '陛下')
-			ScreenGame.t1:SetValueMode(1):SetPosition(5, 12.5)
+			ScreenGame.t1:SetPosition(5, 12.5)
             ScreenGame.v1 = flux.View(this)
-			ScreenGame.v1:SetValueMode(1):SetSprite('Resources/Images/fight.jpg'):SetSize(1.3,1.5):SetPosition(3,14):SetPhy(flux.b2_staticBody):PhyNewFixture(101)
+			ScreenGame.v1:SetSprite('Resources/Images/fight.jpg'):SetSize(1.3,1.5):SetPosition(3,14):SetPhy(flux.b2_staticBody):PhyNewFixture(101)
 
 			this:AddView(ScreenGame.player)
-			this:AddView(ScreenGame.v1, -2)
-			this:AddView(ScreenGame.t1, -2)
+			this:AddView(ScreenGame.v1, 0)
+			this:AddView(ScreenGame.t1, 0)
 			
 			ScreenGame.grass = flux.View(this):SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
 			this:AddView(ScreenGame.grass, -1)
@@ -118,8 +118,10 @@ ScreenGame = {
 			ScreenGame.wharf = flux.TextView(this, nil, 'wqyL', '码头'):SetTextColor(1,1,1)
 			ScreenGame.wharf:SetColor(0.45, 0.25, 0.55):SetPosition(27, 68):SetSize(15, 33)
 			this:AddView(ScreenGame.wharf)
-			
+
 			ScreenGame.head = flux.TextView(this, nil, 'wqy', '村长'):SetTextColor(1,1,1)
+			ScreenGame.head:SetSize(1,1):SetColor(0,0,0):SetPosition(-20, -8):SetPhy(flux.b2_staticBody):PhyNewFixture()
+			this:AddView(ScreenGame.head)
 
             -- 注册按键
             this:RegKey(_b'Z')
