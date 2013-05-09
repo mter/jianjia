@@ -12,6 +12,7 @@ config = {
 
 json = require ("dkjson")
 
+require('local_cn')
 require('sys')
 require('screen_start')
 require('screen_game')
@@ -19,6 +20,7 @@ require('screen_fight')
 require('screen_about')
 require('screen_alignment_choose')
 require('screen_text')
+require('screen_character')
 
 function theWorld_GameInit()
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)
@@ -28,6 +30,7 @@ function theWorld_GameInit()
 	ScreenGame.new()
 	ScreenFight.new()
 	ScreenAbout.new()
+    ScreenCharacter.new()
 	theWorld:PushScreen(ScreenStart.scr)
 end
 

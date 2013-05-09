@@ -44,6 +44,11 @@ ScreenGame = {
 						print('进入战斗!')
 						--theWorld:PushScreen(ScreenFight.scr, flux.SCREEN_APPEND)
 					end
+                elseif key == _b'C' then
+                    if data.ch.yf then
+                        theWorld:PushScreen(ScreenCharacter.scr, flux.SCREEN_APPEND)
+                        show_character_content(data.ch.yf)
+                    end
                 end
             end
         end))
@@ -114,6 +119,8 @@ ScreenGame = {
 
             -- 注册按键
             this:RegKey(_b'Z')
+            -- character board
+            this:RegKey(_b'C')
             this:RegKey(flux.GLFW_KEY_ESC)
             this:RegKey(flux.GLFW_KEY_SPACE)
             this:RegKey(flux.GLFW_KEY_LEFT)
