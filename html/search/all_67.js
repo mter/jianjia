@@ -11,6 +11,7 @@ var searchData=
   ['getrotation',['GetRotation',['../class_view.html#a65f067342ab26c4bae916846acb1bbd4',1,'View']]],
   ['getscreen',['GetScreen',['../class_view.html#a1779a10fce41277fea3aac5ce6b6fe85',1,'View']]],
   ['getsize',['GetSize',['../class_view.html#a8399603ba1eafc3c8e02902c342bc8d6',1,'View::GetSize()'],['../class_world.html#ac3db1ec12efaf57c305f9feccffa4a84',1,'World::GetSize()']]],
+  ['gettextareawidth',['GetTextAreaWidth',['../class_text_view.html#ad2cb4fe29ce914e7aeee8205c56f02ce',1,'TextView']]],
   ['getvaluemode',['GetValueMode',['../class_view.html#aa09bd88c416f5ec99c0305443d77b98c',1,'View']]],
   ['getworlddimensions',['GetWorldDimensions',['../class_world.html#a5dfed1f8764f74513bdf2792509fe66a',1,'World']]]
 ];
