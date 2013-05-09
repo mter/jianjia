@@ -1,9 +1,9 @@
 local function createFightPlayerBoard(player)
-	local name = '鸟蛋'
-	local hp_max = 100
-	local hp_now = 80
-	local mp_max = 100
-	local mp_now = 70
+	local name = '伊方'
+	local hp_max = player.hp_max
+	local hp_now = player.hp
+	local mp_max = player.mp_max
+	local mp_now = player.mp
 
 	local hp_width = 3*(hp_now/hp_max)
 	local hp_position_y = 9.6+hp_width/2
@@ -86,12 +86,10 @@ local function createFigthPlayer(player)
 	return fight_player
 end
 
-local function initPlayer(player_list)
-	--for player in player_list do
-	player = nil
+local function initPlayer()
+	player = data.ch.yf
 	createFightPlayerBoard(player)
 	createFigthPlayer(player)
-	--end
 end
 
 local function createFightMenu()
@@ -149,11 +147,13 @@ end
 ScreenFight = {
 
     new = function()
-        if ScreenFight.scr then return end
+    	-- 基础设定
+        if ScreenFight.scr then
+        	ScreenFight.scr:RemoveAllView()
+        else
+        	ScreenFight.scr = flux.Screen()
+        end
 
-		-- 基础设定
-        ScreenFight.scr = flux.Screen()
-		
 		-- OnPush 事件
         ScreenFight.scr:lua_OnPush(wrap(function(this)
 			ScreenFight.splash:FadeOut(0.5):AnimDo()
@@ -191,3 +191,8 @@ ScreenFight = {
 
     end,
 }
+
+function ShowFight()
+	ScreenFight.new()
+	theWorld:PushScreen(ScreenFight.scr)
+end
