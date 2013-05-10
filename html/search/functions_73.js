@@ -1,7 +1,7 @@
 var searchData=
 [
   ['setalign',['SetAlign',['../class_text_view.html#a148cf82adb2005080e98b7189d105d0c',1,'TextView']]],
-  ['setalpha',['SetAlpha',['../class_view.html#a9aa8f31cdd859aecfd26430e9f15586a',1,'View']]],
+  ['setalpha',['SetAlpha',['../class_view.html#a9aa8f31cdd859aecfd26430e9f15586a',1,'View::SetAlpha()'],['../class_text_view.html#ae1e2e5e48b463267ab07e46fadd5367e',1,'TextView::SetAlpha()']]],
   ['setanimpause',['SetAnimPause',['../class_view.html#a251550384b3abe8c55121640babc77bd',1,'View']]],
   ['setcolor',['SetColor',['../class_view.html#a5a16203ff342e97f55024447a2532e8a',1,'View::SetColor(const Color &amp;c)'],['../class_view.html#a25e700fc4f57f188c96bd4f9cbea223c',1,'View::SetColor(float r, float g, float b, float a=1.0f)']]],
   ['setdensity',['SetDensity',['../class_view.html#a2a2967e8866422ffeb8c652824fe66ed',1,'View']]],

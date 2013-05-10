@@ -7,16 +7,14 @@ show_character_content = function(character)
         "intelligence",
         "spellpower",
         "endurance",
-        "balance",
+        "will",
     }
-    print(character.exp)
     local attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "属性")
     attr_name:SetTextColor(1,0,0):SetPosition(6, 6):SetHUD(true)
     ScreenCharacter.scr:AddView(attr_name)
-    for i = 1,6,1 do
+    for i = 1,#attr_order,1 do
         local k = attr_order[i]
         local v = character[k]
-        print(attr_text[k],v)
         local attr_name
         if attr_text[k] then
             attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", attr_text[k])
@@ -46,18 +44,7 @@ ScreenCharacter = {
 		-- OnPush 事件
         ScreenCharacter.scr:lua_OnPush(wrap(function(this)
 			ScreenCharacter.splash:FadeOut(0.9):AnimDo()
-        
-        --[[
-            local character = {
-                strength = 5,
-                agility = 5,
-                intelligence = 5,
-                spellpower = 5,
-                endurance = 5,
-                will = 5,
-            }
-            --]]
-            --show_character_content(character)
+
         end))
 		-- 按键响应
         ScreenCharacter.scr:lua_KeyInput(wrap(function(this, key, state)
