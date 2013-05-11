@@ -19,11 +19,30 @@ templ_set = {
 
 -- 攻击类型：1近战，2远程，3魔法
 
-enemy = {
-	--名字, 挑战等级,    HP,     MP,  攻击类型, 最小伤害, 最大伤害, 防御, 护甲, 抗性, 防御, 前缀集合,           模板集合, 技能列表, 说明
-	{'碧油鸡',     1,   225,    225,         1,         4,       6,   12,    8,   10,   12,       {},   templ_set.newbie,       {}, '一只绿油油的鸡，总在隐蔽的地方出现。但有时也在大庭广众之下游荡'}, -- 1
+enemys = {
+	--1名字,2挑战等级,   3HP,    4MP, 5攻击类型,6最小伤害,7最大伤害,8防御, 9抗性,10护甲,  11前缀集合,  12       模板集合, 13技能列表, 14说明
+	{'碧油鸡',      1,   15,    225,         1,         4,       6,   12,    10,     8,          {},   templ_set.newbie,         {}, '一只绿油油的鸡，总在隐蔽的地方出现。但有时也在大庭广众之下游荡'}, -- 1
 }
 
 enemy_set = {
 	newbie = {1},
 }
+
+enemy = {}
+function enemy.exp(level)
+	return math.ceil(50*level*(1+level/30)^(1+level/2))
+end
+
+function enemy.attack(enm, ch, way)
+	-- way 1 物理
+	-- way 2 远程
+	-- way 3 魔法
+	local way = way or 1
+	local def
+	if way == 1 then
+		def = ch.defense
+	else
+		def = ch.resist
+	end
+	return math.ceil((math.random(enm[6], enm[7]) + math.floor(enm[7] - enm[6]) - def/5) * (1-ch.armor ^ 0.5 / 35))
+end

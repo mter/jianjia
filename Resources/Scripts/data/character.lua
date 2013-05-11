@@ -20,11 +20,10 @@ function character.new(name)
 		atk_magic_min = 0,
 		atk_magic_max = 0,
 
-		-- 四抗：护甲、法术抗性、防御、伤害减免
-		armor = 0,
-		resist = 0,
+		-- 四抗：护甲（直接减少伤害）、法术抗性、防御（影响伤害减免）
 		defense = 0,
-		dtr = 0,
+		resist = 0,
+		armor = 0,
 
 		-- 四系数：平衡，暴击伤害倍数，释放成功系数，暴击率
 		balance = 5,
@@ -54,7 +53,9 @@ end
 -- 生命值减少，减到小于 0，返回false，人物死亡
 function character.hp_dec(p, num)
 	p.hp = p.hp - num
-	return (p.hp > 0)
+	local check = p.hp > 0
+	if not check then p.hp = 0 end
+	return check
 end
 
 -- mp增加
@@ -80,6 +81,7 @@ function character.exp_inc(p, exp)
 	p.level = character.get_level(p.exp)
 	if p.level ~= level then
 		character.update_player_by_level(p)
+		return p.level
 	end
 end
 
@@ -98,38 +100,49 @@ function character.update_player_by_level(p)
 	p.mp = p.mp_max
 
 	-- 近战攻击力 = [力量*0.75 + 等级*0.5, 力量*1.1 + 等级*0.75]
-	p.atk_min = p.strength * 0.75 + p.level * 0.5
-	p.atk_max = p.strength * 1.1 + p.level * 0.75
+	p.atk_min = math.ceil(p.strength * 0.75 + p.level * 0.5)
+	p.atk_max = math.ceil(p.strength * 1.1 + p.level * 0.75)
 	-- 远程攻击力 = [敏捷*0.66 + 近战攻击*0.15 + 等级*0.2, 敏捷*1.5 + 近战攻击*0.35 + 等级*1]
-	p.atk_range_min = p.agility * 0.66 + p.atk_min * 0.15 + p.level*0.2
-	p.atk_range_max = p.agility * 1.5 + p.atk_max * 0.35 + p.level
+	p.atk_range_min = math.ceil(p.agility * 0.66 + p.atk_min * 0.15 + p.level*0.2)
+	p.atk_range_max = math.ceil(p.agility * 1.5 + p.atk_max * 0.35 + p.level)
 	-- 魔法攻击 = [智力*0.75, 智力*3.5]
-	p.atk_magic_min = p.intelligence * 0.75
-	p.atk_magic_max = p.intelligence * 3.5
+	p.atk_magic_min = math.ceil(p.intelligence * 0.75)
+	p.atk_magic_max = math.ceil(p.intelligence * 3.5)
 
-	-- 护甲 = 力量 * 1.5 + 等级*0.25
-	p.armor = p.strength * 1.5 + p.level * 0.25
-	-- 抗性 = 魔能 * 1.7 + 等级*1.5
-	p.resist = p.spellpower * 1.7 + p.level * 1.5
 	-- 防御 = 耐力 * 2 + 等级 * 2.25
-	p.defense = p.endurance * 2 + p.level * 2.25
-	
+	p.defense = math.ceil(p.endurance * 2 + p.level * 2.25)
+	-- 抗性 = 魔能 * 1.7 + 等级*1.5
+	p.resist = math.ceil(p.spellpower * 1.7 + p.level * 1.5)
+	-- 护甲 = 力量 * 1.5 + 等级*0.25
+	p.armor = math.ceil(p.strength * 1.5 + p.level * 0.25)
+
 	-- 暴击伤害比率 = (敏捷 / 150) ^ 1.25 + 1
 	p.crit_dmg = (p.agility / 150) ^ 1.25 + 1
 	-- 施法成功系数
-	p.cast = (p.intelligence ^ 1.35 + p.level * 7)
+	p.cast = math.ceil(p.intelligence ^ 1.35 + p.level * 7)
 	p.cast_success_rate =  p.cast ^ 0.8 / 998
 	-- 暴击概率
 	p.crit_rate = (p.will / 400) ^ 0.8
-	-- 伤害减免
-	p.dtr = p.armor ^ 0.5 / 35
 end
 
-function character.attack(p, e, way)
+-- [roll（攻击min，攻击max）+ （攻击max-攻击min)*意志^0.5/50 - 防御/魔抗]*(1-伤害抵挡）* 暴击倍数
+
+-- 返回伤害数值
+function character.attack(ch, enm, way)
 	-- way 1 物理
-	-- way 2 魔法
-	way = way or 1
+	-- way 2 远程
+	-- way 3 魔法
+	local way = way or 1
+	local def, atk_min, atk_max
 	if way == 1 then
-		-- (math.random(p.atk_min, p.atk_max) + (p.atk_max - p.atk_min)*p.will ^ 0.5 / 50 - e.defense) * p.
+		def = enm[8]
+		atk_min, atk_max = ch.atk_min, ch.atk_max
+	elseif way == 2 then
+		def = enm[8]
+		atk_min, atk_max = ch.atk_range_min, ch.atk_range_max
+	elseif way == 3 then
+		def = enm[9]
+		atk_min, atk_max = ch.atk_magic_min, ch.atk_magic_max
 	end
+	return math.ceil((math.random(atk_min, atk_max) + math.floor((atk_max - atk_min)*ch.will ^ 0.5 / 50) - def/5) * (1-enm[10] ^ 0.5 / 35))
 end

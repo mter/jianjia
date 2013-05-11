@@ -17,10 +17,12 @@ ScreenGame = {
 
 		-- AfterPush 事件
         ScreenGame.scr:lua_AfterPush(wrap(function(this)
-			if not data.ch then
+
+			if table.empty(data.ch) then
 				data.ch = {
-					yf = character.new('伊方')
+					character.new('伊方')
 				}
+				character.update_player_by_level(data.ch[1])
 				ShowText(101, {'选择阵营'})
 			end
 		end))
@@ -28,6 +30,16 @@ ScreenGame = {
         ScreenGame.scr:lua_OnResume(wrap(function(this, from, ret)
 			if from == 0 then
 				ScreenGame.player:Reset()
+			elseif from == 3 then
+				-- 从战斗场景中回来
+				if ret ~= 0 then
+					for k,v in pairs(data.ch) do
+						local level = character.exp_inc(v, ret)
+						if level then
+							print('玩家', v.name, '升到了', level, '级')
+						end
+					end
+				end
 			elseif from == 101 then
 				ScreenAlignmentChoose.new()
 				theWorld:PushScreen(ScreenAlignmentChoose.scr, flux.SCREEN_APPEND)
@@ -43,12 +55,10 @@ ScreenGame = {
                     -- MsgBox(101, "是否想要回到标题页面？")
 				elseif key == _b'Z' then
 					if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
-						print('进入战斗!')
-						print(ShowText)
 						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
 					elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
 						print('木桩！战个痛！')
-						ShowFight()
+						ShowFight(enemy_set.newbie)
 					elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
 						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
 					end
@@ -119,7 +129,7 @@ ScreenGame = {
 			ScreenGame.uptown2 = flux.TextView(this, nil, 'wqyL', '居民区2'):SetTextColor(1,1,1)
 			ScreenGame.uptown2:SetColor(0, 0.35, 0.55):SetSize(15, 33):SetPosition(30, 29)
 			this:AddView(ScreenGame.uptown2)
-			
+
 			ScreenGame.wharf = flux.TextView(this, nil, 'wqyL', '码头'):SetTextColor(1,1,1)
 			ScreenGame.wharf:SetColor(0.45, 0.25, 0.55):SetPosition(27, 68):SetSize(15, 33)
 			this:AddView(ScreenGame.wharf)
