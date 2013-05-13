@@ -8,12 +8,12 @@ ScreenStart = {
     new = function()
         if ScreenStart.scr then return end
 
-		-- 基础设定
+        -- 基础设定
         theSound:LoadSound(101, "Resources/Sounds/se001.ogg")
         theSound:LoadSound(102, "Resources/Sounds/se002.ogg")
         ScreenStart.scr = flux.Screen()
 
-		-- 按键响应
+        -- 按键响应
         ScreenStart.scr:lua_KeyInput(wrap(function(this, key, state)
             local function update(offset)
                 theSound:PlaySound(101)
@@ -21,7 +21,7 @@ ScreenStart = {
                 if ScreenStart.cursel == 0 then ScreenStart.cursel = #ScreenStart.Menu
                 elseif ScreenStart.cursel == (#ScreenStart.Menu+1) then ScreenStart.cursel = 1 end
                 local cursel = ScreenStart.cursel
-				ScreenStart.Star:AnimCancel()
+                ScreenStart.Star:AnimCancel()
                 ScreenStart.Star:MoveTo(0.3, -2, 1.5*(3-cursel)):RotateTo(0.3, 0, 90, nil, 0):RecolorTo(0.3, ScreenStart.MenuColor[cursel], nil, 0):AnimDo()
             end
 
@@ -45,9 +45,9 @@ ScreenStart = {
                 end
             end
         end))
-	
-	
-		-- 初始化控件事件
+    
+    
+        -- 初始化控件事件
         ScreenStart.scr:lua_Init(wrap(function(this)
             -- 标题
             ScreenStart.Title = flux.TextView(this, nil, "wqyL", config.TITLE)
@@ -79,11 +79,11 @@ ScreenStart = {
             this:RegKey(flux.GLFW_KEY_ENTER);
             this:RegKey(_b'Z');
 
-			this:AddView(ScreenStart.Title)
-			this:AddView(ScreenStart.Menu[1])
-			this:AddView(ScreenStart.Menu[2])
-			this:AddView(ScreenStart.Menu[3])
-			this:AddView(ScreenStart.Star)
+            this:AddView(ScreenStart.Title)
+            this:AddView(ScreenStart.Menu[1])
+            this:AddView(ScreenStart.Menu[2])
+            this:AddView(ScreenStart.Menu[3])
+            this:AddView(ScreenStart.Star)
         end))
 
     end,
