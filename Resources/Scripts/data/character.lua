@@ -3,6 +3,7 @@ character = {}
 function character.new(name)
 	return {
 		name = name,
+		exp_max = 1,
 		exp = 0,
 		level = 0,
 
@@ -87,11 +88,18 @@ end
 
 -- 根据经验获取等级
 function character.get_level(exp)
-	return math.ceil(math.sqrt(math.sqrt(exp+1)) - 2)
+	return math.ceil(math.sqrt(math.sqrt(exp+1)))
+end
+
+-- get max_exp
+function character.get_max_exp(level)
+	return math.pow(level, 4)
 end
 
 -- 根据等级更新属性
 function character.update_player_by_level(p)
+	-- exp_max = level ^ 4
+	p.exp_max = character.get_max_exp(p.level)
 	-- 血量 = 140 + 耐力 * 15 + 等级 * 10
 	p.hp_max = 140 + p.endurance * 15 + p.level * 10
 	p.hp = p.hp_max

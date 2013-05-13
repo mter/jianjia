@@ -1,6 +1,14 @@
 
 -- show character board of given character
-show_character_content = function(character)
+show_character_content = function(ctr)
+    local bar_order = {
+        "hp",
+        "hp_max",
+        "mp",
+        "mp_max",
+        "exp",
+        "exp_max",
+    }
     local attr_order = {
         "strength",
         "agility",
@@ -9,12 +17,52 @@ show_character_content = function(character)
         "endurance",
         "will",
     }
+    local bar_color = {
+        {1,0,0}, -- red
+        {0,0,1}, -- blue
+        {1,1,0.4}, -- yellow
+    }
+    local bar_coor = {
+        x=0, y=6,
+    }
+    local attr_coor = {
+        x=6, y=6,
+    }
+
+    for i = 1,#bar_order,2 do
+        local k = bar_order[i]
+        local v = ctr[k]
+        local k_max = bar_order[i+1]
+        local v_max = ctr[k_max]
+        -- show bar name
+        local bar_name
+        if bar_text[k] then
+            bar_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", bar_text[k])
+        else
+            bar_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "N/A")
+        end
+        bar_name:SetTextColor(1,0,0):SetPosition(bar_coor.x, bar_coor.y - i*2):SetHUD(true)
+        ScreenCharacter.scr:AddView(bar_name)
+        print(i, bar_color[(i+1)/2][1])
+        -- show the whole bar
+        local bar_view_max = flux.View(ScreenCharacter.scr, nil)
+        bar_view_max:SetSize(4, 1):SetAlign(flux.ALIGN_LEFT)
+        bar_view_max:SetColor(bar_color[(i+1)/2][1], bar_color[(i+1)/2][2], bar_color[(i+1)/2][3], 0.3)
+        bar_view_max:SetPosition(bar_coor.x+4, bar_coor.y-i*2.3):SetHUD(true)
+        ScreenCharacter.scr:AddView(bar_view_max)
+        -- show the current bar
+        local bar_view = flux.View(ScreenCharacter.scr, nil)
+        bar_view:SetSize(4*(v/v_max), 1):SetAlign(flux.ALIGN_LEFT)
+        bar_view:SetColor(bar_color[(i+1)/2][1], bar_color[(i+1)/2][2], bar_color[(i+1)/2][3], 0.7)
+        bar_view:SetPosition(bar_coor.x+4, bar_coor.y-i*2.3):SetHUD(true)
+        ScreenCharacter.scr:AddView(bar_view)
+    end
     local attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", " Ù–‘")
     attr_name:SetTextColor(1,0,0):SetPosition(6, 6):SetHUD(true)
     ScreenCharacter.scr:AddView(attr_name)
     for i = 1,#attr_order,1 do
         local k = attr_order[i]
-        local v = character[k]
+        local v = ctr[k]
         local attr_name
         if attr_text[k] then
             attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", attr_text[k])
@@ -27,8 +75,8 @@ show_character_content = function(character)
         else
             attr_num = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "N/A")
         end
-        attr_name:SetTextColor(1,0,0):SetPosition(6, 6 - i*2):SetHUD(true)
-        attr_num:SetTextColor(0,0,1):SetPosition(8, 6 - i*2):SetHUD(true)
+        attr_name:SetTextColor(1,0,0):SetPosition(attr_coor.x, attr_coor.y - i*2):SetHUD(true)
+        attr_num:SetTextColor(0,0,1):SetPosition(attr_coor.x+2, attr_coor.y - i*2):SetHUD(true)
         ScreenCharacter.scr:AddView(attr_name)
         ScreenCharacter.scr:AddView(attr_num)
     end

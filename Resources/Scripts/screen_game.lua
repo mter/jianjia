@@ -63,9 +63,9 @@ ScreenGame = {
 						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
 					end
                 elseif key == _b'C' then
-                    if data.ch.yf then
+                    if data.ch[1] then
                         theWorld:PushScreen(ScreenCharacter.scr, flux.SCREEN_APPEND)
-                        show_character_content(data.ch.yf)
+                        show_character_content(data.ch[1])
                     end
                 end
             end
