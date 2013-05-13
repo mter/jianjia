@@ -5,7 +5,7 @@ function character.new(name)
 		name = name,
 		exp_max = 1,
 		exp = 0,
-		level = 0,
+		level = 1,
 
 		-- ÑªÀ¶
 		hp_max = 0,
