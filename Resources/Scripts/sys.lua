@@ -10,6 +10,7 @@ data = {
 		y = 0, -- y 坐标
 		alignment = 0, -- 阵营
 	},
+	ch = {},
 }
 
 math.randomseed(os.time())
@@ -20,8 +21,6 @@ require('data.character')
 
 -- [[敌人部分]]
 -- 敌人的属性包括：id， 名字、等级、攻击、防御、护甲、抗性、模板id、前缀id、技能id列表、怪物图片
-
--- [roll（攻击min，攻击max）+ （攻击max-攻击min)*意志^0.5/50 - 防御/魔抗]*(1-伤害抵挡）* 暴击倍数
 
 sys = {
 
@@ -46,6 +45,9 @@ sys = {
 			local f = io.open('Savedata/flag1', 'r')
 			data = json.decode(f:read('*a'))
 			f.close()
+			for k,v in pairs(data.ch) do
+				character.update_player_by_level(v)
+			end
 		end
 	end,
 }

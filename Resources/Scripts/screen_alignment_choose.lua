@@ -48,7 +48,7 @@ ScreenAlignmentChoose = {
             -- Éú³É¿Ø¼þ
 			ScreenAlignmentChoose.bg = flux.View(this):SetHUD(true):SetSize(32, 24)
 
-			ScreenAlignmentChoose.splash = flux.View(this)
+			ScreenAlignmentChoose.splash = flux.View(this):SetHUD(true)
 			ScreenAlignmentChoose.splash:SetSize(32, 24):SetColor(0,0,0)
 						
 			ScreenAlignmentChoose.normalSize = flux.Vector2(3, 4)
@@ -73,11 +73,11 @@ ScreenAlignmentChoose = {
 			}
 
 			ScreenAlignmentChoose.text = flux.TextView(this, nil, 'wqy', ScreenAlignmentChoose.ItemText[3])
-			ScreenAlignmentChoose.text:SetPosition(0, -1):SetColor(0, 0, 1)
+			ScreenAlignmentChoose.text:SetPosition(0, -1):SetColor(0, 0, 1):SetHUD(true)
 			-- ScreenAlignmentChoose.text:SetAlign(flux.ALIGN_LEFT)
 
 			ScreenAlignmentChoose.text2 = flux.TextView(this, nil, 'wqy')
-			ScreenAlignmentChoose.text2:SetPosition(-11, -2)
+			ScreenAlignmentChoose.text2:SetPosition(-11, -2):SetHUD(true)
 			ScreenAlignmentChoose.text2:SetAlign(flux.ALIGN_TOPLEFT):SetTextAreaWidth(800):SetText(ScreenAlignmentChoose.ItemText2[3])
 
 			ScreenAlignmentChoose.ItemPos = {
@@ -97,7 +97,7 @@ ScreenAlignmentChoose = {
 			}
 
 			for k,v in pairs(ScreenAlignmentChoose.Items) do
-				v:SetPosition(ScreenAlignmentChoose.ItemPos[k])
+				v:SetPosition(ScreenAlignmentChoose.ItemPos[k]):SetHUD(true)
 				this:AddView(v)
 			end
 
