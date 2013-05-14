@@ -55,9 +55,9 @@ ScreenStart = {
 
             -- 菜单
             ScreenStart.Menu = {
-                flux.TextView(this, nil, "wqyL", '开始', 0.7),
-                flux.TextView(this, nil, "wqyL", '关于', 0.7),
-                flux.TextView(this, nil, "wqyL", '离开', 0.7),
+                flux.TextView(this, nil, "wqyL", _'开始', 0.7),
+                flux.TextView(this, nil, "wqyL", _'关于', 0.7),
+                flux.TextView(this, nil, "wqyL", _'离开', 0.7),
             }
 
             for k,v in pairs(ScreenStart.Menu) do
