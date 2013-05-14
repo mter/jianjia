@@ -45,45 +45,45 @@ end
 
 -- 生命值增加
 function character.hp_inc(p, num)
-	p.hp = p.hp + num
-	if p.hp > p.hp_max then
-		p.hp = p.hp_max
-	end
+    p.hp = p.hp + num
+    if p.hp > p.hp_max then
+        p.hp = p.hp_max
+    end
 end
 
 -- 生命值减少，减到小于 0，返回false，人物死亡
 function character.hp_dec(p, num)
-	p.hp = p.hp - num
-	local check = p.hp > 0
-	if not check then p.hp = 0 end
-	return check
+    p.hp = p.hp - num
+    local check = p.hp > 0
+    if not check then p.hp = 0 end
+    return check
 end
 
 -- mp增加
 function character.mp_inc(p, num)
-	p.mp = p.mp + num
-	if p.mp > p.mp_max then
-		p.mp = p.mp_max
-	end
+    p.mp = p.mp + num
+    if p.mp > p.mp_max then
+        p.mp = p.mp_max
+    end
 end
 
 -- mp减少，减到小于 0，返回false
 function character.mp_dec(p, num)
-	local new_mp = p.mp - num
-	local check = (new_mp > 0)
-	if check then p.mp = p.mp - num end
-	return check
+    local new_mp = p.mp - num
+    local check = (new_mp > 0)
+    if check then p.mp = p.mp - num end
+    return check
 end
 
 -- 经验增加
 function character.exp_inc(p, exp)
-	p.exp = p.exp + exp
-	local level = p.level
-	p.level = character.get_level(p.exp)
-	if p.level ~= level then
-		character.update_player_by_level(p)
-		return p.level
-	end
+    p.exp = p.exp + exp
+    local level = p.level
+    p.level = character.get_level(p.exp)
+    if p.level ~= level then
+        character.update_player_by_level(p)
+        return p.level
+    end
 end
 
 -- 根据经验获取等级
@@ -137,20 +137,20 @@ end
 
 -- 返回伤害数值
 function character.attack(ch, enm, way)
-	-- way 1 物理
-	-- way 2 远程
-	-- way 3 魔法
-	local way = way or 1
-	local def, atk_min, atk_max
-	if way == 1 then
-		def = enm[8]
-		atk_min, atk_max = ch.atk_min, ch.atk_max
-	elseif way == 2 then
-		def = enm[8]
-		atk_min, atk_max = ch.atk_range_min, ch.atk_range_max
-	elseif way == 3 then
-		def = enm[9]
-		atk_min, atk_max = ch.atk_magic_min, ch.atk_magic_max
-	end
-	return math.ceil((math.random(atk_min, atk_max) + math.floor((atk_max - atk_min)*ch.will ^ 0.5 / 50) - def/5) * (1-enm[10] ^ 0.5 / 35))
+    -- way 1 物理
+    -- way 2 远程
+    -- way 3 魔法
+    local way = way or 1
+    local def, atk_min, atk_max
+    if way == 1 then
+        def = enm[8]
+        atk_min, atk_max = ch.atk_min, ch.atk_max
+    elseif way == 2 then
+        def = enm[8]
+        atk_min, atk_max = ch.atk_range_min, ch.atk_range_max
+    elseif way == 3 then
+        def = enm[9]
+        atk_min, atk_max = ch.atk_magic_min, ch.atk_magic_max
+    end
+    return math.ceil((math.random(atk_min, atk_max) + math.floor((atk_max - atk_min)*ch.will ^ 0.5 / 50) - def/5) * (1-enm[10] ^ 0.5 / 35))
 end
