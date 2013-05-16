@@ -8,7 +8,7 @@ item_prefix = {
 
 items = {
     -- 名字，  条件,
-    {_'眷恋',  req={ge={level=5}},  equip={pos=1, change={}, scale={hp_max=1.1}}, use=nil, skill=nil, prefix={}, txt=_'可以自由变化大小的双手重剑。'}, -- 1
+    {_'眷恋',  req={ge={level=5}},  equip={pos=1, change={}, scale={hp_max=0.1}}, use=nil, skill=nil, prefix={}, txt=_'可以自由变化大小的双手重剑。'}, -- 1
     {_'勇士短刀', equip={pos=1, change={}, scale={}}, use=nil, skill=nil, stack=nil, prefix={{0.1}, {1}}, txt=_'只有勇者才能拥有的短刀!'}, -- 2
     {_'德玛西亚之力',  txt=_'从前，有一个草丛……'}, -- 3
 }

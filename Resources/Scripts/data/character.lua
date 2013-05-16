@@ -88,6 +88,34 @@ function Character:Unequip(ch, pos)
     end
 end
 
+-- 获取玩家的某个属性
+-- 说明：这个函数会得到玩家经过装备和战斗buff加成以后的属性
+function Character:GetAttr(ch, key)
+    local value = ch[key]
+    if ch.equip_attr.change[key] then
+        value = value + ch.equip_attr.change[key]
+    end
+    if ch.fight_attr.change[key] then
+        value = value + ch.fight_attr.change[key]
+    end
+    
+    local scale = 1
+    if ch.equip_attr.scale[key] then
+        scale = scale + ch.equip_attr.scale[key]
+    end
+    if ch.fight_attr.scale[key] then
+        scale = scale + ch.fight_attr.scale[key]
+    end
+
+    return value * scale
+end
+
+-- 获取玩家的某个属性
+-- 说明：这个函数会得到玩家的原始属性
+function Character:GetRawAttr(ch, key)
+    return ch[key]
+end
+
 -- 生命值增加
 function character.hp_inc(p, num)
     p.hp = p.hp + num
