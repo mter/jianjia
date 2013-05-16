@@ -17,6 +17,7 @@ math.randomseed(os.time())
 
 require('data.enemy')
 require('data.skill')
+require('data.items')
 require('data.character')
 
 -- [[µĞÈË²¿·Ö]]
