@@ -71,21 +71,22 @@ ScreenGame = {
         ScreenGame.scr:lua_Init(wrap(function(this)
             -- 生成控件
             ScreenGame.player = flux.RMCharacter(this)
-            ScreenGame.player:SetColor(1,0,0)
+            ScreenGame.player:SetColor(1,0,0) -- SetRotation(-45)
             ScreenGame.player:SetPhy()
 
             ScreenGame.boss = flux.TextView(this, nil, 'wqy', '')
             ScreenGame.boss:SetTextColor(1,1,1):SetSize(1.079, 1.245):SetPosition(3, 12.5):SetSprite('Resources/Images/fight.jpg'):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             ScreenGame.dummy = flux.TextView(this, nil, 'wqy', '木桩')
-            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetPhy(flux.b2_staticBody):PhyNewFixture()
+            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(-45):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             this:AddView(ScreenGame.player)
             this:AddView(ScreenGame.boss)
             this:AddView(ScreenGame.dummy)
             
-            ScreenGame.grass = flux.View(this)
-            ScreenGame.grass:SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
+            ScreenGame.grass = flux.TmxMap(this)
+            ScreenGame.grass:Load('Resources/Maps/example.tmx'):SetPosition(0, 4)
+            --ScreenGame.grass:SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
             this:AddView(ScreenGame.grass, -1)
 
             ScreenGame.school = flux.TextView(this, nil, 'wqyL', '学校')

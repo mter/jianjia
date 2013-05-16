@@ -39,7 +39,52 @@ function character.new(name)
         spellpower = 5,
         endurance = 5,
         will = 5,
+
+        -- 物品、法术、装备列表
+        items = {},
+        skills = {},
+        equip = {},
+
+        -- 装备属性加成和战斗属性加成
+        equip_attr = {change={}, scale={}},
+        fight_attr = {change={}, scale={}},
     }
+end
+
+Character = Class()
+
+-- 装备某样物品
+-- 说明:装备部位 1头部、2衣服、3手套、4腰带、5鞋子、6饰品
+--      item_id 是装备id
+function Character:Equip(ch, item_id)
+    local i = items[item_id]
+    local pos = i.equip.pos
+
+    -- 首先脱下旧的装备(如果有的话)
+    Character:Unequip(ch, pos)
+
+    -- 然后装备新的
+    for k,v in pairs(i.equip.change) do
+        ch.equip_attr.change[k] = ch.equip_attr.change[k] + v
+    end
+    for k,v in pairs(i.equip.scale) do
+        ch.equip_attr.scale[k] = ch.scale.change[k] + v
+    end
+end
+
+-- 脱下某部位的装备
+-- 说明:装备部位 1头部、2衣服、3手套、4腰带、5鞋子、6饰品
+function Character:Unequip(ch, pos)
+    if ch.equip[pos] then
+        local i = items[ch.items[pos]]
+        for k,v in pairs(i.equip.change) do
+            ch.equip_attr.change[k] = ch.equip_attr.change[k] - v
+        end
+        for k,v in pairs(i.equip.scale) do
+            ch.equip_attr.scale[k] = ch.scale.change[k] - v
+        end
+        ch.equip[pos] = nil
+    end
 end
 
 -- 生命值增加
