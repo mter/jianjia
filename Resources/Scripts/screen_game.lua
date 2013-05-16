@@ -53,15 +53,19 @@ ScreenGame = {
             if state == flux.GLFW_PRESS then
                 if key == flux.GLFW_KEY_ESC then
                     -- MsgBox(101, "是否想要回到标题页面？")
-                elseif key == _b'Z' or key == flux.GLFW_KEY_SPACE then
-                    if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
-                        ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
-                    elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
-                        print('木桩！战个痛！')
-                        collectgarbage('collect')
-                        ShowFight(enemy_set.newbie)
-                    elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
-                        RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
+				elseif key == _b'Z' then
+					if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
+						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
+					elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
+						print('木桩！战个痛！')
+						ShowFight(enemy_set.newbie)
+					elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
+						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
+					end
+                elseif key == _b'C' then
+                    if data.ch[1] then
+                        theWorld:PushScreen(ScreenCharacter.scr, flux.SCREEN_APPEND)
+                        show_character_content(data.ch[1])
                     end
                 end
             end
@@ -142,6 +146,8 @@ ScreenGame = {
 
             -- 注册按键
             this:RegKey(_b'Z')
+            -- character board
+            this:RegKey(_b'C')
             this:RegKey(flux.GLFW_KEY_ESC)
             this:RegKey(flux.GLFW_KEY_SPACE)
             this:RegKey(flux.GLFW_KEY_LEFT)
