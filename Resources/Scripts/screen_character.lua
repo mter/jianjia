@@ -1,6 +1,11 @@
 
 -- show character board of given character
 show_character_content = function(ctr)
+    -- save local language for every elem
+    local attr_text = {strength=_"力量", agility=_"敏捷", intelligence=_"智力", 
+        spellpower=_"魔能", endurance=_"耐力", will=_"意志",}
+
+    local bar_text = {hp=_"生命", mp=_"魔法", exp=_"经验",}
     local bar_order = {
         "hp",
         "hp_max",
@@ -41,7 +46,7 @@ show_character_content = function(ctr)
         if bar_text[k] then
             bar_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", bar_text[k])
         else
-            bar_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "N/A")
+            bar_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", _"N/A")
         end
         bar_name:SetTextColor(1,0,0):SetPosition(bar_box.x, bar_box.y - i*1):SetHUD(true)
         ScreenCharacter.scr:AddView(bar_name)
@@ -64,7 +69,7 @@ show_character_content = function(ctr)
         bar_mark:SetPosition(bar_x+bar_box.w*(v/v_max), bar_box.y-i*1):SetHUD(true)
         ScreenCharacter.scr:AddView(bar_mark)
     end
-    local attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "属性")
+    local attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", _"属性")
     attr_name:SetTextColor(1,0,0):SetPosition(6, 6):SetHUD(true)
     ScreenCharacter.scr:AddView(attr_name)
     for i = 1,#attr_order,1 do
@@ -74,7 +79,7 @@ show_character_content = function(ctr)
         if attr_text[k] then
             attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", attr_text[k])
         else
-            attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", "N/A")
+            attr_name = flux.TextView(ScreenCharacter.scr, nil, "wqyL", _"N/A")
         end
         local attr_num
         if v then 
