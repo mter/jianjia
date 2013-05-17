@@ -1,4 +1,4 @@
-
+﻿
 -- table_ext.lua
 -- 对 table 的部分扩展
 
@@ -38,4 +38,23 @@ function table.get_last(t)
 		lastk, lastv = k, v
 	end
 	return lastk, lastv
+end
+--根据位置查找不按顺序存放的key,value
+function table.find(t,p)
+    local i=1;
+    for k, v in pairs(t) do
+    	if i==p then
+    	   return k,v
+    	end
+    	i=i+1
+    end
+    return nil
+end
+--table的长度
+function table.length(t)
+    local i=0
+    for k, v in pairs(t) do
+        i=i+1
+    end
+    return i
 end
