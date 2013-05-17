@@ -11,6 +11,7 @@ data = {
 		alignment = 0, -- ÕóÓª
 	},
 	ch = {},
+    items = {},
 }
 
 math.randomseed(os.time())

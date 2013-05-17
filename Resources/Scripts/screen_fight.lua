@@ -192,7 +192,7 @@ local function attack_player(this)
 
     local function _(k,v)
         local i = math.random(1, #data.ch)
-        local dmg = enemy.attack(v, data.ch[i], v[5])
+        local dmg = Enemy:Attack(v, data.ch[i], v[5])
         print('怪物', v[1], '攻击玩家！造成伤害', dmg)
 
         if dmg ~= -0 then
@@ -307,7 +307,7 @@ ScreenFight = {
                             ScreenFight.last_select = ScreenFight.select_aim
                             ScreenFight.fight_menu.ptr:SetAlpha(0)
 
-                            local dmg = character.attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 1)
+                            local dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 1)
                             print('伤害:', dmg)
                             ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:SetText('-'..dmg):SetAlpha(1)
                             -- 注意：View和TextView之间的某些动画必须分行写
@@ -321,7 +321,7 @@ ScreenFight = {
                                 if new_hp <= 0 then
                                     ScreenFight.enemy_pic[ScreenFight.select_aim]:FadeOut(1):AnimDo()
                                     print(ScreenFight.enm_lst[ScreenFight.select_aim][1], '已经死亡')
-                                    ScreenFight.exp = ScreenFight.exp + enemy.exp(ScreenFight.enm_lst[ScreenFight.select_aim][2])
+                                    ScreenFight.exp = ScreenFight.exp + Enemy:Exp(ScreenFight.enm_lst[ScreenFight.select_aim])
                                     ScreenFight.enm_lst[ScreenFight.select_aim] = nil
 
                                     if table.empty(ScreenFight.enm_lst) then
@@ -429,7 +429,7 @@ function ShowFight(lst)
     local enm_lst = {}
     for i=1,num do
         local index = math.random(1, #lst)
-        table.insert(enm_lst, table.copy(enemys[lst[index]]))
+        table.insert(enm_lst, Enemy:Dup(lst[index]))
     end
     --for k,v in pairs(enm_lst) do
     --    print(k,v)

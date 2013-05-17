@@ -25,6 +25,7 @@ ScreenGame = {
                 character.update_player_by_level(data.ch[1])
                 ShowText(101, {'Ñ¡ÔñÕóÓª'})
             end
+
         end))
 
         ScreenGame.scr:lua_OnResume(wrap(function(this, from, ret)
@@ -67,6 +68,8 @@ ScreenGame = {
                         theWorld:PushScreen(ScreenCharacter.scr, flux.SCREEN_APPEND)
                         show_character_content(data.ch[1])
                     end
+                elseif key == _b'B' then
+                    theWorld:PushScreen(ScreenItem.scr, flux.SCREEN_APPEND)
                 end
             end
         end))
@@ -82,7 +85,7 @@ ScreenGame = {
             ScreenGame.boss:SetTextColor(1,1,1):SetSize(1.079, 1.245):SetPosition(3, 12.5):SetSprite('Resources/Images/fight.jpg'):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             ScreenGame.dummy = flux.TextView(this, nil, 'wqy', 'Ä¾×®')
-            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(-45):SetPhy(flux.b2_staticBody):PhyNewFixture()
+            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(0):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             this:AddView(ScreenGame.player)
             this:AddView(ScreenGame.boss)
@@ -149,6 +152,7 @@ ScreenGame = {
             this:RegKey(_b'Z')
             -- character board
             this:RegKey(_b'C')
+            this:RegKey(_b'B')
             this:RegKey(flux.GLFW_KEY_ESC)
             this:RegKey(flux.GLFW_KEY_SPACE)
             this:RegKey(flux.GLFW_KEY_LEFT)
