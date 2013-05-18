@@ -26,6 +26,18 @@ function Items:_getitem(id_or_table)
     end
 end
 
+-- 玩家获得物品
+-- @param item 物品的id或者描述物品的表
+-- @param num 获得该物品的数量
+function Items:GetItem(item, num)
+    data.items = data.items or {}
+    num = num or 1
+    local item = self:_getitem(item)
+    if item then
+        ;
+    end
+end
+
 -- 是否是一件装备物品
 -- 说明：若可以装备，则为装备物品
 function Items:IsEquipment(item)

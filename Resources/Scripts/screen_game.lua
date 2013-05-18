@@ -24,13 +24,15 @@ ScreenGame = {
                 }
                 character.update_player_by_level(data.ch[1])
                 --初始化技能
-                data.ch[1].skills[2]=3
-                data.ch[1].skills[3]=1
-                data.ch[1].skills[5]=1
-                data.ch[1].skills[4]=1
+                data.ch[1].spells[2]=3
+                data.ch[1].spells[3]=1
+                data.ch[1].spells[5]=1
+                data.ch[1].spells[4]=1
+                data.ch[1].spells[9]=1
                 --data.ch[1].spells[7]=1
                 ShowText(101, {'选择阵营'})
             end
+
         end))
 
         ScreenGame.scr:lua_OnResume(wrap(function(this, from, ret)
@@ -58,25 +60,23 @@ ScreenGame = {
         ScreenGame.scr:lua_KeyInput(wrap(function(this, key, state)
             if state == flux.GLFW_PRESS then
                 if key == flux.GLFW_KEY_ESC then
-                -- MsgBox(101, "是否想要回到标题页面？")
-                elseif key == _b'Z' then
-                    if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
-                        --立绘测试
-                        -- ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
-                        --头像测试
-                        ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,3,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,4,101,{'分支3','分支4'}},{"Yu","b",2,3,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,4,102},{"Yu","d",2,3,102},"一二三四五六七八"},{"Resources/Images/hero.png","Resources/Images/hero.png"})
-
-                    elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
-                        print('木桩！战个痛！')
-                        ShowFight(enemy_set.newbie)
-                    elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
-                        RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
-                    end
+                    -- MsgBox(101, "是否想要回到标题页面？")
+				elseif key == _b'Z' then
+					if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
+						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
+					elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
+						print('木桩！战个痛！')
+						ShowFight(enemy_set.newbie)
+					elseif ScreenGame.player:CheckFacing(ScreenGame.head) then
+						RandomShowText({{0, {{'村长', '敲碗，无聊，敲碗，无聊，敲碗，无聊……'}}},  {0, {{'村长', '多少年来方圆百里的妇联主席都是我呀~'}}}, {0, {{'村长', '其实我只有一百一十八岁的，啊不，或者是十八岁比较年轻一点？'}}}})
+					end
                 elseif key == _b'C' then
                     if data.ch[1] then
                         theWorld:PushScreen(ScreenCharacter.scr, flux.SCREEN_APPEND)
                         show_character_content(data.ch[1])
                     end
+                elseif key == _b'B' then
+                    theWorld:PushScreen(ScreenItem.scr, flux.SCREEN_APPEND)
                 end
             end
         end))
@@ -92,7 +92,7 @@ ScreenGame = {
             ScreenGame.boss:SetTextColor(1,1,1):SetSize(1.079, 1.245):SetPosition(3, 12.5):SetSprite('Resources/Images/fight.jpg'):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             ScreenGame.dummy = flux.TextView(this, nil, 'wqy', '木桩')
-            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(-45):SetPhy(flux.b2_staticBody):PhyNewFixture()
+            ScreenGame.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(0):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
             this:AddView(ScreenGame.player)
             this:AddView(ScreenGame.boss)
@@ -159,6 +159,7 @@ ScreenGame = {
             this:RegKey(_b'Z')
             -- character board
             this:RegKey(_b'C')
+            this:RegKey(_b'B')
             this:RegKey(flux.GLFW_KEY_ESC)
             this:RegKey(flux.GLFW_KEY_SPACE)
             this:RegKey(flux.GLFW_KEY_LEFT)
