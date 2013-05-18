@@ -40,7 +40,7 @@ function table.get_last(t)
     return lastk, lastv
 end
 
---深度复制
+
 function table.copy(orig)
     local orig_type = type(orig)
     local copy

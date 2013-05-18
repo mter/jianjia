@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="34" height="25" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="ForestTiles" tilewidth="64" tileheight="64">
-  <image source="ForestTiles.png" width="1600" height="704"/>
- </tileset>
- <tileset firstgid="276" name="DungeonTiles" tilewidth="64" tileheight="64">
-  <image source="DungeonTiles.png" width="640" height="1216"/>
+  <image source="ForestTiles.png" width="384" height="3200"/>
  </tileset>
  <layer name="块层 1" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJztwwENAAAMw6CKmX+Nt3ABkLBqqqqqvh/t/neJ
+   eJztwwENAAAMw6A6mn93t3ABkLBqqqqqvh/PH5wP
   </data>
  </layer>
  <layer name="块层 2" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJzt10cKwlAARdHE7tLsvfeyBR0ExMU4dAH2ugF7XY1XyMAMFNTozyAPDuQTAjeTQBRJkhTBGpIx1hIdoM7s0O6XHTIssKrnFdbY/LnDBjsc6nmLHfaCOw444iS444wLrl90dOX3O5xwwf3kfg99DN7o0HttDDHCWGDHfRNMMRPQ0Xm4nmOBpY4dHnjh+/B5I39PH9/NjwCCCCGMCKKIIY4EkkghjQyyyCGPAooooYwKqqih/qJDxMwO7cwO7cwO7YzUIfrf5a6JG1+qStQ=
+   eJzt170OAUEYRuFZ/woUKHAbLlLCFjQ0XIsCBQoUuBxnky2+3cywxYyRmDd5igni7G4iMVVKTTybIVb+F6vQIfcPHRFKKKfnHfY4OOgYYIiR5rUKqqil5yNOODvoeLd8xwVX3Dx33PHA03HHEitxrqOBpua9kTC23LHGRpxbaKNj6JBz+Vy66KGvaUjI+/fN3w/5LJLJ+2erIypoa/i87fuR/96i03UUvTZbTB0u9isdnxY6sgsd2YWO7JKGufL//2WBF/6qTjo=
   </data>
  </layer>
 </map>

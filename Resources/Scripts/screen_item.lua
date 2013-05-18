@@ -13,16 +13,8 @@ ScreenItem = {
         ScreenItem.scr = flux.Screen()
 		
         ScreenItem.scr:lua_OnPush(wrap(function(this)
-			theWorld:PhyPause()
-            ScreenItem.menu:SetData(data.items)
-            ScreenItem.menu:SetCustomDataFunc(function(self, x, y, i)
-                if i then
-                    local item = items[i]
-                    self.list[x][y]:SetText(item[1])
-                else
-                    self.list[x][y]:SetText('')
-                end
-            end)
+			theWorld:PhyPause() --data.items
+            ScreenItem.menu:SetData({{'≤‚ ‘111'}, {'≤‚ ‘2'}, '≤‚ ‘3'})
             ScreenItem.menu:SetSel()
         end))
 

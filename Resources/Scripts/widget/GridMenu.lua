@@ -156,9 +156,7 @@ function Widget.GridMenu:SetData(data)
     for x=1, self.width do
         for y=1, self.height do
             local index = (x-1)*self.width + y
-            if self.data[index] then
-                self.datafunc(self, x, y, self.data[index])
-            end
+            self.datafunc(self, x, y, self.data[index])
         end
     end
 end
