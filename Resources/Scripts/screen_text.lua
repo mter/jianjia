@@ -3,7 +3,7 @@
 --ShowText的使用方法:
 --参数为:(屏幕编号,{"名字","语句",例会编号,立绘位置,声音,{"选择分支1","选择分支2"},回调方法},{"名字",{"选择了分支1","选择了分支2"},立绘编号,位置,声音,{"分支1","分支2"},"没有立绘名字和声音的第三句话"},{"图片一","图片二"})
 --ShowText(101, {{"Yu","一二三四五六",2,1,102,{'分支1','分支2'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
---
+--当使用头像的时候,头像在左边则设置立绘位置为3,在右边则设置立绘位置为4,用法与带立绘的一致,仅位置不同
 --
 --设置窗口信息
 --名字颜色:0.18,0.62,0.34
@@ -53,13 +53,38 @@ local function SetNext(this,curpos)
             if ScreenText.ch_info[text[3]] then
                 if ScreenText.portrait then
                     ScreenText.portrait:AnimCancel()
-                    ScreenText.portrait:SetSprite(ScreenText.ch_info[text[3]]):SetSize(8.8,20.34)--:SetAlpha(1)
+                    ScreenText.portrait:SetSprite(ScreenText.ch_info[text[3]])--:SetAlpha(1)
                 end
                 --立绘位置
                 if text[4] == 1then
-                    ScreenText.portrait:SetPosition(-8,-4)
+                    --大立绘左边
+                    ScreenText.portrait:SetPosition(-8,-4):SetSize(8.8,20.34)
+                    ScreenText.type=1
                 elseif text[4] == 2 then
-                    ScreenText.portrait:SetPosition(8,-4)
+                    --大立绘右边
+                    ScreenText.portrait:SetPosition(8,-4):SetSize(8.8,20.34)
+                    ScreenText.type=1
+                elseif text[4]==3 then
+                    --小图像左边
+                    ScreenText.portrait:SetPosition(-9,-6):SetSize(5,5)
+                    ScreenText.type=3
+                    --添加到最上面
+                    this:AddView( ScreenText.portrait,10)
+                    ScreenText.name:SetPosition(-6,-3.4)
+                    ScreenText.t:SetPosition(-6,-4.5)
+                    for k,v in pairs(ScreenText.switchCase) do
+                        v:SetPosition(-6,-5+-1*k)
+                    end
+                elseif text[4]==4 then
+                    --小图像右边
+                    ScreenText.portrait:SetPosition(9,-6):SetSize(5,5)
+                    ScreenText.type=4
+                    this:AddView( ScreenText.portrait,10)
+                    ScreenText.name:SetPosition(4,-3.4)
+                    ScreenText.t:SetPosition(-10,-4.5)
+                    for k,v in pairs(ScreenText.switchCase) do
+                        v:SetPosition(-9,-5+-1*k)
+                    end
                 end
 
             else
@@ -87,13 +112,21 @@ local function SetNext(this,curpos)
                 end
             end
 
-            ScreenText.selection:SetAlpha(1):SetPosition(-10.3,-5-1)
+            if ScreenText.type==1 then
+                ScreenText.selection:SetPosition(-10.3,-5-ScreenText.curSelection):SetAlpha(1)
+            elseif ScreenText.type==3 then
+                ScreenText.selection:SetPosition(-7,-5-ScreenText.curSelection):SetAlpha(1)
+            elseif ScreenText.type==4 then
+                ScreenText.selection:SetPosition(-10,-5-ScreenText.curSelection):SetAlpha(1)
+            end
+
             --设置存在分支
             ScreenText.curExistSwitch=true
             --callback
             ScreenText.callback = text[7]
             --分支存在的位置
             ScreenText.switchFlag =curpos
+            ScreenText.tips:SetAlpha(1)
         else
             --下一个对话不存在分支,则隐藏当前分支
             if ScreenText.switchCase then
@@ -105,6 +138,8 @@ local function SetNext(this,curpos)
                     ScreenText.switchCase[i]:SetAlpha(0)
                 end
             end
+            --隐藏提示
+            ScreenText.tips:SetAlpha(0)
             --不存在分支
             ScreenText.curExistSwitch=false
         end
@@ -127,16 +162,17 @@ local function InitRes(this,bgpic)
 
     -- 保存引用
     ScreenText.bg = bg
-    
+
     --初始化选项
-    if ScreenText.switchCase==nil then
-        ScreenText.switchCase={}
-        for i=1,3 do
-            --初始化三个选项,并隐藏
-            ScreenText.switchCase[i]=flux.TextView(this,nil,'wqy','')
-            ScreenText.switchCase[i]:SetTextColor(TextColor.SwitchCase):SetPosition(-9,-5+-1*i):SetAlign(flux.ALIGN_LEFT):SetHUD(true):SetAlpha(0)
-            this:AddView(ScreenText.switchCase[i])
-        end
+    --初始化选项
+    ScreenText.switchCase={
+        flux.TextView(ScreenText.scr,nil,'wqy'),
+        flux.TextView(ScreenText.scr,nil,'wqy'),
+        flux.TextView(ScreenText.scr,nil,'wqy')
+    }
+    for k, v in pairs(ScreenText.switchCase) do
+        v:SetTextColor(TextColor.SwitchCase):SetPosition(-9,-5+-1*k):SetAlign(flux.ALIGN_LEFT):SetHUD(true):SetAlpha(0)
+        ScreenText.scr:AddView(v)
     end
     --显示选中条
     if ScreenText.selection==nil then
@@ -163,6 +199,10 @@ local function InitRes(this,bgpic)
         ScreenText.name:SetTextColor(TextColor.Name):SetHUD(true):SetAlign(flux.ALIGN_TOPLEFT):SetPosition(-11,-3.4)
         this:AddView(ScreenText.name,5)
     end
+    --提示文字
+    ScreenText.tips = flux.TextView(this,nil,'wqy')
+    ScreenText.tips:SetPosition(5,-8):SetText("按Enter选择"):SetTextColor(1,1,1):SetAlpha(0):SetHUD(true)
+    this:AddView(ScreenText.tips)
 end
 
 --窗体序列号,对话内容,立绘,背景图
@@ -262,21 +302,34 @@ function ShowText(fromcode,textlist,ch_info,bgpic)
                         else
                             ScreenText.curSelection=ScreenText.curSelection-1
                         end
-
-                        ScreenText.selection:SetPosition(-10.3,-5-ScreenText.curSelection)
+                        if ScreenText.type==1 then
+                            ScreenText.selection:SetPosition(-10.3,-5-ScreenText.curSelection):SetAlpha(1)
+                        elseif ScreenText.type==3 then
+                            ScreenText.selection:SetPosition(-7,-5-ScreenText.curSelection):SetAlpha(1)
+                        elseif ScreenText.type==4 then
+                            ScreenText.selection:SetPosition(-10,-5-ScreenText.curSelection):SetAlpha(1)
+                        end
                     elseif key==flux.GLFW_KEY_DOWN then
                         if ScreenText.curSelection>=ScreenText.switchNum then
                             ScreenText.curSelection=1
                         else
                             ScreenText.curSelection=ScreenText.curSelection+1
                         end
-                        ScreenText.selection:SetPosition(-10.3,-5-ScreenText.curSelection)
+                        if ScreenText.type==1 then
+                            ScreenText.selection:SetPosition(-10.3,-5-ScreenText.curSelection):SetAlpha(1)
+                        elseif ScreenText.type==3 then
+                            ScreenText.selection:SetPosition(-7,-5-ScreenText.curSelection):SetAlpha(1)
+                        elseif ScreenText.type==4 then
+                            ScreenText.selection:SetPosition(-10,-5-ScreenText.curSelection):SetAlpha(1)
+                        end
                     end
                 end
             end
         end))
 
     end
+    --类型,1为大立绘,2为小头像
+    ScreenText.type=0
     --当前选项分支数量
     ScreenText.switchNum=1
     --保存图片

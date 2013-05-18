@@ -1,3 +1,48 @@
+--技能状态列表
+local characterSpellState = {}
+local enemySpellState = {}
+
+--检查技能施展状态
+local function checkSpellState()
+end
+
+--释放技能
+local function castSpell(splState, type)
+    --施展者,技能,受众
+    --characterSpellState[table.length(characterSpellState) + 1] = { table.deepcopy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
+    --id, 名字，          条件,     消耗,   数学描述， 技能说明
+    --{ 1, '卡A', { lt = {}, eq = {}, gt = {} }, { mp = 300 }, { { need_cast = true, action_on = 1, change = { level = 999 }, change_scale = { hp_max = 0.3 }, delay = 3, round = 999, each_round = false, } }, '1卡尔萨斯之化身，奥术\n的至高成果，能以凡人\n之躯纂夺神明之职。' } , -- 1
+    local w
+    if type == 1 then
+        --主角释放技能
+        w = Character
+    elseif type == 2 then
+        --怪物释放技能
+        w = Enemy
+    end
+
+    for k, v in pairs(splState) do
+        --施法者,技能,受众
+        local spellcaster = v[1]
+        local spl = v[2]
+        local victims = v[3]
+        print("spl=" .. spl[5][1].delay)
+        --判断是否到释放时间和持续时间
+        if v[2][5][1].delay == 0 and v[2][5][1].round >= 1 then
+            w.cast(spellcaster, spl, victims)
+            --施展完毕则去除掉消耗条件
+            spl[4] = {}
+            --持续回合减1
+            spl[5][1].round = spl[5][1].round - 1
+        elseif spl[5][1].delay > 0 then
+            --减去一个回合等待时间
+            spl[5][1].delay = spl[5][1].delay - 1
+        else
+            --已经释放完毕则移除
+            table.remove(splState, k)
+        end
+    end
+end
 
 local function createFightPlayerBoard()
     local fight_player_board = {}
@@ -24,7 +69,7 @@ local function createFightPlayerBoard()
         ScreenFight.scr:AddView(fight_player_board.head)
 
         fight_player_board.name = flux.TextView(ScreenFight.scr, nil, "wqy", "player1", 0.7)
-        fight_player_board.name :SetHUD(true)
+        fight_player_board.name:SetHUD(true)
         fight_player_board.name:SetColor(0, 0, 0)
         fight_player_board.name:SetPosition(10, -6.3)
         ScreenFight.scr:AddView(fight_player_board.name)
@@ -81,10 +126,10 @@ local function createFightPlayerBoard()
         local mp_max = player.mp_max
         local mp_now = player.mp
 
-        local hp_width = 3*(hp_now/hp_max)
-        local hp_position_y = 9.6+hp_width/2
-        local mp_width = 3*(mp_now/mp_max)
-        local mp_position_y = 9.6+mp_width/2
+        local hp_width = 3 * (hp_now / hp_max)
+        local hp_position_y = 9.6 + hp_width / 2
+        local mp_width = 3 * (mp_now / mp_max)
+        local mp_position_y = 9.6 + mp_width / 2
 
         fight_player_board.name:SetText(name .. ' lv.' .. player.level)
         fight_player_board.hp_bar:SetSize(hp_width, 0.2)
@@ -111,16 +156,16 @@ local function createFigthPlayer(this)
     this:AddView(player_pic.player)
 
     player_pic.dmg_num = flux.TextView(this, nil, 'wqy', '-2')
-    player_pic.dmg_num:SetTextColor(1,0,0,0):SetPosition(7,0):SetHUD(true)
+    player_pic.dmg_num:SetTextColor(1, 0, 0, 0):SetPosition(7, 0):SetHUD(true)
     this:AddView(player_pic.dmg_num)
     return player_pic
 end
 
 -- 战斗菜单面板
 local function createFightMenu()
-    local fight_menu = {cursel = 1}
+    local fight_menu = { cursel = 1 }
 
-    fight_menu.color = {sel = flux.Color(0.79, 0.79, 0.79), nor = flux.Color(0.79, 0.79, 0.79, 0)}
+    fight_menu.color = { sel = flux.Color(0.79, 0.79, 0.79), nor = flux.Color(0.79, 0.79, 0.79, 0) }
 
     fight_menu.attack = flux.TextView(ScreenFight.scr, nil, "wqy", "攻击", 0.7)
     fight_menu.attack:SetHUD(true):SetPosition(-10, -5.5):SetSize(1.5, 1):SetColor(fight_menu.color.sel)
@@ -150,7 +195,7 @@ local function createFightMenu()
     return fight_menu
 end
 
-local function initEnemy(this)    
+local function initEnemy(this)
     ScreenFight.enemy_pic = {
         flux.TextView(ScreenFight.scr, nil, 'wqy'),
         flux.TextView(ScreenFight.scr, nil, 'wqy'),
@@ -163,8 +208,8 @@ local function initEnemy(this)
     ScreenFight.enemy_pic[3]:SetPosition(-0.5, 7)
     ScreenFight.enemy_pic[4]:SetPosition(-10.4, -1.1)
 
-    for k,v in pairs(ScreenFight.enemy_pic) do
-        v:SetSize(3, 4):SetTextColor(1,1,1):SetHUD(true):SetColor(0, 0, 0)
+    for k, v in pairs(ScreenFight.enemy_pic) do
+        v:SetSize(3, 4):SetTextColor(1, 1, 1):SetHUD(true):SetColor(0, 0, 0)
         ScreenFight.scr:AddView(v)
     end
 
@@ -180,30 +225,29 @@ local function initEnemy(this)
     ScreenFight.enemy_dmg_num[3]:SetPosition(-0.5, 9.5)
     ScreenFight.enemy_dmg_num[4]:SetPosition(-10.4, 1.6)
 
-    for k,v in pairs(ScreenFight.enemy_dmg_num) do
-        v:SetTextColor(1,0,0):SetHUD(true)
+    for k, v in pairs(ScreenFight.enemy_dmg_num) do
+        v:SetTextColor(1, 0, 0):SetHUD(true)
         this:AddView(v)
     end
-
 end
 
 -- 怪物攻击玩家
 local function attack_player(this)
 
-    local function _(k,v)
+    local function _(k, v)
         local i = math.random(1, #data.ch)
         local dmg = Enemy:Attack(v, data.ch[i], v[5])
         print('怪物', v[1], '攻击玩家！造成伤害', dmg)
 
         if dmg ~= -0 then
-            ScreenFight.player_pic.dmg_num:SetText('-'..dmg):SetAlpha(1)
+            ScreenFight.player_pic.dmg_num:SetText('-' .. dmg):SetAlpha(1)
         else
             ScreenFight.player_pic.dmg_num:SetText(tostring(dmg)):SetAlpha(1)
         end
         -- 注意：View和TextView之间的某些动画必须分行写
         ScreenFight.player_pic.dmg_num:Sleep(0.4)
         ScreenFight.player_pic.dmg_num:FadeOut(0.1):Sleep(0.4, wrap(function()
-            local key = k+1
+            local key = k + 1
             local value = ScreenFight.enm_lst[key]
             if value then
                 _(key, value)
@@ -220,7 +264,7 @@ local function attack_player(this)
         ScreenFight.player_board.refurbish(data.ch[i])
     end
 
-    local k,v = next(ScreenFight.enm_lst)
+    local k, v = next(ScreenFight.enm_lst)
     if k then
         ScreenFight.input_pause = true
         _(k, v)
@@ -231,11 +275,9 @@ local function attack_player(this)
 end
 
 ScreenFight = {
-
     exp = 0,
-
     new = function()
-        -- 基础设定
+    -- 基础设定
         if ScreenFight.scr then
             return
         end
@@ -248,21 +290,21 @@ ScreenFight = {
             ScreenFight.splash:FadeOut(0.5):AnimDo()
             local player = data.ch[1]
             ScreenFight.player_board.refurbish(player)
-            for k,v in pairs(ScreenFight.enemy_pic) do
+            for k, v in pairs(ScreenFight.enemy_pic) do
                 v:SetAlpha(0)
             end
-            for k,v in pairs(ScreenFight.enemy_dmg_num) do
+            for k, v in pairs(ScreenFight.enemy_dmg_num) do
                 v:SetAlpha(0)
             end
             local num = #ScreenFight.enm_lst
-            for i=1,num do
-                ScreenFight.enemy_pic[i]:SetTextColor(1,1,1):SetColor(0,0,0,1)
+            for i = 1, num do
+                ScreenFight.enemy_pic[i]:SetTextColor(1, 1, 1):SetColor(0, 0, 0, 1)
                 ScreenFight.enemy_pic[i]:SetText(ScreenFight.enm_lst[i][1])
             end
         end))
 
         ScreenFight.scr:lua_OnPop(wrap(function(this)
-            for k,v in pairs(ScreenFight.enemy_pic) do
+            for k, v in pairs(ScreenFight.enemy_pic) do
                 v:AnimCancel()
             end
             ScreenFight.splash:AnimCancel()
@@ -273,7 +315,7 @@ ScreenFight = {
 
             local function update(cursel)
                 ScreenFight.fight_menu.cursel = cursel
-                for k,v in pairs(ScreenFight.fight_menu) do 
+                for k, v in pairs(ScreenFight.fight_menu) do
                     if type(v) == 'userdata' then
                         v:SetColor(ScreenFight.fight_menu.color.nor)
                     end
@@ -289,6 +331,10 @@ ScreenFight = {
                         ScreenFight.fight_menu.ptr:SetAlpha(0)
                         ScreenFight.select_aim = nil
                     end
+                    --取消释放技能操作
+                    if ScreenFight.spl ~= nil then
+                        ScreenFight.spl = nil
+                    end
                 elseif key == flux.GLFW_KEY_SPACE or key == _b'Z' then
                     -- 进行攻击或者防御等等
                     if cursel == 1 then
@@ -300,7 +346,7 @@ ScreenFight = {
                                 ScreenFight.select_aim = next(ScreenFight.enm_lst)
                             end
                             local pos = ScreenFight.enemy_pic[ScreenFight.select_aim]:GetPosition()
-                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y+2.5):SetAlpha(1)
+                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y + 2.5):SetAlpha(1)
                         else
                             -- 玩家选定了要攻击的目标，开始攻击
                             ScreenFight.input_pause = true
@@ -309,7 +355,7 @@ ScreenFight = {
 
                             local dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 1)
                             print('伤害:', dmg)
-                            ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:SetText('-'..dmg):SetAlpha(1)
+                            ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:SetText('-' .. dmg):SetAlpha(1)
                             -- 注意：View和TextView之间的某些动画必须分行写
                             ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:Sleep(0.4)
                             ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:FadeOut(0.1):AnimDo()
@@ -337,8 +383,88 @@ ScreenFight = {
                                 ScreenFight.select_aim = nil
 
                                 attack_player(this)
-
                             end)):AnimDo()
+                        end
+                    elseif cursel == 2 then
+                        callback = function(spl)
+                            ScreenFight.spl = spl
+                            if ScreenFight.spl[5][1].action_on == 1 then
+                                --对自己施法,添加到列表      --施展者,技能,受众
+                                characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.deepcopy(spl), data.ch[1] }
+                                castSpell(characterSpellState)
+                                print("对自己释放法术")
+                            elseif ScreenFight.spl[5][1].action_on == 2 then
+                                --选择敌人
+                                if not ScreenFight.select_aim and (ScreenFight.spl ~= nil) then
+                                    if ScreenFight.enm_lst[ScreenFight.last_select] then
+                                        ScreenFight.select_aim = ScreenFight.last_select
+                                    else
+                                        ScreenFight.select_aim = next(ScreenFight.enm_lst)
+                                    end
+                                    local pos = ScreenFight.enemy_pic[ScreenFight.select_aim]:GetPosition()
+                                    ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y + 2.5):SetAlpha(1)
+                                end
+                            end
+                        end
+                        if ScreenFight.spl then
+                            ScreenFight.input_pause = true
+                            ScreenFight.last_select = ScreenFight.select_aim
+                            ScreenFight.fight_menu.ptr:SetAlpha(0)
+                            local dmg = -1
+                            --技能伤害或者技能加成
+                            if ScreenFight.spl[5][1].action_on == 1 then
+                                --对在自身进行施法
+                                --character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
+                            elseif ScreenFight.spl[5][1].action_on == 2 then
+                                --对怪物进行技能打击
+                                --d = character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
+                                dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 3)
+
+                                --添加技能                                                         --施展者,技能,受众
+                                characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.deepcopy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
+                                --施展技能
+                                castSpell(characterSpellState)
+                            end
+
+                            if dmg ~= -1 then
+                                ScreenFight.select_aim = next(ScreenFight.enm_lst)
+                                print('魔法伤害:' .. dmg)
+                                ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:SetText('-' .. dmg):SetAlpha(1)
+                                -- 注意：View和TextView之间的某些动画必须分行写
+                                ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:Sleep(0.4)
+                                ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:FadeOut(0.1):AnimDo()
+                                -- 留下这个值，以后可能会在减血时进行技能判定。
+                            else
+                                dmg = 0
+                            end
+                            -- 玩家打完了，轮到敌人打击玩家
+                            ScreenFight.player_pic.player:Sleep(0.5, wrap(function()
+                                if ScreenFight.enm_lst[ScreenFight.select_aim] then
+                                    local new_hp = ScreenFight.enm_lst[ScreenFight.select_aim][3] - dmg
+                                    if new_hp <= 0 then
+                                        ScreenFight.enemy_pic[ScreenFight.select_aim]:FadeOut(1):AnimDo()
+                                        print(ScreenFight.enm_lst[ScreenFight.select_aim][1], '已经死亡')
+                                        ScreenFight.exp = ScreenFight.exp + Enemy:Exp(ScreenFight.enm_lst[ScreenFight.select_aim])
+                                        ScreenFight.enm_lst[ScreenFight.select_aim] = nil
+
+                                        if table.empty(ScreenFight.enm_lst) then
+                                            ScreenFight.input_pause = true
+                                            print('战斗结束! 获得经验', ScreenFight.exp)
+                                            this:SetRetCode(ScreenFight.exp)
+                                            theWorld:PopScreen()
+                                        end
+                                    else
+                                        ScreenFight.enm_lst[ScreenFight.select_aim][3] = new_hp
+                                    end
+                                end
+                                ScreenFight.select_aim = nil
+
+                                attack_player(this)
+                            end)):AnimDo()
+                            ScreenFight.spl = nil
+                        else
+                            ScreenSpells.new(data.ch[1].spells, callback)
+                            theWorld:PushScreen(ScreenSpells.scr, flux.SCREEN_APPEND)
                         end
                     elseif cursel == 3 then
                         -- 逃跑
@@ -348,13 +474,13 @@ ScreenFight = {
                     end
                 elseif key == flux.GLFW_KEY_LEFT then
                     if ScreenFight.select_aim then
-                        local k,v = table.get_prev(ScreenFight.enm_lst, ScreenFight.select_aim)
+                        local k, v = table.get_prev(ScreenFight.enm_lst, ScreenFight.select_aim)
                         if not k then
-                            k,v = table.get_last(ScreenFight.enm_lst)
+                            k, v = table.get_last(ScreenFight.enm_lst)
                         end
                         if k then
                             local pos = ScreenFight.enemy_pic[k]:GetPosition()
-                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y+2.5):SetAlpha(1)
+                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y + 2.5):SetAlpha(1)
                             ScreenFight.select_aim = k
                         end
                     else
@@ -366,13 +492,13 @@ ScreenFight = {
                     end
                 elseif key == flux.GLFW_KEY_RIGHT then
                     if ScreenFight.select_aim then
-                        local k,v = table.get_next(ScreenFight.enm_lst, ScreenFight.select_aim)
+                        local k, v = table.get_next(ScreenFight.enm_lst, ScreenFight.select_aim)
                         if not k then
-                            k,v = table.get_first(ScreenFight.enm_lst)
+                            k, v = table.get_first(ScreenFight.enm_lst)
                         end
                         if k then
                             local pos = ScreenFight.enemy_pic[k]:GetPosition()
-                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y+2.5):SetAlpha(1)
+                            ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y + 2.5):SetAlpha(1)
                             ScreenFight.select_aim = k
                         end
                     else
@@ -388,12 +514,12 @@ ScreenFight = {
 
         -- 初始化控件事件
         ScreenFight.scr:lua_Init(wrap(function(this)
-            -- 生成控件
+        -- 生成控件
             ScreenFight.bg = flux.View(this)
             ScreenFight.bg:SetHUD(true):SetSize(32, 24)
 
             ScreenFight.splash = flux.View(this)
-            ScreenFight.splash:SetHUD(true):SetSize(32, 24):SetColor(0,0,0)
+            ScreenFight.splash:SetHUD(true):SetSize(32, 24):SetColor(0, 0, 0)
 
             -- 注册按键
             this:RegKey(_b'Z')
@@ -420,14 +546,13 @@ ScreenFight = {
             -- 角色信息面板
             ScreenFight.player_board = createFightPlayerBoard()
         end))
-
     end,
 }
 
 function ShowFight(lst)
     local num = math.random(1, 4)
     local enm_lst = {}
-    for i=1,num do
+    for i = 1, num do
         local index = math.random(1, #lst)
         table.insert(enm_lst, Enemy:Dup(lst[index]))
     end

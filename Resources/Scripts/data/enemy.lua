@@ -77,7 +77,7 @@ function Enemy:GetAttr(enm, key)
         hashmap.atk_max = 7
     elseif enm[5] == 2 then
         hashmap.atk_range_min = 6
-        hashmap.atk_range_min = 7
+        hashmap.atk_range_max = 7
     elseif enm[5] == 3 then
         hashmap.atk_magic_min = 6
         hashmap.atk_magic_max = 7

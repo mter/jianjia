@@ -23,6 +23,13 @@ ScreenGame = {
                     character.new('伊方')
                 }
                 character.update_player_by_level(data.ch[1])
+                --初始化技能
+                data.ch[1].spells[2]=3
+                data.ch[1].spells[3]=1
+                data.ch[1].spells[5]=1
+                data.ch[1].spells[4]=1
+                data.ch[1].spells[9]=1
+                --data.ch[1].spells[7]=1
                 ShowText(101, {'选择阵营'})
             end
 

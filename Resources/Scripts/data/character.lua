@@ -44,7 +44,7 @@ function character.new(name, txt)
 		will = 5,
 
         -- 法术、装备列表
-        skills = {},
+        spells = {},
         equip = {},
 
         -- 装备属性加成和战斗属性加成
@@ -262,4 +262,53 @@ function Character:Attack(ch, enm, way)
     end
 
     return math.ceil((math.random(atk_min, atk_max) + math.floor((atk_max - atk_min)*will ^ 0.5 / 50) - amr/5) * (1-def ^ 0.5 / 35))
+end
+
+-- {1,'卡尔A',   {lt={}, eq={}, gt={}}, {mp=300},   {{need_cast=true,  action_on=1,  change={level=999}, change_scale={hp_max=0.3}, delay=3, round=999, each_round=false,}}, '1职。'}, -- 1
+--
+--释放法术
+function character.cast(ch, spl, enm)
+    local con = spl[5]
+
+    if con[1].action_on == 1 then
+        --针对自己
+        --更改属性
+        for k, v in pairs(con[1].change) do
+            ch[k] = v
+        end
+        --增益属性
+        for k, v in pairs(con[1].change_scale) do
+            ch[k] = ch[k] * (1 + v)
+        end
+
+        --防止溢出
+        if ch.hp > ch.hp_max then
+            --hp溢出
+            ch.hp = ch.hp_max
+        elseif ch.mp > ch.mp_max then
+            --mp溢出
+            ch.mp = ch.mp_max
+        elseif ch.atk_min > ch.atk_max then
+            ch.atk_main = ch.atk_max
+        elseif ch.atk_range_min > ch.atk_range_min then
+            ch.atk_range_min = ch.atk_range_max
+        elseif ch.atk_magic_min > ch.atk_magic_max then
+            ch.atk_magic_min = ch.atk_magic_max
+        end
+    elseif con[1].action_on == 2 then
+        --针对敌人
+        --更改属性
+        for k, v in pairs(con[1].change) do
+            enm[k] = v
+        end
+        --降低属性
+        for k, v in pairs(con[1].change_scale) do
+            enm[k] = enm[k] * (1 + v)
+        end
+
+    end
+    --扣除所需
+    for k,v in pairs(spl[4]) do
+        ch[k]=ch[k]-v
+    end
 end

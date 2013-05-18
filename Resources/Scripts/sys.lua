@@ -17,7 +17,7 @@ data = {
 math.randomseed(os.time())
 
 require('data.enemy')
-require('data.skill')
+require('data.spell')
 require('data.items')
 require('data.character')
 
