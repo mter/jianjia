@@ -28,6 +28,8 @@ require('screen_game')
 require('screen_spells')
 require('widget.widget')
 
+require('widget.widget')
+
 function theWorld_GameInit()
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqy',  25)
