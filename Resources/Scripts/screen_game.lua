@@ -85,7 +85,7 @@ ScreenGame = {
         ScreenGame.scr:lua_Init(wrap(function(this)
             -- 生成控件
             ScreenGame.player = flux.RMCharacter(this)
-            ScreenGame.player:SetColor(1,0,0) -- SetRotation(-45)
+            ScreenGame.player:SetSpeed(6):SetColor(1,0,0) -- SetRotation(-45)
             ScreenGame.player:SetPhy()
 
             ScreenGame.boss = flux.TextView(this, nil, 'wqy', '')
@@ -97,9 +97,14 @@ ScreenGame = {
             this:AddView(ScreenGame.player)
             this:AddView(ScreenGame.boss)
             this:AddView(ScreenGame.dummy)
-            
+
+            ScreenGame.test = flux.View(this)
+            ScreenGame.test:SetSize(14.1, 14.1):SetColor(1,0,0):SetPosition(0, 5)
+            this:AddView(ScreenGame.test, -1)
+
             ScreenGame.grass = flux.TmxMap(this)
-            ScreenGame.grass:Load('Resources/Maps/example.tmx'):SetPosition(0, 4)
+            ScreenGame.grass:Load('Resources/Maps/example.tmx'):SetPosition(0, 5)
+            ScreenGame.grass:SetBlockSize(2)
             --ScreenGame.grass:SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
             this:AddView(ScreenGame.grass, -1)
 
@@ -145,7 +150,7 @@ ScreenGame = {
             
             ScreenGame.uptown2 = flux.TextView(this, nil, 'wqyL', '居民区2')
             ScreenGame.uptown2:SetTextColor(1,1,1):SetColor(0, 0.35, 0.55):SetSize(15, 33):SetPosition(30, 29)
-            this:AddView(ScreenGame.uptown2)
+            --this:AddView(ScreenGame.uptown2)
 
             ScreenGame.wharf = flux.TextView(this, nil, 'wqyL', '码头')
             ScreenGame.wharf:SetTextColor(1,1,1):SetColor(0.45, 0.25, 0.55):SetPosition(27, 68):SetSize(15, 33)

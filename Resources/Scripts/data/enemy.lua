@@ -89,7 +89,7 @@ function Enemy:GetAttr(enm, key)
     end
     
     local value = enm[index]
-    
+
     if not enm.fight_attr then
         -- 这时返回其实是不太正常的，因为传入的并非 Enemy:Dup 复制后的对象
         return value

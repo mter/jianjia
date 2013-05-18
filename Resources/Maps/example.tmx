@@ -1,51 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
-  <image source="tmw_desert_spacing.png" trans="ffffff" width="265" height="199"/>
-  <tile id="0">
-   <properties>
-    <property name="Property A" value="Hello World"/>
-    <property name="Property B" value="666"/>
-   </properties>
-  </tile>
+<map version="1.0" orientation="orthogonal" width="34" height="25" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="ForestTiles" tilewidth="64" tileheight="64">
+  <image source="ForestTiles.png" width="1600" height="704"/>
  </tileset>
- <tileset firstgid="49" name="perspective_walls" tilewidth="32" tileheight="32">
-  <image source="perspective_walls.png" width="256" height="256"/>
+ <tileset firstgid="276" name="DungeonTiles" tilewidth="64" tileheight="64">
+  <image source="DungeonTiles.png" width="640" height="1216"/>
  </tileset>
- <layer name="Testing Name 1" width="10" height="10">
+ <layer name="块层 1" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJzTY2BokGNgYFBgYDgAokfxwGIAR7UNCw==
+   eJztwwENAAAMw6CKmX+Nt3ABkLBqqqqqvh/t/neJ
   </data>
  </layer>
- <layer name="Testing Name 2" width="10" height="10" visible="0">
+ <layer name="块层 2" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYKAMSAKxFBBLE1CnCMRKQKxMQJ0mEGsBsfYA2zVQAAArdgJl
+   eJzt10cKwlAARdHE7tLsvfeyBR0ExMU4dAH2ugF7XY1XyMAMFNTozyAPDuQTAjeTQBRJkhTBGpIx1hIdoM7s0O6XHTIssKrnFdbY/LnDBjsc6nmLHfaCOw444iS444wLrl90dOX3O5xwwf3kfg99DN7o0HttDDHCWGDHfRNMMRPQ0Xm4nmOBpY4dHnjh+/B5I39PH9/NjwCCCCGMCKKIIY4EkkghjQyyyCGPAooooYwKqqih/qJDxMwO7cwO7cwO7YzUIfrf5a6JG1+qStQ=
   </data>
  </layer>
- <layer name="Testing Name 3" width="10" height="10" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJxjYCAdiACxKBHqZIBYlgzzRzIAAH0YAGM=
-  </data>
- </layer>
- <layer name="Testing Name 4" width="10" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYGBgkGcgDgwmdYZAzATEzATUcQIxFxBzE1AnCMRCQCxMJfeRqw4AZI8BwQ==
-  </data>
- </layer>
- <layer name="Testing Name 5" width="10" height="10" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFgwkAAAGQAAE=
-  </data>
- </layer>
- <objectgroup name="Polygon Testing" width="10" height="10">
-  <object x="93" y="49">
-   <polygon points="0,0 51,6 9,56"/>
-  </object>
-  <object x="114" y="176">
-   <polygon points="0,0 51,-24 60,33"/>
-  </object>
-  <object x="228" y="88">
-   <polyline points="0,0 54,95 -3,183 -131,201"/>
-  </object>
- </objectgroup>
 </map>
