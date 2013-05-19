@@ -20,6 +20,7 @@ local function OnInit(self, scr)
 end
 
 local function OnLoad(self, scr)
+    SceneManager.map:SetColor(0.486, 0.80, 0.486)
     SceneManager.map:Load('Resources/Maps/newbie3.tmx'):SetAlpha(1)
     self:ResetEdge()
 end

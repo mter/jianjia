@@ -5,7 +5,7 @@
  </tileset>
  <layer name="块层 1" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJztwwENAAAMw6A6mn93t3ABkLBqqqqqvh/PH5wP
+   eJztziEBAAAIA7A3ev92ZECBmJhfkxQAgLU8OAA3BhMfm+A=
   </data>
  </layer>
  <layer name="块层 2" width="34" height="25">

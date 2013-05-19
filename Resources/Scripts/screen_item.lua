@@ -14,14 +14,6 @@ ScreenItem = {
 		
         ScreenItem.scr:lua_OnPush(wrap(function(this)
 			theWorld:PhyPause()
-            ScreenItem.menu:SetCustomDataFunc(function(self, x, y, data)
-                if data and not table.empty(data) then
-                    local id = data[1][1]
-                    self.list[x][y]:SetText(items[id][1])
-                else
-                    self.list[x][y]:SetText('')
-                end
-            end)
             ScreenItem.menu:SetData(data.items)
             ScreenItem.menu:SetSel()
         end))
@@ -36,6 +28,15 @@ ScreenItem = {
             ScreenItem.menu = Widget.GridMenu(this, 3, 7, nil, {3,1})
             ScreenItem.menu:SetColor(0.49,0.49,0.49)
             ScreenItem.menu:SetSelColor(0.79, 0.79, 0.79)
+
+            ScreenItem.menu:SetCustomDataFunc(function(self, x, y, data)
+                if data and not table.empty(data) then
+                    local id = data[1]
+                    self.list[x][y]:SetText(items[id][1])
+                else
+                    self.list[x][y]:SetText('')
+                end
+            end)
 
             -- ×¢²á°´¼ü
 			this:RegKey(_b'Z')

@@ -11,7 +11,8 @@ items = {
     {_'眷恋',         id=1, req={ge={level=5}},  equip={pos=1, change={}, scale={hp_max=0.1}}, use=nil, spell=nil, prefix={}, txt=_'可以自由变化大小的双手重剑。'}, -- 1
     {_'勇士短刀',      id=2, equip={pos=1, change={}, scale={}}, use=nil, spell=nil, prefix={{0.1}, {1}}, txt=_'只有勇者才能拥有的短刀!'}, -- 2
     {_'德玛西亚之力',   id=3, txt=_'从前，有一个草丛……'},
-    {_'初级生命药剂',   id=4, use={change={hp=150}}, txt='初级生命药剂，回复 150 点HP。'},
+    {_'初级生命药剂',   id=4, use={change={hp=150}}, txt='回复 150 点HP。'},
+    {_'初级魔法药剂',   id=5, use={change={mp=150}}, txt='回复 150 点MP。'},
 }
 
 Items = Class()
