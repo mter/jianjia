@@ -30,6 +30,7 @@ end
 -- 玩家获得物品
 -- @param item 物品的id或者描述物品的表
 -- @param num 获得该物品的数量
+-- 物品存放： data.items = {{物品id1, 物品数量}, {物品id2, 物品数量}}
 function Items:GetItem(item, num)
     data.items = data.items or {}
     num = num or 1
@@ -54,6 +55,33 @@ function Items:GetItem(item, num)
             table.insert(data.items, {item.id, num})
         end
     end
+end
+
+-- 玩家失去物品
+-- @param item 物品的id或者描述物品的表
+-- @param num 失去该物品的数量，如果这个数目大于玩家拥有的数目，函数就会失败
+-- @retval 若执行成功 返回现在的物品数量，失败返回 nil
+function Items:LostItem(item, num)
+    data.items = data.items or {}
+    num = num or 1
+    local item = self:_getitem(item)
+    if item then
+        -- 检查是否存在于装备列表中
+        for k,v in pairs(data.items) do
+            if v[1] == item.id then
+                if v[2] >= num then
+                    v[2] = v[2] - num
+                    local ret = v[2]
+                    if v[2] == 0 then
+                        -- 如果数量为0，从物品列表中移除
+                        table.remove(data.items, k)
+                    end
+                    return ret
+                end
+            end
+        end
+    end
+    return nil, '物品数量不足！'
 end
 
 -- 是否是一件装备物品

@@ -24,13 +24,13 @@ loot_lst = {
 -- 攻击类型：1近战，2远程，3魔法
 
 enemys = {
-    --1名字,	  2挑战等级,   3HP,   4MP,    5攻击类型,6最小伤害,7最大伤害,    8防御, 9抗性,  10护甲,    11前缀集合,  12       模板集合,       13掉落列表,            14技能列表,   4说明
-    {'碧油鸡',	    1,    10,    0,         1,         2,       4,      12,    10,     8,          {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一只绿油油的鸡，总在隐蔽的地方出现。但有时也在大庭广众之下游荡'}, -- 1
-    {'迷路的鹌鹑',	1,    10,    0,         1,         2,       4,      12,    10,     8,          {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一只惊慌失措的鹌鹑……鹌鹑你晓得吧？新手也可以轻松虐之'}, -- 2
-    {'饥饿的野狗',    3,    20,    0,         1,         4,       8,      14,    10,     8,          {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一条干瘦的狗，平时徘徊在垃圾堆附近寻找食物。小心别被咬到了，谁知道它有什么病。'}, -- 3
-    {'虎斑猫',		2,    15,    0,         1,         3,       6,      13,    10,     8,          {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一只漂亮的虎斑猫，动作优雅敏捷，但再敏捷也不过是只猫。'}, -- 4
-    {'巨大的瓢虫',    2,    5,     0,         2,         3,       6,      10,     4,    12,          {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一只硕大的瓢虫，外壳闪闪发光，很坚硬的样子。巨大的口器摩擦出刺耳的声音'}, -- 5
-    {'魔法果冻',	    1,    10,    225,       3,          2,       4,       6,    10,     8,         {},   templ_set.newbie,      {loot_lst.newbie},        {}, '一颗会走路的果冻，半透明的身体里流动着魔法的蓝光，常见的魔法生物。'}, -- 6
+    --1名字,	  2挑战等级,   3HP,   4MP,    5攻击类型,6最小伤害,7最大伤害,    8防御, 9抗性,  10护甲,    11前缀集合,  12       模板集合,        13掉落列表,         14最大掉落数,    15技能列表,   4说明
+    {'碧油鸡',	    1,    10,    0,         1,         2,       4,      12,    10,     8,          {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一只绿油油的鸡，总在隐蔽的地方出现。但有时也在大庭广众之下游荡'}, -- 1
+    {'迷路的鹌鹑',	1,    10,    0,         1,         2,       4,      12,    10,     8,          {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一只惊慌失措的鹌鹑……鹌鹑你晓得吧？新手也可以轻松虐之'}, -- 2
+    {'饥饿的野狗',    3,    20,    0,         1,         4,       8,      14,    10,     8,          {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一条干瘦的狗，平时徘徊在垃圾堆附近寻找食物。小心别被咬到了，谁知道它有什么病。'}, -- 3
+    {'虎斑猫',		2,    15,    0,         1,         3,       6,      13,    10,     8,          {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一只漂亮的虎斑猫，动作优雅敏捷，但再敏捷也不过是只猫。'}, -- 4
+    {'巨大的瓢虫',    2,    5,     0,         2,         3,       6,      10,     4,    12,          {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一只硕大的瓢虫，外壳闪闪发光，很坚硬的样子。巨大的口器摩擦出刺耳的声音'}, -- 5
+    {'魔法果冻',	    1,    10,    225,       3,          2,       4,       6,    10,     8,         {},   templ_set.newbie,      loot_lst.newbie,           1,          {}, '一颗会走路的果冻，半透明的身体里流动着魔法的蓝光，常见的魔法生物。'}, -- 6
 }
 
 -- 怪物集合
@@ -53,62 +53,9 @@ Enemy = Class(function(self, data)
     
 end)
 
--- 获取怪物的某个属性
--- 说明：这个函数会得到玩家经过buff和nerf以后的属性
-function Enemy:GetAttr(key)
-
-    local value
-
-    if self[key] then
-        value = self[key]
-    elseif key == 'hp_max' then
-        value = self.data[3]
-    elseif key == 'mp_max' then
-        value = self.data[4]
-    else
-        local hashmap = {
-            name    = 1,
-            level   = 2,
-            atkway  = 5,
-            armor   = 8,
-            resist  = 9,
-            defense =10,
-        }
-        if self.data[5] == 1 then
-            hashmap.atk_min = 6
-            hashmap.atk_max = 7
-        elseif self.data[5] == 2 then
-            hashmap.atk_range_min = 6
-            hashmap.atk_range_max = 7
-        elseif self.data[5] == 3 then
-            hashmap.atk_magic_min = 6
-            hashmap.atk_magic_max = 7
-        end
-
-        local index = hashmap[key]
-        if not index then
-            return 0
-        end
-        value = self.data[index]
-    end
-
-    if type(value) == 'number' then
-
-        if self.fight_attr.change[key] then
-            value = value + self.fight_attr.change[key]
-        end
-
-        local scale = 1
-        if self.fight_attr.scale[key] then
-            scale = scale + self.fight_attr.scale[key]
-        end
-
-        return value * scale
-
-    else
-        return value
-    end
-
+-- 返回经验和掉落
+function Enemy:Killed()
+    return self:GetExp(), self:GetLoot()
 end
 
 -- 获取杀死这个怪物能够得到的经验值数量
@@ -118,8 +65,14 @@ function Enemy:GetExp()
 end
 
 -- 根据LOOT列表随机生成掉落
-function Enemy:GetLoot()
-
+-- @param num 随机次数，默认为怪物所默认的值，假设怪物的掉率加起来是100%，那么就会掉落num件物品
+function Enemy:GetLoot(num)
+    local num = num or self.data[14]
+    local ret = {}
+    for i=1,num do
+        table.insert(ret, table.random(self.data[13][1], self.data[13][2]))
+    end
+    return ret
 end
 
 -- 数据减少
@@ -178,4 +131,62 @@ function Enemy:Attack(ch, way)
     end
 
     return math.ceil((math.random(atk_min, atk_max) + math.floor(atk_max - atk_min) - amr/5) * (1-def ^ 0.5 / 35))
+end
+
+-- 获取怪物的某个属性
+-- 说明：这个函数会得到玩家经过buff和nerf以后的属性
+function Enemy:GetAttr(key)
+
+    local value
+
+    if self[key] then
+        value = self[key]
+    elseif key == 'hp_max' then
+        value = self.data[3]
+    elseif key == 'mp_max' then
+        value = self.data[4]
+    else
+        local hashmap = {
+            name    = 1,
+            level   = 2,
+            atkway  = 5,
+            armor   = 8,
+            resist  = 9,
+            defense =10,
+        }
+        if self.data[5] == 1 then
+            hashmap.atk_min = 6
+            hashmap.atk_max = 7
+        elseif self.data[5] == 2 then
+            hashmap.atk_range_min = 6
+            hashmap.atk_range_max = 7
+        elseif self.data[5] == 3 then
+            hashmap.atk_magic_min = 6
+            hashmap.atk_magic_max = 7
+        end
+
+        local index = hashmap[key]
+        if not index then
+            return 0
+        end
+        value = self.data[index]
+    end
+
+    if type(value) == 'number' then
+
+        if self.fight_attr.change[key] then
+            value = value + self.fight_attr.change[key]
+        end
+
+        local scale = 1
+        if self.fight_attr.scale[key] then
+            scale = scale + self.fight_attr.scale[key]
+        end
+
+        return value * scale
+
+    else
+        return value
+    end
+
 end

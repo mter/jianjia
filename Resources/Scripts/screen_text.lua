@@ -349,9 +349,10 @@ function ShowText(fromcode,textlist,ch_info,bgpic)
 end
 
 -- 随机对话函数
--- 传入一个 table ，table中的每个项，都是一套 ShowText 的参数。
+-- 传入若干类型为 table 的参数，每个 table 都是一套 ShowText 的参数。
 -- 随机选择一套参数进行调用，以实现 NPC 的随机对话功能
-function RandomShowText(t)
+function RandomShowText(...)
+    local t = {...}
     local index = math.random(1, #t)
     local select = t[index]
     ShowText(select[1], select[2], select[3], select[4])

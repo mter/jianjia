@@ -373,13 +373,15 @@ ScreenFight = {
                                     ScreenFight.enemy_pic[aim_index]:FadeOut(1):AnimDo()
                                     print(aim:GetAttr('name'), '已经死亡')
                                     
-                                    ScreenFight.exp = ScreenFight.exp + aim:GetExp()
+                                    local _exp, _loot = aim:Killed()
+
+                                    ScreenFight.exp = ScreenFight.exp + _exp
+                                    table.insert(ScreenFight.loot, _loot)
                                     ScreenFight.enm_lst[aim_index] = nil
 
                                     if table.empty(ScreenFight.enm_lst) then
                                         ScreenFight.input_pause = true
                                         print('战斗结束! 获得经验', ScreenFight.exp)
-                                        this:SetRetCode(ScreenFight.exp)
                                         theWorld:PopScreen()
                                     end
                                 end
@@ -454,7 +456,6 @@ ScreenFight = {
                                         if table.empty(ScreenFight.enm_lst) then
                                             ScreenFight.input_pause = true
                                             print('战斗结束! 获得经验', ScreenFight.exp)
-                                            this:SetRetCode(ScreenFight.exp)
                                             theWorld:PopScreen()
                                         end
                                     else
@@ -553,6 +554,11 @@ ScreenFight = {
     end,
 }
 
+-- 获得上次战斗的结果。
+function GetLastFightResult()
+    return ScreenFight.exp or 0, ScreenFight.loot or {}
+end
+
 function ShowFight(lst)
     local num = math.random(1, 4)
     local enm_lst = {}
@@ -566,6 +572,7 @@ function ShowFight(lst)
     --end
     ScreenFight.new()
     ScreenFight.exp = 0
+    ScreenFight.loot = {}
     ScreenFight.input_pause = false
     ScreenFight.enm_lst = enm_lst
     theWorld:PushScreen(ScreenFight.scr, flux.SCREEN_APPEND)

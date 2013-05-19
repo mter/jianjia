@@ -28,6 +28,7 @@ require('screen_game')
 require('screen_spells')
 
 require('widget.widget')
+require('scene.scene_manager')
 
 function theWorld_GameInit()
     theWorld:LoadFont('Resources/Fonts/wqy-microhei.ttc', 'wqyL', 40)

@@ -135,9 +135,9 @@ function Widget.GridMenu:SetMoveCallbak(callback)
 end
 
 -- 设置表中数据
--- @param data 数据是一个 table 列表，例如 {'物品1', '物品2'}，随后这边就会照此进行显示
-function Widget.GridMenu:SetData(data)
-    local data = data or {}
+-- @param ... 变长参数，例如 '物品1', '物品2'，随后这边就会照此进行显示两项
+function Widget.GridMenu:SetData(...)
+    local data = {...}
     self.data = data
     if not self.datafunc then
         self.datafunc = function(self, x, y, text)
