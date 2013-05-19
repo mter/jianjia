@@ -3,14 +3,15 @@
 -- 1头部、2衣服、3手套、4腰带、5鞋子、6饰品
 
 item_prefix = {
-    {'强力的', change={}, scale={}, skill={}}, -- 1
+    {'强力的', change={}, scale={}, spell={}}, -- 1
 }
 
 items = {
-    -- 名字，  条件,
-    {_'眷恋',  req={ge={level=5}},  equip={pos=1, change={}, scale={hp_max=0.1}}, use=nil, skill=nil, prefix={}, txt=_'可以自由变化大小的双手重剑。'}, -- 1
-    {_'勇士短刀', equip={pos=1, change={}, scale={}}, use=nil, skill=nil, stack=nil, prefix={{0.1}, {1}}, txt=_'只有勇者才能拥有的短刀!'}, -- 2
-    {_'德玛西亚之力',  txt=_'从前，有一个草丛……'}, -- 3
+    -- 名字，          条件,
+    {_'眷恋',         id=1, req={ge={level=5}},  equip={pos=1, change={}, scale={hp_max=0.1}}, use=nil, spell=nil, prefix={}, txt=_'可以自由变化大小的双手重剑。'}, -- 1
+    {_'勇士短刀',      id=2, equip={pos=1, change={}, scale={}}, use=nil, spell=nil, prefix={{0.1}, {1}}, txt=_'只有勇者才能拥有的短刀!'}, -- 2
+    {_'德玛西亚之力',   id=3, txt=_'从前，有一个草丛……'},
+    {_'初级生命药剂',   id=4, use={change={hp=150}}, txt='初级生命药剂，回复 150 点HP。'},
 }
 
 Items = Class()
@@ -34,7 +35,24 @@ function Items:GetItem(item, num)
     num = num or 1
     local item = self:_getitem(item)
     if item then
-        ;
+        local is_equip = Items:IsEquipment(item) or Items:IsItem(item)
+        -- 如果是一件装备或物品，那么装备/物品永远占一格，不会堆叠
+        if is_equip then
+            for i=1,num do
+                table.insert(data.items, {item.id, 1})
+            end
+        -- 如果是消耗品，那么可以堆叠
+        else
+            -- 如果存在于列表中，增加数量
+            for k,v in pairs(data.items) do
+                if v[1] == item.id then
+                    v[2] = v[2] + num
+                    return
+                end
+            end
+            -- 若不存在，直接插入
+            table.insert(data.items, {item.id, num})
+        end
     end
 end
 

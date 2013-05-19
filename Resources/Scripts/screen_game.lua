@@ -19,16 +19,17 @@ ScreenGame = {
         ScreenGame.scr:lua_AfterPush(wrap(function(this)
 
             if table.empty(data.ch) then
-                data.ch = {
-                    character.new('伊方')
-                }
-                character.update_player_by_level(data.ch[1])
+                table.insert(data.ch, Character('伊方'))
+                
                 --初始化技能
-                data.ch[1].spells[2]=3
-                data.ch[1].spells[3]=1
-                data.ch[1].spells[5]=1
-                data.ch[1].spells[4]=1
-                data.ch[1].spells[9]=1
+                data.ch[1].data.spells[2]=3
+                data.ch[1].data.spells[3]=1
+                data.ch[1].data.spells[5]=1
+                data.ch[1].data.spells[4]=1
+                data.ch[1].data.spells[9]=1
+                data.ch[1].data.spells[9]=1
+                data.ch[1].data.spells[8]=1
+                data.ch[1].data.spells[7]=1
                 --data.ch[1].spells[7]=1
                 ShowText(101, {'选择阵营'})
             end
@@ -42,9 +43,9 @@ ScreenGame = {
                 -- 从战斗场景中回来
                 if ret ~= 0 then
                     for k,v in pairs(data.ch) do
-                        local level = character.exp_inc(v, ret)
+                        local level = v:Inc('exp', ret)
                         if level then
-                            print('玩家', v.name, '升到了', level, '级')
+                            print('玩家', v:GetAttr('name'), '升到了', level, '级')
                         end
                     end
                 end
@@ -61,7 +62,7 @@ ScreenGame = {
             if state == flux.GLFW_PRESS then
                 if key == flux.GLFW_KEY_ESC then
                     -- MsgBox(101, "是否想要回到标题页面？")
-				elseif key == _b'Z' then
+				elseif key == _b'Z' or key == flux.GLFW_KEY_SPACE then
 					if ScreenGame.player:CheckFacing(ScreenGame.boss, 0.5) then
 						ShowText(0, {{"紧握小黄书的男人","旅行者，有什么想说的么？",2,1,102,{'我们缺少原画！！','原画大神求带！！！'},callback},{"神秘的人",{"分支1的结果","分支2的结果"},1,2,101,{'分支3','分支4'}},{"Yu","b",2,1,101,{"ffdsaf1","fdafdsa2"}},{"神秘的人","c",1,2,102},{"Yu","d",2,1,102},"一二三四五六七八"},{"Resources/Images/SCA07.png","Resources/Images/hero.png"})
 					elseif ScreenGame.player:CheckFacing(ScreenGame.dummy) then
@@ -85,7 +86,7 @@ ScreenGame = {
         ScreenGame.scr:lua_Init(wrap(function(this)
             -- 生成控件
             ScreenGame.player = flux.RMCharacter(this)
-            ScreenGame.player:SetColor(1,0,0) -- SetRotation(-45)
+            ScreenGame.player:SetSpeed(6):SetColor(1,0,0) -- SetRotation(-45)
             ScreenGame.player:SetPhy()
 
             ScreenGame.boss = flux.TextView(this, nil, 'wqy', '')
@@ -97,9 +98,14 @@ ScreenGame = {
             this:AddView(ScreenGame.player)
             this:AddView(ScreenGame.boss)
             this:AddView(ScreenGame.dummy)
-            
+
+            ScreenGame.test = flux.View(this)
+            ScreenGame.test:SetSize(14.1, 14.1):SetColor(1,0,0):SetPosition(0, 5)
+            this:AddView(ScreenGame.test, -1)
+
             ScreenGame.grass = flux.TmxMap(this)
-            ScreenGame.grass:Load('Resources/Maps/example.tmx'):SetPosition(0, 4)
+            ScreenGame.grass:Load('Resources/Maps/example.tmx'):SetPosition(0, 5)
+            ScreenGame.grass:SetBlockSize(2)
             --ScreenGame.grass:SetSize(500, 500):SetSprite('Resources/Images/grass.jpg'):SetPaintMode(flux.PAINT_MODE_TILE)
             this:AddView(ScreenGame.grass, -1)
 
@@ -145,7 +151,7 @@ ScreenGame = {
             
             ScreenGame.uptown2 = flux.TextView(this, nil, 'wqyL', '居民区2')
             ScreenGame.uptown2:SetTextColor(1,1,1):SetColor(0, 0.35, 0.55):SetSize(15, 33):SetPosition(30, 29)
-            this:AddView(ScreenGame.uptown2)
+            --this:AddView(ScreenGame.uptown2)
 
             ScreenGame.wharf = flux.TextView(this, nil, 'wqyL', '码头')
             ScreenGame.wharf:SetTextColor(1,1,1):SetColor(0.45, 0.25, 0.55):SetPosition(27, 68):SetSize(15, 33)

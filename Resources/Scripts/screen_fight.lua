@@ -120,25 +120,25 @@ local function createFightPlayerBoard()
     end
 
     function fight_player_board.refurbish(player)
-        local name = player.name
-        local hp_max = player.hp_max
-        local hp_now = player.hp
-        local mp_max = player.mp_max
-        local mp_now = player.mp
+        local name = player:GetAttr('name')
+        local hp_max = player:GetAttr('hp_max')
+        local hp_now = player:GetAttr('hp')
+        local mp_max = player:GetAttr('mp_max')
+        local mp_now = player:GetAttr('mp')
 
         local hp_width = 3 * (hp_now / hp_max)
         local hp_position_y = 9.6 + hp_width / 2
         local mp_width = 3 * (mp_now / mp_max)
         local mp_position_y = 9.6 + mp_width / 2
 
-        fight_player_board.name:SetText(name .. ' lv.' .. player.level)
+        fight_player_board.name:SetText(name .. ' lv.' .. player:GetAttr('level'))
         fight_player_board.hp_bar:SetSize(hp_width, 0.2)
         fight_player_board.hp_bar:SetPosition(hp_position_y, -7.7)
         fight_player_board.mp_bar:SetSize(mp_width, 0.2)
         fight_player_board.mp_bar:SetPosition(mp_position_y, -9)
 
-        fight_player_board.hp_text:SetText(player.hp .. '/' .. player.hp_max)
-        fight_player_board.mp_text:SetText(player.mp .. '/' .. player.mp_max)
+        fight_player_board.hp_text:SetText(hp_now .. '/' .. hp_max)
+        fight_player_board.mp_text:SetText(mp_now .. '/' .. mp_max)
     end
 
     fight_player_board.new()
@@ -236,8 +236,8 @@ local function attack_player(this)
 
     local function _(k, v)
         local i = math.random(1, #data.ch)
-        local dmg = Enemy:Attack(v, data.ch[i], v[5])
-        print('怪物', v[1], '攻击玩家！造成伤害', dmg)
+        local dmg = v:Attack(data.ch[i])
+        print('怪物', v:GetAttr('name'), '攻击玩家！造成伤害', dmg)
 
         if dmg ~= -0 then
             ScreenFight.player_pic.dmg_num:SetText('-' .. dmg):SetAlpha(1)
@@ -256,7 +256,7 @@ local function attack_player(this)
             end
         end)):AnimDo()
 
-        if not character.hp_dec(data.ch[i], dmg) then
+        if data.ch[i]:Dec('hp', dmg) == 0 then
             print('你死亡了!')
             theWorld:PopScreen()
             return
@@ -299,7 +299,7 @@ ScreenFight = {
             local num = #ScreenFight.enm_lst
             for i = 1, num do
                 ScreenFight.enemy_pic[i]:SetTextColor(1, 1, 1):SetColor(0, 0, 0, 1)
-                ScreenFight.enemy_pic[i]:SetText(ScreenFight.enm_lst[i][1])
+                ScreenFight.enemy_pic[i]:SetText(ScreenFight.enm_lst[i]:GetAttr('name'))
             end
         end))
 
@@ -349,26 +349,32 @@ ScreenFight = {
                             ScreenFight.fight_menu.ptr:SetPosition(pos.x, pos.y + 2.5):SetAlpha(1)
                         else
                             -- 玩家选定了要攻击的目标，开始攻击
+                            local aim_index = ScreenFight.select_aim
+                            local aim = ScreenFight.enm_lst[aim_index]
+                            
                             ScreenFight.input_pause = true
-                            ScreenFight.last_select = ScreenFight.select_aim
+                            ScreenFight.last_select = aim_index
                             ScreenFight.fight_menu.ptr:SetAlpha(0)
 
-                            local dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 1)
+                            local dmg = data.ch[1]:Attack(aim, 1)
                             print('伤害:', dmg)
-                            ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:SetText('-' .. dmg):SetAlpha(1)
+                            ScreenFight.enemy_dmg_num[aim_index]:SetText('-' .. dmg):SetAlpha(1)
                             -- 注意：View和TextView之间的某些动画必须分行写
-                            ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:Sleep(0.4)
-                            ScreenFight.enemy_dmg_num[ScreenFight.select_aim]:FadeOut(0.1):AnimDo()
+                            ScreenFight.enemy_dmg_num[aim_index]:Sleep(0.4)
+                            ScreenFight.enemy_dmg_num[aim_index]:FadeOut(0.1):AnimDo()
                             -- 留下这个值，以后可能会在减血时进行技能判定。
 
-                            -- 玩家打完了，轮到敌人打击玩家
+                            -- 玩家打完了，做一些动画效果，然后轮到敌人打击玩家
                             ScreenFight.player_pic.player:Sleep(0.5, wrap(function()
-                                local new_hp = ScreenFight.enm_lst[ScreenFight.select_aim][3] - dmg
+                            
+                                local new_hp = aim:Dec('hp', dmg)
+
                                 if new_hp <= 0 then
-                                    ScreenFight.enemy_pic[ScreenFight.select_aim]:FadeOut(1):AnimDo()
-                                    print(ScreenFight.enm_lst[ScreenFight.select_aim][1], '已经死亡')
-                                    ScreenFight.exp = ScreenFight.exp + Enemy:Exp(ScreenFight.enm_lst[ScreenFight.select_aim])
-                                    ScreenFight.enm_lst[ScreenFight.select_aim] = nil
+                                    ScreenFight.enemy_pic[aim_index]:FadeOut(1):AnimDo()
+                                    print(aim:GetAttr('name'), '已经死亡')
+                                    
+                                    ScreenFight.exp = ScreenFight.exp + aim:GetExp()
+                                    ScreenFight.enm_lst[aim_index] = nil
 
                                     if table.empty(ScreenFight.enm_lst) then
                                         ScreenFight.input_pause = true
@@ -376,8 +382,6 @@ ScreenFight = {
                                         this:SetRetCode(ScreenFight.exp)
                                         theWorld:PopScreen()
                                     end
-                                else
-                                    ScreenFight.enm_lst[ScreenFight.select_aim][3] = new_hp
                                 end
 
                                 ScreenFight.select_aim = nil
@@ -554,7 +558,8 @@ function ShowFight(lst)
     local enm_lst = {}
     for i = 1, num do
         local index = math.random(1, #lst)
-        table.insert(enm_lst, Enemy:Dup(lst[index]))
+        -- 初始化敌人并加入敌方列表
+        table.insert(enm_lst, Enemy(enemys[lst[index]]))
     end
     --for k,v in pairs(enm_lst) do
     --    print(k,v)
