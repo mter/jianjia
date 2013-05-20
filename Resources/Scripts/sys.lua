@@ -8,6 +8,7 @@ data = {
 	player = {
 		x = 0, -- x 坐标
 		y = 0, -- y 坐标
+        scene = 'newbie_a3', -- 地点
 		alignment = 0, -- 阵营
 	},
 	ch = {},
@@ -36,6 +37,7 @@ sys = {
 		if ScreenGame.player then
 			local pos = ScreenGame.player:GetPosition()
 			data.player.x, data.player.y = pos.x, pos.y
+            data.player.scene = SceneManager:GetSceneName() or data.player.scene
 		end
 		local f = io.open('Savedata/flag' .. slot, 'w+')
         

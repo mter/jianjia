@@ -13,8 +13,8 @@ ScreenItem = {
         ScreenItem.scr = flux.Screen()
 		
         ScreenItem.scr:lua_OnPush(wrap(function(this)
-			theWorld:PhyPause() --data.items
-            ScreenItem.menu:SetData({{'测试111'}, {'测试2'}, '测试3'})
+			theWorld:PhyPause()
+            ScreenItem.menu:SetData(data.items)
             ScreenItem.menu:SetSel()
         end))
 
@@ -25,9 +25,18 @@ ScreenItem = {
 		-- 初始化控件事件
         ScreenItem.scr:lua_Init(wrap(function(this)
             -- 生成控件
-            ScreenItem.menu = Widget.GridMenu(this, 3, 7)
-            ScreenItem.menu:SetColor(0.49,0.49,0)
+            ScreenItem.menu = Widget.GridMenu(this, 3, 7, nil, {3,1})
+            ScreenItem.menu:SetColor(0.49,0.49,0.49)
             ScreenItem.menu:SetSelColor(0.79, 0.79, 0.79)
+
+            ScreenItem.menu:SetCustomDataFunc(function(self, x, y, data)
+                if data and not table.empty(data) then
+                    local id = data[1]
+                    self.list[x][y]:SetText(items[id][1])
+                else
+                    self.list[x][y]:SetText('')
+                end
+            end)
 
             -- 注册按键
 			this:RegKey(_b'Z')
