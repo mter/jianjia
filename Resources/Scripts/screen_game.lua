@@ -79,6 +79,7 @@ ScreenGame = {
                         show_character_content(data.ch[1])
                     end
                 elseif key == _b'B' then
+                    ScreenGame.player:Reset()
                     theWorld:PushScreen(ScreenItem.scr, flux.SCREEN_APPEND)
                 end
             end

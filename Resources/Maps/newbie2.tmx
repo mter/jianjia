@@ -10,7 +10,17 @@
  </layer>
  <layer name="块层 2" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20Gf6AAAAB4DA1IAAE=
+   eJytlktzTEEYhrsVEpWIcgmqXP6AoizszEKVX4AFUUVUEVv3Sy6ScUmssMACCyzwF7AxGxu3UlhIqlTikslYkKU7edp01/nS06fnzEzeqqfOOX2653vP1193T05NV07cN0EzzIvcz5SG4V2AEZgPbbAgcl+PuqFH0AsfoQN2wgGt1EE4pMvtMt5iWALt3n09GvCeT1sfnbAHjhH/OJywPvx4OTUzSvPRBfuhl/h9cMr6cMoS3+/zJNJ3EIYE562Pb/Dd+CL+GTgLnzLErlWx7zE+/sDfKr8h18h7fH4wOdPxMbE14GtUvC+K9nZiLNXJVdbsBM8l+Bzw8dL7RqML9LsIl3TSvlEQksvdCsas1MlV1mzMh5TzcZl+V+Cqnt4u5fIt9yWXA5d/nyI8VJU+1qb4uEa/63Aj4sPkuwVaVbIvuRyY737E831Vjluw16cq7MNoXcDHTfrdgtspPnLWx0JYJHy4fEzY704j67zcod9duBfJh5t3uV/JfLhcPFD/56PwlTbHpI7vEyZe6H2t9eHywTzkXV3+4Pkn/ILfcJi2I3A0kBuzFote2ziMBXy49SjPLZkPNwcFVfbxz3TgqmEWnIRu6IH1gd/PqtC8yHwUrI/H1sccmAtN0Az9MAB5WNOAj9C8+PlwNWJ8tECr2degDc7BIAzBhpQYW3i3FbZF6trMyzJYrirXyxdbj9TnJlOjk1XWR5q2M24HdFTxsQpWq8r6kPNTbY3GtIuxu6ETZqsyvkL14STnpxEfexm7D7p0crbXo5iPzTX6SzvbQ+dH6DyBvDvrn8Fzy4vIOVQLJQ9znvhtDrd2X8FryxudnL8xYr9b0skenRWzZt7CsGVErKtGyCr338rfp43GI++yagoK6wdh
   </data>
  </layer>
+ <layer name="块层 3" width="34" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt1LERQGAQROH7qyEhoRQECBCg/wq8QAOivTH7zWx8L7oIjaFEjGwqooDXzP2FreKOjfs7O8QdJ/cvdos7zMy+qPhZdYK/1dDQJujoaOgTdJiZ/dkDvrMFjA==
+  </data>
+ </layer>
+ <objectgroup name="对象层 1" width="34" height="25">
+  <object x="1219" y="63" width="190" height="195"/>
+  <object x="1279" y="1087" width="190" height="190"/>
+  <object x="1983" y="1084" width="194" height="196"/>
+ </objectgroup>
 </map>

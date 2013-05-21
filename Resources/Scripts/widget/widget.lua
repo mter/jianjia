@@ -28,3 +28,4 @@ function Widget.Widget:SetPosition(x, y)
 end
 
 require('widget.GridMenu')
+require('widget.NameCard')
