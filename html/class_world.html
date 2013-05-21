@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">流光
-   &#160;<span id="projectnumber">0.07pre5</span>
+   &#160;<span id="projectnumber">0.07pre8</span>
    </div>
   </td>
  </tr>
@@ -131,8 +131,8 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ac3db1ec12efaf57c305f9feccffa4a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a134a92447c73d0be52a5ac72c9a90148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_world.html#a134a92447c73d0be52a5ac72c9a90148">SetTitle</a> (char *title)</td></tr>
 <tr class="separator:a134a92447c73d0be52a5ac72c9a90148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07402430e4d9e17cfb75514a97d6ee5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_world.html#a07402430e4d9e17cfb75514a97d6ee5b">DelayRun</a> (const char *func)</td></tr>
-<tr class="separator:a07402430e4d9e17cfb75514a97d6ee5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5b1ff58b1646c0938024a364d086ee2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_world.html#ae5b1ff58b1646c0938024a364d086ee2">DelayRun</a> (const char *func, double time=0)</td></tr>
+<tr class="separator:ae5b1ff58b1646c0938024a364d086ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 静态 Public 成员函数</h2></td></tr>
@@ -153,6 +153,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b></td></tr>
 <tr class="memitem:a018ff8a950133459fda57a235706a80b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a018ff8a950133459fda57a235706a80b"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>View</b></td></tr>
 <tr class="separator:a018ff8a950133459fda57a235706a80b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af24558f7ef3a2332f055f1b2f455dcdc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af24558f7ef3a2332f055f1b2f455dcdc"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>TmxMap</b></td></tr>
+<tr class="separator:af24558f7ef3a2332f055f1b2f455dcdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a330cdc97993df0f017962ef32b3a306b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a330cdc97993df0f017962ef32b3a306b"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>TextView</b></td></tr>
 <tr class="separator:a330cdc97993df0f017962ef32b3a306b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,7 +167,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 <div class="textblock"><p>显示：“世界” </p>
 <p>世界全程只有唯一一个实例，标记为theWorld，是引擎的总控。 </p>
 </div><h2 class="groupheader">成员函数说明</h2>
-<a class="anchor" id="a07402430e4d9e17cfb75514a97d6ee5b"></a>
+<a class="anchor" id="ae5b1ff58b1646c0938024a364d086ee2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -175,8 +178,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
           <td class="memname">void World::DelayRun </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>func</em></td><td>)</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -185,7 +198,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>延迟执行 在下一次 Update 时执行这个 lua 函数 </p>
+<p>延迟执行 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">func</td><td>在计时结束后回调执行这个 lua 函数 </td></tr>
+    <tr><td class="paramname">time</td><td>延迟时间。若为0则在下一次Update时执行，否则计时。 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -662,7 +682,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RMCharacter</b></td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-生成于 2013年 五月 9日 星期四 18:51:23 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
+生成于 2013年 五月 21日 星期二 14:56:53 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

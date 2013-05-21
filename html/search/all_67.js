@@ -6,6 +6,7 @@ var searchData=
   ['getcolor',['GetColor',['../class_view.html#a4683a96441f56a0eeadd76db207b8fa3',1,'View']]],
   ['getdir',['GetDir',['../class_r_m_character.html#a01c52273b5be53a6aa572248874a56ef',1,'RMCharacter']]],
   ['getinstance',['GetInstance',['../class_world.html#af5379f491df7d20c109203d5f846850c',1,'World']]],
+  ['getmapcolor',['GetMapColor',['../class_tmx_map.html#acee4ef6e3ed0e443e7bce953f7455ba9',1,'TmxMap']]],
   ['getplayer',['GetPlayer',['../class_r_m_screen.html#ab7bf4864601434112c45a94604957280',1,'RMScreen']]],
   ['getposition',['GetPosition',['../class_view.html#a2e6b87767db41e817df1a726901e19c5',1,'View']]],
   ['getrotation',['GetRotation',['../class_view.html#a65f067342ab26c4bae916846acb1bbd4',1,'View']]],

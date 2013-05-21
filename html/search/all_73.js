@@ -2,8 +2,9 @@ var searchData=
 [
   ['screen',['Screen',['../class_screen.html',1,'']]],
   ['setalign',['SetAlign',['../class_text_view.html#a148cf82adb2005080e98b7189d105d0c',1,'TextView']]],
-  ['setalpha',['SetAlpha',['../class_view.html#a9aa8f31cdd859aecfd26430e9f15586a',1,'View::SetAlpha()'],['../class_text_view.html#ae1e2e5e48b463267ab07e46fadd5367e',1,'TextView::SetAlpha()']]],
+  ['setalpha',['SetAlpha',['../class_view.html#a9aa8f31cdd859aecfd26430e9f15586a',1,'View::SetAlpha()'],['../class_text_view.html#ae1e2e5e48b463267ab07e46fadd5367e',1,'TextView::SetAlpha()'],['../class_tmx_map.html#a0dadf145e79442312844ff5f271dc9a6',1,'TmxMap::SetAlpha()']]],
   ['setanimpause',['SetAnimPause',['../class_view.html#a251550384b3abe8c55121640babc77bd',1,'View']]],
+  ['setblocksize',['SetBlockSize',['../class_tmx_map.html#a51fb76fe47c718ebc552395e9dc13758',1,'TmxMap']]],
   ['setcolor',['SetColor',['../class_view.html#a5a16203ff342e97f55024447a2532e8a',1,'View::SetColor(const Color &amp;c)'],['../class_view.html#a25e700fc4f57f188c96bd4f9cbea223c',1,'View::SetColor(float r, float g, float b, float a=1.0f)']]],
   ['setdensity',['SetDensity',['../class_view.html#a2a2967e8866422ffeb8c652824fe66ed',1,'View']]],
   ['setdir',['SetDir',['../class_r_m_character.html#a01f4c80c2ccb96b7cac0976a0fdacdd3',1,'RMCharacter']]],
@@ -16,6 +17,8 @@ var searchData=
   ['sethud',['SetHUD',['../class_view.html#ac3eb95cc065dfc07a3086bc3084e4877',1,'View']]],
   ['setitemheight',['SetItemHeight',['../class_menu_view.html#a4083f8a8deccc7a2b20c7ec1364b1c1f',1,'MenuView']]],
   ['setlinespacing',['SetLineSpacing',['../class_text_view.html#a5d98be6c88bf6119e030bcb0a77d8800',1,'TextView']]],
+  ['setmapcolor',['SetMapColor',['../class_tmx_map.html#a9f20e8da3068c485c54bcec933338e8b',1,'TmxMap::SetMapColor(const Color &amp;c)'],['../class_tmx_map.html#adcc406851075fdf93eee74b6c4872f10',1,'TmxMap::SetMapColor(float r, float g, float b, float a=1.0f)']]],
+  ['setpadding',['SetPadding',['../class_text_view.html#af4c81e0e546bd2ba72f1973bb4d27225',1,'TextView']]],
   ['setphy',['SetPhy',['../class_view.html#a8cff20e3726a421e276eeec064b87190',1,'View::SetPhy()'],['../class_r_m_character.html#a6e78d185f0c23821294a0239f1674cc6',1,'RMCharacter::SetPhy()']]],
   ['setphyactive',['SetPhyActive',['../class_view.html#a34e5bc2b3d7dc5fa73b02cbe81f14f25',1,'View']]],
   ['setphygroupindex',['SetPhyGroupIndex',['../class_view.html#a10c6e3171cb35fba31761d1b1b8ffe59',1,'View']]],
@@ -32,10 +35,11 @@ var searchData=
   ['setspriteframe',['SetSpriteFrame',['../class_view.html#a0c65082803dc522bc2919a4700feb3b2',1,'View']]],
   ['settext',['SetText',['../class_text_view.html#a8c0dd9a20b7473f7ff30374e5bf2c96e',1,'TextView']]],
   ['settextareaheight',['SetTextAreaHeight',['../class_text_view.html#a34e90b718006390266fb0634f4a2dfb8',1,'TextView']]],
-  ['settextareawidth',['SetTextAreaWidth',['../class_text_view.html#a48842201d07ba08cd7380a755f473c8a',1,'TextView']]],
+  ['settextareawidth',['SetTextAreaWidth',['../class_text_view.html#ab9205e94f608d97ab4e999d960f7af47',1,'TextView']]],
   ['settextcolor',['SetTextColor',['../class_text_view.html#a0324a2b371d7c0675e66945b8c8e98ec',1,'TextView']]],
   ['settitle',['SetTitle',['../class_world.html#a134a92447c73d0be52a5ac72c9a90148',1,'World']]],
   ['setvertexnum',['SetVertexNum',['../class_view.html#aeb01366daf22b5f96df6615604aed0f8',1,'View']]],
   ['sleep',['Sleep',['../class_view.html#a1740e5e309dc6163b123c55a2bf84a5f',1,'View']]],
-  ['startgame',['StartGame',['../class_world.html#a25c27c0a0359fbd280b493833e50c414',1,'World']]]
+  ['startgame',['StartGame',['../class_world.html#a25c27c0a0359fbd280b493833e50c414',1,'World']]],
+  ['stop',['Stop',['../class_r_m_character.html#a6d153153a3d04b6f8ec0e3c91dac1099',1,'RMCharacter']]]
 ];

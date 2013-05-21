@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3.1"/>
-<title>流光: 成员列表</title>
+<title>流光: Flux/script/lfs.h 源文件</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,7 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
     <ul class="tablist">
       <li><a href="index.html"><span>首页</span></a></li>
       <li><a href="pages.html"><span>相关页面</span></a></li>
-      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -58,14 +58,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>类列表</span></a></li>
-      <li><a href="classes.html"><span>类索引</span></a></li>
-      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
-      <li><a href="functions.html"><span>类成员</span></a></li>
-    </ul>
-  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -80,22 +72,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_5711eb44cb52397ed84cf47646f1d3a1.html">Flux</a></li><li class="navelem"><a class="el" href="dir_a53c84b46d83f3b314f1f6b9314ce154.html">script</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Color 成员列表</div>  </div>
+<div class="title">lfs.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>成员的完整列表，这些成员属于 <a class="el" href="class_color.html">Color</a>,包括所有继承而来的类成员</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_color.html#a44c3ff4cf70465b77c937f2f72d4bac8">A</a></td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_color.html#a2b625cd3df94d1192c6f6aac31fe1f98">B</a></td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_color.html#a9a742cbe9f9f4037f5d9f4e81a9b2428">Color</a>()</td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_color.html#a81777b78b0a31efc480e162b750ce5ac">Color</a>(float r, float g, float b, float a=1.0f, bool clamp=true)</td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_color.html#a481d25488e6b2669f4d1819f5f15f8b3">G</a></td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_color.html#afb8ce8200a490088d415606620149b82">R</a></td><td class="entry"><a class="el" href="class_color.html">Color</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">** LuaFileSystem</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">** Copyright Kepler Project 2003 (http://www.keplerproject.org/luafilesystem)</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">**</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">** $Id: lfs.h,v 1.5 2008/02/19 20:08:23 mascarenhas Exp $</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">/* Define &#39;chdir&#39; for systems that do not implement it */</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifdef NO_CHDIR</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define chdir(p)    (-1)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define chdir_error &quot;Function &#39;chdir&#39; not provided by system&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define chdir_error strerror(errno)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">int</span> luaopen_lfs (lua_State *L);</div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 生成于 2013年 五月 21日 星期二 14:56:53 , 为 流光使用  &#160;<a href="http://www.doxygen.org/index.html">
