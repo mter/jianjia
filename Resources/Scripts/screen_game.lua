@@ -32,7 +32,6 @@ ScreenGame = {
                 data.ch[1].data.spells[8]=1
                 data.ch[1].data.spells[7]=1
                 --data.ch[1].spells[7]=1
-                ShowText(101, {'Ñ¡ÔñÕóÓª'})
             end
 
         end))

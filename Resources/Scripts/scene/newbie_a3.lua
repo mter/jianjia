@@ -23,6 +23,23 @@ local function OnLoad(self, scr)
     SceneManager.map:SetColor(0.486, 0.80, 0.486)
     SceneManager.map:Load('Resources/Maps/newbie3.tmx'):SetAlpha(1)
     self:ResetEdge()
+
+    if data.player.alignment == 0 then
+        -- 新玩家
+        theWorld:DelayRun(wrap(function()
+            scr:SetPlayer(SceneManager.player)
+            SceneManager.player:Reset()
+
+            ShowText(101, {'选择阵营'})
+        end), 2)
+    else
+        -- 非新玩家
+        theWorld:DelayRun(wrap(function()
+            scr:SetPlayer(SceneManager.player)
+            SceneManager.player:Reset()
+        end), 1)
+    end
+    
 end
 
 local function KeyInput(self, scr, key, state)
