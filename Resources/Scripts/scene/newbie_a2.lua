@@ -27,7 +27,6 @@ local function KeyInput(self, scr, key, state)
     
     if state == flux.GLFW_PRESS then
         if key == _b'Z' or key == flux.GLFW_KEY_SPACE then
-            ;
         end
     end
 

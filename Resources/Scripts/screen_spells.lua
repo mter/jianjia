@@ -85,9 +85,7 @@ ScreenSpells={
                 if state == flux.GLFW_PRESS then
                     if key==flux.GLFW_KEY_UP then
                         --上
-                        print("S上选择")
                         if ScreenSpells.curSelection > 1 then
-                            print("上选择")
                             ScreenSpells.update(ScreenSpells.curSelection,-1)
                         end
                     elseif key==flux.GLFW_KEY_DOWN then
@@ -98,7 +96,7 @@ ScreenSpells={
                     elseif key==flux.GLFW_KEY_ENTER then
                         --选择释放技能
                         local tk = table.find(ScreenSpells.spells,ScreenSpells.curSelection)
-                        if spell.can_cast(data.ch[1],spells[tk]) then
+                        if Spell:CanCast(data.ch[1],spells[tk]) then
                             print("释放技能吧骚年")
                             if type(ScreenSpells.callback)=='function' then
                                 ScreenSpells.callback(spells[tk])
