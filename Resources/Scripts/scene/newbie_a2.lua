@@ -7,12 +7,18 @@ local function OnInit(self, scr)
 
     -- ´´½¨±ß½ç
     self:CreateEdge()
-
+    
 end
 
 local function OnLoad(self, scr)
     SceneManager.map:Load('Resources/Maps/newbie2.tmx'):SetAlpha(1)
     self:ResetEdge()
+
+    theWorld:DelayRun(wrap(function()
+        scr:SetPlayer(SceneManager.player)
+        SceneManager.player:Reset()
+    end), 1)
+    
 end
 
 local function KeyInput(self, scr, key, state)

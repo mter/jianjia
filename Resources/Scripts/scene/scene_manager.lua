@@ -65,6 +65,8 @@ end
 
 -- 离开当前场景
 function SceneManager:Unload()
+    self.player:Stop()
+    self.scr:SetPlayer(nil)
     self.scr:RemoveAllView()
     self.scr:AddView(self.map)
     self.scr:AddView(self.player)

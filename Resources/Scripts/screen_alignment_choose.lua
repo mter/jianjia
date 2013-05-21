@@ -79,7 +79,7 @@ ScreenAlignmentChoose = {
 
             ScreenAlignmentChoose.text2 = flux.TextView(this, nil, 'wqy')
             ScreenAlignmentChoose.text2:SetPosition(-11, -2):SetHUD(true)
-            ScreenAlignmentChoose.text2:SetAlign(flux.ALIGN_TOPLEFT):SetTextAreaWidth(800):SetText(ScreenAlignmentChoose.ItemText2[3])
+            ScreenAlignmentChoose.text2:SetAlign(flux.ALIGN_TOPLEFT):SetTextAreaWidth(20.83):SetText(ScreenAlignmentChoose.ItemText2[3])
 
             ScreenAlignmentChoose.ItemPos = {
                 flux.Vector2(-10, 4),

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['land',['Land',['../class_land.html',1,'']]],
+  ['load',['Load',['../class_tmx_map.html#a4c5d11a5193e94f563960af63b54899c',1,'TmxMap']]],
   ['loadfont',['LoadFont',['../class_world.html#a8fd86d20e32f21ce65fc9edf888cbbfa',1,'World']]],
   ['loop',['Loop',['../class_view.html#a619d38d9fbd443915611892430b5fe70',1,'View']]],
   ['lua_5fafterpush',['lua_AfterPush',['../class_screen.html#a6046d9bc8e8ec65e3db24905931c6fbf',1,'Screen']]],

@@ -15,7 +15,7 @@ Widget.GridMenu = Class(Widget.Widget, function(self, scr, width, height, pos, s
     end
     
     -- 位移。用于翻页。位移位置是上一页的结束位置（未实装）
-    self.offsetpos = 0
+    self.offset = 0
     self.step = step or {2,1}
     self:SetSize(width, height)
 
@@ -32,7 +32,7 @@ function Widget.GridMenu:SetSize(width, height)
         list[x] = {}
         for y=1, self.height do
             local txt = flux.TextView(this, nil, 'wqyS')
-            txt:SetPosition(self.pos[1] + (x-1-width/2) * self.step[1], self.pos[2] + (-y+1+height/2) * self.step[2])
+            txt:SetPosition(self.pos[1] + (x-(width-1)) * self.step[1], self.pos[2] + (-y+1+height/2) * self.step[2])
             txt:SetHUD(true)
             list[x][y] = txt
             table.insert(self._viewlist, txt)
@@ -94,7 +94,7 @@ function Widget.GridMenu:SetSel(x, y)
     end
     -- 检查错误
     if x<=0 or y<=0 or x>self.width or y>self.height then
-        printf(_'错误：(' .. x .. ', ' .. y .. ') 位置不存在课选中的项。')
+        print(_'错误：(' .. x .. ', ' .. y .. ') 位置不存在可选中的项。')
         return
     end
     if not self.selcol then
@@ -108,8 +108,10 @@ function Widget.GridMenu:SetSel(x, y)
     self.list[x][y]:SetColor(self.selcol)
     if self.move_callback then
         -- 回调
-        local index = (x-1)*self.width + y
-        self.move_callback(index, data[index], x, y)
+        local index = (x-1)*self.height + y
+        local _x, _y = index % self.width , math.ceil(index / self.width)
+        if _x == 0 then _x = self.width end
+        self.move_callback(self, self.list[_x][_y], self.data[index], index)
     end
 end
 
@@ -130,7 +132,7 @@ end
 
 -- 设置选定回调函数
 -- 当对着这个项按 Z 或 Space 时会调用这个回调
-function Widget.GridMenu:SetMoveCallbak(callback)
+function Widget.GridMenu:SetSelectCallbak(callback)
     self.sel_callback = callback
 end
 
@@ -139,25 +141,25 @@ end
 function Widget.GridMenu:SetData(data)
     self.data = data
     if not self.datafunc then
-        self.datafunc = function(self, x, y, text)
-            if text then
-                if type(text) == 'table' then
-                    self.list[x][y]:SetText(text[1])
+        self.datafunc = function(self, view, data, index)
+            if data then
+                if type(data) == 'table' then
+                    view:SetText(text[1])
                 else
-                    self.list[x][y]:SetText(text)
+                    view:SetText(data)
                 end
             else
-                self.list[x][y]:SetText('')
+                view:SetText('')
             end
         end
     end
 
     for x=1, self.width do
         for y=1, self.height do
-            local index = (x-1)*self.width + y
+            local index = (x-1)*self.height + y
             local _x, _y = index % self.width , math.ceil(index / self.width)
             if _x == 0 then _x = self.width end
-            self.datafunc(self, _x, _y, self.data[index])
+            self.datafunc(self, self.list[_x][_y], self.data[index + self.offset], index+self.offset)
         end
     end
 end
@@ -180,9 +182,35 @@ function Widget.GridMenu:KeyInput(scr, key, state)
         end
 
         if y <= 0 then
-            y = self.height
+            if self.offset > 0 then
+                self.offset = self.offset - self.width
+                self:SetData(self.data)
+                return
+            else
+                local datanum = #self.data
+                y = self.height
+
+                self.offset = (math.ceil(datanum / self.width) - self.height) * self.width
+                if self.offset < 0 then
+                    self.offset = 0
+                end
+                self:SetData(self.data)
+            end
         elseif y > self.height then
-            y = 1
+            local num = self.width * self.height
+            local datanum = #self.data
+            
+            if num + self.offset < datanum then
+                self.offset = self.offset + self.width
+                self:SetData(self.data)
+                return
+            else
+                y = 1
+                if self.offset > 0 then
+                    self.offset = 0
+                    self:SetData(self.data)
+                end
+            end
         end
         self:SetSel(x, y)
     end
@@ -201,7 +229,7 @@ function Widget.GridMenu:KeyInput(scr, key, state)
         elseif key == flux.GLFW_KEY_SPACE or key == _b'Z' then
             -- 调用选中项回调
             if self.sel_callback then
-                local index = (x-1)*self.width + y
+                local index = (x-1)*self.height + y
                 self.sel_callback(index, data[index], x, y)
                 return
             end
