@@ -42,10 +42,21 @@ ScreenItem = {
                     view:SetText('')
                 end
             end)
-            
+
             ScreenItem.menu:SetMoveCallbak(function(self, view, data)
-                local id = data[1]
-                ScreenItem.txt:SetText(items[id][1] .. '\n \n' ..items[id].txt .. '\n \n当前数量：' .. data[2])
+                if data then
+                    local id = data[1]
+                    ScreenItem.txt:SetText(items[id][1] .. '\n \n' ..items[id].txt .. '\n \n当前数量：' .. data[2])
+                else
+                    ScreenItem.txt:SetText('')
+                end
+            end)
+
+            ScreenItem.menu:SetSelectCallbak(function(self, view, data)
+                if data then
+                    local id = data[1]
+                    print('选择使用' .. items[id][1])
+                end
             end)
 
             -- 注册按键

@@ -21,6 +21,16 @@ Widget.GridMenu = Class(Widget.Widget, function(self, scr, width, height, pos, s
 
 end)
 
+-- 内部方法，请勿调用
+function Widget.GridMenu:_DoCallback(x, y, callback, not_ret_if_data_is_nil)
+    if callback then
+        local index = (x-1)*self.height + y
+        local _x, _y = index % self.width , math.ceil(index / self.width)
+        if _x == 0 then _x = self.width end
+        callback(self, self.list[_x][_y], self.data[index + self.offset], index+self.offset)
+    end
+end
+
 -- 设置行列数
 function Widget.GridMenu:SetSize(width, height)
     self.width = width
@@ -106,13 +116,7 @@ function Widget.GridMenu:SetSel(x, y)
     end
     self.sel = {x, y}
     self.list[x][y]:SetColor(self.selcol)
-    if self.move_callback then
-        -- 回调
-        local index = (x-1)*self.height + y
-        local _x, _y = index % self.width , math.ceil(index / self.width)
-        if _x == 0 then _x = self.width end
-        self.move_callback(self, self.list[_x][_y], self.data[index], index)
-    end
+    self:_DoCallback(x,y, self.move_callback)
 end
 
 -- 设置当前被选中项目的背景颜色
@@ -156,10 +160,7 @@ function Widget.GridMenu:SetData(data)
 
     for x=1, self.width do
         for y=1, self.height do
-            local index = (x-1)*self.height + y
-            local _x, _y = index % self.width , math.ceil(index / self.width)
-            if _x == 0 then _x = self.width end
-            self.datafunc(self, self.list[_x][_y], self.data[index + self.offset], index+self.offset)
+            self:_DoCallback(x,y, self.datafunc)
         end
     end
 end
@@ -228,11 +229,8 @@ function Widget.GridMenu:KeyInput(scr, key, state)
             y = y + 1
         elseif key == flux.GLFW_KEY_SPACE or key == _b'Z' then
             -- 调用选中项回调
-            if self.sel_callback then
-                local index = (x-1)*self.height + y
-                self.sel_callback(index, data[index], x, y)
-                return
-            end
+            self:_DoCallback(x,y, self.sel_callback)
+            return
         else
             return
         end

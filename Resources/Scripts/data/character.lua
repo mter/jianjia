@@ -168,6 +168,8 @@ function Character:Inc(key, num)
         self.data.exp = self.data.exp + num
         self:UpdateBaseAttr()
         if level ~= self.extra.level then
+            self.data.hp = self:GetAttr('hp_max')
+            self.data.mp = self:GetAttr('mp_max')
             return self.extra.level
         end
     end
