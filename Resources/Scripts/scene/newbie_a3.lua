@@ -12,10 +12,10 @@ local function OnInit(self, scr)
     views.boss:SetTextColor(1,1,1):SetSize(1.079, 1.245):SetPosition(3, 12.5):SetSprite('Resources/Images/fight.jpg'):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
     views.dummy = flux.TextView(scr, nil, 'wqy', '木桩')
-    views.dummy:SetTextColor(1,1,1):SetSize(1.5, 1):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(0):SetPhy(flux.b2_staticBody):PhyNewFixture()
+    views.dummy:SetTextColor(1,1,1):SetSize(3, 2):SetColor(0,0,0):SetPosition(-2, 11):SetRotation(0):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
     views.head = flux.TextView(scr, nil, 'wqy', '村长')
-    views.head:SetTextColor(1,1,1):SetSize(1,1):SetColor(0,0,0):SetPosition(-20, -8):SetPhy(flux.b2_staticBody):PhyNewFixture()
+    views.head:SetTextColor(1,1,1):SetSize(3,3):SetColor(0,0,0):SetPosition(-20, -8):SetPhy(flux.b2_staticBody):PhyNewFixture()
 
 end
 
@@ -37,6 +37,8 @@ local function OnLoad(self, scr)
         theWorld:DelayRun(wrap(function()
             scr:SetPlayer(SceneManager.player)
             SceneManager.player:Reset()
+            
+            ShowText(0, {'欢迎来到我们的世界！', '很快，你就要踏上自己的旅途。不过在此之前，我还有几件事情要说。', '方向键可以控制人物。', '空格键和Z键都是确认键，与人物对话时要走进按两者之一才行。', '另外B键可以查看背包', '由于是工程版本，所以这段话会在每次进入这个场景时出现，请谅解。'})
         end), 1)
     end
     
