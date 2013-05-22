@@ -1,48 +1,72 @@
 --技能状态列表
 local characterSpellState = {}
 local enemySpellState = {}
-
---检查技能施展状态
-local function checkSpellState()
+--显示头顶的状态
+local function showState(who, nums, color)
+    if who.is_character then
+        if not color then
+            color = flux.Color(1, 0, 0)
+        end
+        --主角
+        ScreenFight.player_pic.dmg_num:SetText(tostring(nums)):SetColor(color):SetAlpha(1)
+        -- 注意：View和TextView之间的某些动画必须分行写
+        ScreenFight.player_pic.dmg_num:FadeOut(0.4):AnimDo()
+        --还原
+        ScreenFight.player_pic.dmg_num:SetColor(1, 0, 0)
+    else
+        --怪物
+        ScreenFight.enm_lst[who] = 0
+        -- ScreenFight.enm_lst[i]:GetAttr('name')
+        local p
+        for k, v in pairs(ScreenFight.enm_lst) do
+            if v == who then
+                p = k
+            end
+        end
+        if p then
+            ScreenFight.enemy_dmg_num[p]:SetText(nums):SetColor(color):SetAlpha(1)
+            -- 注意：View和TextView之间的某些动画必须分行写
+            ScreenFight.enemy_dmg_num[p]:FadeOut(0.4):AnimDo()
+            ScreenFight.enemy_dmg_num[p]:SetColor(1, 0, 0)
+        end
+    end
 end
 
 --释放技能
-local function castSpell(splState, type)
+local function castSpell(splState)
     --施展者,技能,受众
-    --characterSpellState[table.length(characterSpellState) + 1] = { table.deepcopy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
     --id, 名字，          条件,     消耗,   数学描述， 技能说明
-    --{ 1, '卡A', { lt = {}, eq = {}, gt = {} }, { mp = 300 }, { { need_cast = true, action_on = 1, change = { level = 999 }, change_scale = { hp_max = 0.3 }, delay = 3, round = 999, each_round = false, } }, '1卡尔萨斯之化身，奥术\n的至高成果，能以凡人\n之躯纂夺神明之职。' } , -- 1
-    local w
-    if type == 1 then
-        --主角释放技能
-        w = Character
-    elseif type == 2 then
-        --怪物释放技能
-        w = Enemy
-    end
-
     for k, v in pairs(splState) do
         --施法者,技能,受众
         local spellcaster = v[1]
         local spl = v[2]
         local victims = v[3]
-        print("spl=" .. spl[5][1].delay)
+        print("spl=" .. spl.describe[1].delay)
         --判断是否到释放时间和持续时间
-        if v[2][5][1].delay == 0 and v[2][5][1].round >= 1 then
-            w.cast(spellcaster, spl, victims)
+        if spl.describe[1].delay == 0 and spl.describe[1].round >= 1 then
+            local result = Spell:Cast(spellcaster, victims, spl)
+            if result then
+                --显示施法效果
+                for k, v in pairs(result) do
+                    print("技能效果---->   " .. k .. "==" .. v)
+                    showState(victims, v, flux.Color(0, 0, 1))
+                end
+            end
             --施展完毕则去除掉消耗条件
-            spl[4] = {}
+            spl.loss = {}
             --持续回合减1
-            spl[5][1].round = spl[5][1].round - 1
-        elseif spl[5][1].delay > 0 then
+            spl.describe[1].round = spl.describe[1].round - 1
+        elseif spl.describe[1].delay > 0 then
             --减去一个回合等待时间
-            spl[5][1].delay = spl[5][1].delay - 1
+            spl.describe[1].delay = spl.describe[1].delay - 1
         else
             --已经释放完毕则移除
             table.remove(splState, k)
         end
     end
 end
+
+
 
 local function createFightPlayerBoard()
     local fight_player_board = {}
@@ -272,6 +296,8 @@ local function attack_player(this)
         -- 这个时候已经没有怪物了，应该是个BUG
         ScreenFight.input_pause = false
     end
+    --轮到怪物释放技能
+    castSpell(enemySpellState)
 end
 
 ScreenFight = {
@@ -351,7 +377,7 @@ ScreenFight = {
                             -- 玩家选定了要攻击的目标，开始攻击
                             local aim_index = ScreenFight.select_aim
                             local aim = ScreenFight.enm_lst[aim_index]
-                            
+
                             ScreenFight.input_pause = true
                             ScreenFight.last_select = aim_index
                             ScreenFight.fight_menu.ptr:SetAlpha(0)
@@ -366,13 +392,13 @@ ScreenFight = {
 
                             -- 玩家打完了，做一些动画效果，然后轮到敌人打击玩家
                             ScreenFight.player_pic.player:Sleep(0.5, wrap(function()
-                            
+
                                 local new_hp = aim:Dec('hp', dmg)
 
                                 if new_hp <= 0 then
                                     ScreenFight.enemy_pic[aim_index]:FadeOut(1):AnimDo()
                                     print(aim:GetAttr('name'), '已经死亡')
-                                    
+
                                     local _exp, _loot = aim:Killed()
 
                                     ScreenFight.exp = ScreenFight.exp + _exp
@@ -390,15 +416,18 @@ ScreenFight = {
 
                                 attack_player(this)
                             end)):AnimDo()
+                            --轮循技能
+                            castSpell(characterSpellState)
                         end
                     elseif cursel == 2 then
                         callback = function(spl)
                             ScreenFight.spl = spl
-                            if ScreenFight.spl[5][1].action_on == 1 then
+                            if ScreenFight.spl.describe[1].action_on == 1 then
                                 --对自己施法,添加到列表      --施展者,技能,受众
-                                characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.deepcopy(spl), data.ch[1] }
+                                --characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.copy(spl), data.ch[1] }
+                                table.insert(characterSpellState, { data.ch[1], table.copy(spl), data.ch[1] })
                                 castSpell(characterSpellState)
-                                print("对自己释放法术")
+                                ScreenFight.player_board.refurbish(data.ch[1])
                             elseif ScreenFight.spl[5][1].action_on == 2 then
                                 --选择敌人
                                 if not ScreenFight.select_aim and (ScreenFight.spl ~= nil) then
@@ -418,18 +447,20 @@ ScreenFight = {
                             ScreenFight.fight_menu.ptr:SetAlpha(0)
                             local dmg = -1
                             --技能伤害或者技能加成
-                            if ScreenFight.spl[5][1].action_on == 1 then
+                            if ScreenFight.spl.describe[1].action_on == 1 then
                                 --对在自身进行施法
                                 --character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
-                            elseif ScreenFight.spl[5][1].action_on == 2 then
+                            elseif ScreenFight.spl.describe[1].action_on == 2 then
                                 --对怪物进行技能打击
                                 --d = character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
                                 dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 3)
 
                                 --添加技能                                                         --施展者,技能,受众
-                                characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.deepcopy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
+                                --characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.copy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
+                                table.insert(characterSpellState, { data.ch[1], table.copy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] })
                                 --施展技能
                                 castSpell(characterSpellState)
+                                ScreenFight.player_board.refurbish(data.ch[1])
                             end
 
                             if dmg ~= -1 then
