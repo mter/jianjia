@@ -1,14 +1,41 @@
 --技能状态列表
 local characterSpellState = {}
 local enemySpellState = {}
+--显示头顶的状态
+local function showState(who, nums, color)
+    if who.is_character then
+        if not color then
+            color = flux.Color(1, 0, 0)
+        end
+        --主角
+        ScreenFight.player_pic.dmg_num:SetText(tostring(nums)):SetColor(color):SetAlpha(1)
+        -- 注意：View和TextView之间的某些动画必须分行写
+        ScreenFight.player_pic.dmg_num:FadeOut(0.4):AnimDo()
+        --还原
+        ScreenFight.player_pic.dmg_num:SetColor(1, 0, 0)
+    else
+        --怪物
+        ScreenFight.enm_lst[who] = 0
+        -- ScreenFight.enm_lst[i]:GetAttr('name')
+        local p
+        for k, v in pairs(ScreenFight.enm_lst) do
+            if v == who then
+                p = k
+            end
+        end
+        if p then
+            ScreenFight.enemy_dmg_num[p]:SetText(nums):SetColor(color):SetAlpha(1)
+            -- 注意：View和TextView之间的某些动画必须分行写
+            ScreenFight.enemy_dmg_num[p]:FadeOut(0.4):AnimDo()
+            ScreenFight.enemy_dmg_num[p]:SetColor(1, 0, 0)
+        end
+    end
+end
 
 --释放技能
 local function castSpell(splState)
     --施展者,技能,受众
-    --characterSpellState[table.length(characterSpellState) + 1] = { table.copy(spl), ScreenFight.enm_lst[ScreenFight.select_aim] }
     --id, 名字，          条件,     消耗,   数学描述， 技能说明
-    --{ 1, '卡A', { lt = {}, eq = {}, gt = {} }, { mp = 300 }, { { need_cast = true, action_on = 1, change = { level = 999 }, change_scale = { hp_max = 0.3 }, delay = 3, round = 999, each_round = false, } }, '1卡尔萨斯之化身，奥术\n的至高成果，能以凡人\n之躯纂夺神明之职。' } , -- 1
-    local hurt = 0
     for k, v in pairs(splState) do
         --施法者,技能,受众
         local spellcaster = v[1]
@@ -17,9 +44,13 @@ local function castSpell(splState)
         print("spl=" .. spl[5][1].delay)
         --判断是否到释放时间和持续时间
         if v[2][5][1].delay == 0 and v[2][5][1].round >= 1 then
-            local t = Spell:Cast(spellcaster, victims, spl)
-            if t then
-                hurt = hurt + t
+            local result = Spell:Cast(spellcaster, victims, spl)
+            if result then
+                --显示施法效果
+                for k, v in pairs(result) do
+                    print("技能效果---->   " .. k .. "==" .. v)
+                    showState(victims, v, flux.Color(0, 0, 1))
+                end
             end
             --施展完毕则去除掉消耗条件
             spl[4] = {}
@@ -34,6 +65,8 @@ local function castSpell(splState)
         end
     end
 end
+
+
 
 local function createFightPlayerBoard()
     local fight_player_board = {}

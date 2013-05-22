@@ -46,17 +46,23 @@ end
 
 --释放技能
 function Spell:Cast(from, to, spl)
-    local con = spl[5]
-    --更改属性
-    for k, v in pairs(con[1].change) do
-        to:Inc(k, to:GetAttr(k) - v)
-    end
-    --增益属性
-    for k, v in pairs(con[1].change_scale) do
-        to:Inc(k, to:GetAttr(k) * (1 + v))
-    end
+    local result = {}
     --扣除所需
     for k, v in pairs(spl[4]) do
         from:Dec(k, v)
     end
+    local con = spl[5]
+    --更改属性
+    for k, v in pairs(con[1].change) do
+        local r = to:GetAttr(k) - v
+        to:Inc(k, r)
+        result[k] = r
+    end
+    --增益属性
+    for k, v in pairs(con[1].change_scale) do
+        local r = to:GetAttr(k) * v
+        to:Inc(k, r)
+        result[k] = r
+    end
+    return result
 end

@@ -81,7 +81,7 @@ end
 -- 返回值有可能为空（没有随机到），支持变长参数
 -- t1: {0.1, 0.2225, 0.3} -> 加起来不得大于1
 function table.random(t1, ...)
-    
+
     local params = {...}
 
     local function get_item_at_pos(i)
@@ -109,7 +109,7 @@ function table.random(t1, ...)
     local oldval = 0
     local newval = 0
     local _rand = math.random(1, maxvalue)
-    
+
     for i=1,#t1 do
         newval = oldval + t1[i] * maxvalue
         if _rand > oldval and _rand <= newval then
