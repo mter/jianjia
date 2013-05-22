@@ -97,7 +97,6 @@ ScreenSpells={
                         --选择释放技能
                         local tk = table.find(ScreenSpells.spells,ScreenSpells.curSelection)
                         if Spell:CanCast(data.ch[1],spells[tk]) then
-                            print("释放技能吧骚年")
                             if type(ScreenSpells.callback)=='function' then
                                 ScreenSpells.callback(spells[tk])
                             end
@@ -138,7 +137,7 @@ ScreenSpells={
         --更新说明信息
         --ScreenSpells.instruct:SetText(ScreenSpells.spells[ScreenSpells.curSelection][6]):SetAlpha(1)
         local k= table.find(ScreenSpells.spells,ScreenSpells.curSelection)
-        ScreenSpells.instruct:SetText(spells[k][6]):SetAlpha(1)
+        ScreenSpells.instruct:SetText(spells[k].txt):SetAlpha(1)
         --ScreenSpells.instruct:SetText(Split(ScreenSpells.spells[ScreenSpells.curPosition][5])):SetAlpha(1)
         local m=nil
         if ScreenSpells.curPosition==1 and (step==-1 or step==0) then
@@ -146,15 +145,14 @@ ScreenSpells={
         elseif ScreenSpells.curPosition==5 and step==1 then
             m=-5
         end
-        print("进入")
         --更新技能列表
         if  m then
             for k, v in pairs(ScreenSpells.spellsView) do
                 --技能id,等级
                 local tk = table.find(ScreenSpells.spells,k+ScreenSpells.curSelection+m)
                 if tk and spells[tk] then
-                    if spells[tk][2] then
-                        v:SetText(spells[tk][2]):SetAlpha(1)
+                    if spells[tk][1] then
+                        v:SetText(spells[tk][1]):SetAlpha(1)
                     end
                 else
                     v:SetAlpha(0)
