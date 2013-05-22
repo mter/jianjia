@@ -11,7 +11,7 @@ ScreenItem = {
 		if ScreenItem.scr then return end
 
         ScreenItem.scr = flux.Screen()
-		
+
         ScreenItem.scr:lua_OnPush(wrap(function(this)
 			theWorld:PhyPause()
             ScreenItem.menu:SetData(data.items)

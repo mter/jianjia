@@ -88,6 +88,44 @@ function Character:Unequip(pos)
     -- ...
 end
 
+-- 学习技能，同时也可以当做提升技能等级来使用
+-- @param spl 技能ID或者是存放技能数据的table
+-- @param level 等级，默认为1，为0或以下时从技能列表中去除这个技能
+function Character:LearnSpell(spl, level)
+    local spells = ch.data.spells
+
+    --  若技能等级小于等于0，则从列表中删除
+    local function _end(index)
+        if spells[index][2] <= 0 then
+            table.remove(spells, index)
+        end
+    end
+
+    if type(spl) == 'table' then
+        spl = spl.id
+    end
+    level = level or 1
+    for k,v in pairs(spells) do
+        if v[1] == spl then
+            v[2] = v[2] + level
+            _end(k)
+            return
+        end
+    end
+    table.insert(spells, {spl, level})
+    _end(#spells)
+end
+
+-- 失去技能
+function Character:LostSpell(spl, level)
+    self:LearnSpell(spl, 0-level)
+end
+
+-- 获得技能列表
+function Character:GetSpells(spl, level)
+    return self.data.spells
+end
+
 -- 获取角色的某个属性
 -- 说明：这个函数会得到玩家经过装备和战斗buff加成以后的属性
 function Character:GetAttr(key)

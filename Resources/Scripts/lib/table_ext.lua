@@ -56,7 +56,8 @@ function table.copy(orig)
     return copy
 end
 
---根据位置查找不按顺序存放的key,value
+-- 根据位置查找不按顺序存放的key,value
+-- 准备废弃
 function table.find(t, p)
     local i = 1;
     for k, v in pairs(t) do
@@ -69,6 +70,7 @@ function table.find(t, p)
 end
 
 --table的长度
+-- 准备废弃
 function table.length(t)
     local i = 0
     for k, v in pairs(t) do
