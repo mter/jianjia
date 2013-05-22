@@ -23,15 +23,8 @@ ScreenGame = {
                 table.insert(data.ch, Character('伊方'))
 
                 --初始化技能
-                data.ch[1].data.spells[2]=3
-                data.ch[1].data.spells[3]=1
-                data.ch[1].data.spells[5]=1
-                data.ch[1].data.spells[4]=1
-                data.ch[1].data.spells[9]=1
-                data.ch[1].data.spells[9]=1
-                data.ch[1].data.spells[8]=1
-                data.ch[1].data.spells[7]=1
-                --data.ch[1].spells[7]=1
+                data.ch[1]:LearnSpell(1)
+                data.ch[1]:LearnSpell(2)
             end
 
         end))

@@ -41,9 +41,9 @@ local function castSpell(splState)
         local spellcaster = v[1]
         local spl = v[2]
         local victims = v[3]
-        print("spl=" .. spl.describe[1].delay)
+        print("spl=" .. spl.effect[1].delay)
         --判断是否到释放时间和持续时间
-        if spl.describe[1].delay == 0 and spl.describe[1].round >= 1 then
+        if spl.effect[1].delay == 0 and spl.effect[1].round >= 1 then
             local result = Spell:Cast(spellcaster, victims, spl)
             if result then
                 --显示施法效果
@@ -53,12 +53,12 @@ local function castSpell(splState)
                 end
             end
             --施展完毕则去除掉消耗条件
-            spl.loss = {}
+            spl.cost = {}
             --持续回合减1
-            spl.describe[1].round = spl.describe[1].round - 1
-        elseif spl.describe[1].delay > 0 then
+            spl.effect[1].round = spl.effect[1].round - 1
+        elseif spl.effect[1].delay > 0 then
             --减去一个回合等待时间
-            spl.describe[1].delay = spl.describe[1].delay - 1
+            spl.effect[1].delay = spl.effect[1].delay - 1
         else
             --已经释放完毕则移除
             table.remove(splState, k)
@@ -420,9 +420,9 @@ ScreenFight = {
                             castSpell(characterSpellState)
                         end
                     elseif cursel == 2 then
-                        callback = function(spl)
+                        local callback = function(spl, level)
                             ScreenFight.spl = spl
-                            if ScreenFight.spl.describe[1].action_on == 1 then
+                            if ScreenFight.spl.effect[1].action_on == 1 then
                                 --对自己施法,添加到列表      --施展者,技能,受众
                                 --characterSpellState[table.length(characterSpellState) + 1] = { data.ch[1], table.copy(spl), data.ch[1] }
                                 table.insert(characterSpellState, { data.ch[1], table.copy(spl), data.ch[1] })
@@ -447,10 +447,10 @@ ScreenFight = {
                             ScreenFight.fight_menu.ptr:SetAlpha(0)
                             local dmg = -1
                             --技能伤害或者技能加成
-                            if ScreenFight.spl.describe[1].action_on == 1 then
+                            if ScreenFight.spl.effect[1].action_on == 1 then
                                 --对在自身进行施法
                                 --character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
-                            elseif ScreenFight.spl.describe[1].action_on == 2 then
+                            elseif ScreenFight.spl.effect[1].action_on == 2 then
                                 --对怪物进行技能打击
                                 --d = character.cast(data.ch[1], ScreenFight.spl, ScreenFight.enm_lst[ScreenFight.select_aim])
                                 dmg = Character:Attack(data.ch[1], ScreenFight.enm_lst[ScreenFight.select_aim], 3)
@@ -499,8 +499,8 @@ ScreenFight = {
                             end)):AnimDo()
                             ScreenFight.spl = nil
                         else
-                            ScreenSpells.new(data.ch[1].spells, callback)
-                            theWorld:PushScreen(ScreenSpells.scr, flux.SCREEN_APPEND)
+                            ShowSpellSelect(data.ch[1], callback)
+                            theWorld:PushScreen(ScreenSpell.scr, flux.SCREEN_APPEND)
                         end
                     elseif cursel == 3 then
                         -- 逃跑
