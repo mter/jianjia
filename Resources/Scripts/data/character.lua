@@ -92,7 +92,7 @@ end
 -- @param spl 技能ID或者是存放技能数据的table
 -- @param level 等级，默认为1，为0或以下时从技能列表中去除这个技能
 function Character:LearnSpell(spl, level)
-    local spells = ch.data.spells
+    local spells = self.data.spells
 
     --  若技能等级小于等于0，则从列表中删除
     local function _end(index)
