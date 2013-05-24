@@ -10,7 +10,16 @@
  </layer>
  <layer name="块层 2" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJztl0EOgyAQRYeq1S7URXVhe40esknrEbyrf1ESIdAhJgwm8pIXEmDxCGz4ENE7sV84U3pmyh1bztCh4AUWAh0TfMCnY62EFbwKdPwjd5jUsIE3z7r6+Yrc0cIO9gF7Y3bc4QBHa14Jd9joe9AsETsUo4/YHaG4Orgz7ZWscTsv9T5cPSk6OHKHSe4wOVLHEZDo4P4umhUo5TEi
+   eJy1lsuPTEEUxqskGJmeEYawGVuPxCPRetWLSSz8A0gMiSEx7LzfhvaMzbDAAgsssCIRYli5G7PAgqWO12i6WZhZej++M31O+vSZug8JJ/ml6tY9VfXdc+px25xznaAV5MBkcNKw2Tu3BWz1ze35gK+lhj4fTb/5eF4AxCqgjXVMAVNZh9gM+M4EO8EusFv1zWqiQ9tiPOcDOjB/lOOYTFf+nfCdBfaDA6DvH+mwJjooBh1Gg7bDGOcIOKrG+wy+JJRWx0TUW8CkFB2PwDb4bwc7Mnz3T/AroRQ9ooPmaXfNedc6aE0gH12kcw/894J9CTqKyKHMMQS/twEqvqFHdFC8p7lwzFlHJO8Pwv8QKKXEQ+b4BL+qd13PUP/gG6CtJJqqKi/0rTo/s9E+x9d1aH3H0HYcnADLkqU0xf0eyvusZcCNzh0Noy6M+Mb60/mR/Us6+nncvJnnbsaY1DgGD1gHabLrUtd1fmT/ah1pZnXqeAy6Rk4G3dh1qetak+dx/0aHNRsPmv+xS9cR2jdxOkjjc/AyQNnEQ9YqaZE1YvdHXF2v07h4VFRd3y/SLvFwrMWuS601rgyt0yQd+n6h9icmJvYMnQu/eT79rMuyTuldL86WDUDfL1qfHVdsIfwWJew3nfOyC+vwDL3rgYa1QN8vFeVjEVuCh4If+05KGmOIz93XqL8BTxPi0Q0Nq4Btlz5fwTfwHfyI/3y6C9xyzLkCrORvqZlzV8fjlvoo0klxq6r371m72G/+SA/G0VjgFDgdyEk32laDNeAd67iB8qar73etYyAmp0XzXOByPPwn0NkJWsAZcBacC4zTg7Z1YD2/Ix23Ud5x9b3eH5gnq7Wif47OLNAOzoML4GJARy/aNoJNSgfNj1hEoiPNCukuo3YJ410GV3gu2b/WXrnG+Ufnb+Ti/x/SDDEs2bar6HcNXOf+dv8Wec3T2isrLQ9d83+DQOeyxED+ldMsdD/L/g2ZaJH8DAcYUX3lX3lpBi3a4nKpzwnav3InWKO9Gbrf/gcvVP0PLARATw==
   </data>
  </layer>
+ <layer name="块层 3" width="34" height="25">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtOMnIwHCakcaWEAHOA91wEYs7AoFiQUAcTCc3XgXacx2LXeFAsQggjhzgsIoF2h8HxPED7I5koP0pQJw6CNLOKBgFo2AUjIJRMApGwSgYBegAAODRCTc=
+  </data>
+ </layer>
+ <objectgroup name="对象层 1" width="34" height="25">
+  <object x="65" y="769" width="190" height="193"/>
+  <object x="256" y="1216" width="191" height="193"/>
+ </objectgroup>
 </map>

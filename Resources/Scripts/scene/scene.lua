@@ -55,6 +55,8 @@ function Scene:ResetEdge()
     views.edge.bottom:SetSize(pos.x, 0.1):SetPosition(0, -pos.y/2-0.05)
     views.edge.left:SetSize(0.1, pos.y):SetPosition(-pos.x/2-0.05, 0)
     views.edge.right:SetSize(0.1, pos.y):SetPosition(pos.x/2+0.05, 0)
+    
+    theCamera:SetSize(pos.x, pos.y)
 
 end
 
