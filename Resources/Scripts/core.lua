@@ -28,6 +28,7 @@ require('screen_spell')
 require('screen_game')
 
 require('widget.widget')
+require('widget.widgetset')
 require('scene.scene_manager')
 
 function theWorld_GameInit()

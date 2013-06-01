@@ -24,8 +24,8 @@ end)
 -- 内部方法，请勿调用
 function Widget.GridMenu:_DoCallback(x, y, callback, not_ret_if_data_is_nil)
     if callback then
-        local index = (x-1)*self.height + y
-        local _x, _y = index % self.width , math.ceil(index / self.width)
+        local index = (x-1)*self.width + y
+        local _x, _y = index % self.width, math.ceil(index / self.width)
         if _x == 0 then _x = self.width end
         callback(self, self.list[_x][_y], self.data[index + self.offset], index+self.offset)
     end
@@ -116,7 +116,7 @@ function Widget.GridMenu:SetSel(x, y)
     end
     self.sel = {x, y}
     self.list[x][y]:SetColor(self.selcol)
-    self:_DoCallback(x,y, self.move_callback)
+    self:_DoCallback(y, x, self.move_callback)
 end
 
 -- 设置当前被选中项目的背景颜色
@@ -160,7 +160,7 @@ function Widget.GridMenu:SetData(data)
 
     for x=1, self.width do
         for y=1, self.height do
-            self:_DoCallback(x,y, self.datafunc)
+            self:_DoCallback(x, y, self.datafunc)
         end
     end
 end
@@ -229,7 +229,7 @@ function Widget.GridMenu:KeyInput(scr, key, state)
             y = y + 1
         elseif key == flux.GLFW_KEY_SPACE or key == _b'Z' then
             -- 调用选中项回调
-            self:_DoCallback(x,y, self.sel_callback)
+            self:_DoCallback(y, x, self.sel_callback)
             return
         else
             return

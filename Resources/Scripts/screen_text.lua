@@ -187,7 +187,7 @@ local function InitRes(this, bgpic)
     if ScreenText.t == nil then
         ScreenText.t = flux.TextView(this, nil, 'wqy')
         ScreenText.t:SetAlign(flux.ALIGN_TOPLEFT):SetHUD(true)
-        ScreenText.t:SetTextColor(TextColor.UnfinshRead)
+        ScreenText.t:SetTextColor(TextColor.UnfinshRead):SetTextAreaWidth(21.5):SetLineSpacing(15)
         this:AddView(ScreenText.t, 8)
     end
     --³õÊ¼»¯Ãû×Ö

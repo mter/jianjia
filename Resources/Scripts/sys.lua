@@ -17,6 +17,8 @@ data = {
 
 math.randomseed(os.time())
 
+require('sys.fight')
+
 require('data.enemy')
 require('data.spell')
 require('data.items')

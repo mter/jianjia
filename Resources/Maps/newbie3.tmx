@@ -3,6 +3,20 @@
  <tileset firstgid="1" name="ForestTiles" tilewidth="64" tileheight="64">
   <image source="ForestTiles.png" width="384" height="5440"/>
  </tileset>
+ <tileset firstgid="511" name="DungeonTiles" tilewidth="64" tileheight="64">
+  <image source="DungeonTiles.png" width="384" height="2688"/>
+ </tileset>
+ <tileset firstgid="763" name="PathTiles" tilewidth="64" tileheight="64">
+  <image source="PathTiles.png" width="128" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="Collidable" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="765" name="BuildingsTiles1" tilewidth="64" tileheight="64">
+  <image source="BuildingsTiles1.png" width="384" height="512"/>
+ </tileset>
  <layer name="块层 1" width="34" height="25">
   <data encoding="base64" compression="zlib">
    eJztwwENAAAMw6D6mn9ft3ABkLBqqqqqvh/EtsPn
@@ -10,16 +24,21 @@
  </layer>
  <layer name="块层 2" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="块层 3" width="34" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtOMnIwHCakcaWEAHOA91wEYs7AoFiQUAcTCc3XgXacx2LXeFAsQggjhzgsIoF2h8HxPED7I5koP0pQJw6CNLOKBgFo2AUjIJRMApGwSgYBegAAODRCTc=
+   eJztkDsKwkAURe+YaMQo+AE/G3A/JoVaqIW6WEkhFpLdRM8CUowwcZp34MAwzbk8qVseTqpcxxEPnmx4tezY8Vdg+aeNbzp1S2vP3wGPkW91on/Gi8eOYSI1PemD4u2ScDuu9G9497xHSruPA8wC7viVEe0cxziJtGNLd4oznOMi4j2WtFe4xk3EHYZhGIZhGKH5ApnqDIs=
   </data>
  </layer>
  <objectgroup name="对象层 1" width="34" height="25">
   <object x="65" y="769" width="190" height="193"/>
-  <object x="256" y="1216" width="191" height="193"/>
+  <object x="256" y="1216" width="192" height="192"/>
  </objectgroup>
+ <layer name="_path" width="34" height="25" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzNllEKwCAMQ2X3P/I+9jmRtmmaKhYEmRrfltJuDBzv8w82rHOszqpR4fB0T3N431HRWpmioXAweYD2zDoeB2LM3MEEq3cTR4cvUb5Y+5RAHFmNmzgUlg6OrFZUG0754tXRSk1AtU7hiOYRn+JZNK/oV/cq79PJUdWwzlZ7PuqdTO1k7mZZs887/Ozi6Mov707Lv3mN5VSZrZqreIRyk+Vi1yKOHb5m/3OyfaI65vgAZSPDdw==
+  </data>
+ </layer>
 </map>

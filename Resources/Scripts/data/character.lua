@@ -27,6 +27,7 @@ Character = Class(function(self, name, txt)
     self.spells = self.data.spells
     self.equip = self.data.equip
 
+    self.buff = {}
     self.equip_attr = { change = {}, scale = {} }
     self.fight_attr = { change = {}, scale = {} }
 
@@ -79,13 +80,16 @@ function Character:Equip(item_id)
     self:Unequip(pos)
     -- 然后装备新的
     self:_Equip(item_id)
+    -- 从物品列表中移除新的装备
+    Item:LostItem(item_id)
 end
 
 -- 脱下某部位的装备
 -- 说明:装备部位 1头部、2衣服、3手套、4腰带、5鞋子、6饰品
 function Character:Unequip(pos)
+    -- 脱下装备并将其添加入物品列表
     local item_id = self:_Unequip(pos)
-    -- ...
+    Item:GetItem(item_id)
 end
 
 -- 学习技能，同时也可以当做提升技能等级来使用
@@ -158,6 +162,9 @@ end
 -- 说明：这个函数会得到玩家的原始属性
 function Character:GetRawAttr(key)
     local value = self.data[key]
+    if key == 'spd' then
+        value = math.max(self.data.strength, self.data.agility, self.data.intelligence, self.data.spellpower, self.data.endurance, self.data.will)
+    end
     if not value then
         value = self.extra[key]
     end
@@ -270,6 +277,43 @@ function Character:UpdateBaseAttr()
     end
 end
 
+-- 刷新战斗强化属性
+-- 这个函数会将 fight_attr 中一些不合理的加成（例如hp等）归并到原始数据内。
+-- 需要注意的是这个函数执行后，角色可能会死亡。
+function Character:UpdateFightAttr()
+    
+    local function change_inc(key)
+        local ret
+        if self.fight_attr.change[key] then
+            ret = self:Inc(key, self.fight_attr.change[key])
+            self.fight_attr.change[key] = nil
+            return ret
+        end
+    end
+
+    local function scale_inc(key)
+        local ret
+        if self.fight_attr.change[key] then
+            ret = self:Inc(key, self:GetAttr(key) * self.fight_attr.scale[key])
+            self.fight_attr.scale[key] = nil
+            return ret
+        end
+    end
+
+    local ret = change_inc('hp')
+    change_inc('mp')
+    change_inc('exp')
+
+    ret = scale_inc('hp')
+    scale_inc('mp')
+    scale_inc('exp')
+
+    if ret == 0 then
+        return true
+    end
+
+end
+
 -- 更新装备属性
 -- 说明：重置装备强化值为0，并将其更新
 function Character:UpdateEquipAttr()
@@ -312,4 +356,28 @@ function Character:Attack(enm, way)
     end
 
     return math.ceil((math.random(atk_min, atk_max) + math.floor((atk_max - atk_min) * self:GetAttr('will') ^ 0.5 / 50) - amr / 5) * (1 - def ^ 0.5 / 35))
+end
+
+-- 查看列表中是否有某个buff
+function Character:GetBuff(id, is_item)
+    if is_item then
+        local id = id + 50000
+    end
+    return self.buff[id]
+end
+
+-- 加入Buff列表
+function Character:AddBuff(id, is_item)
+    if is_item then
+        local id = id + 50000
+    end
+    self.buff[id] = self.buff[id] or 0 + 1
+end
+
+-- 从 Buff 列表中移除
+function Character:RemoveBuff(id, is_item)
+    if is_item then
+        local id = id + 50000
+    end
+    self.buff[id] = nil
 end
