@@ -5,7 +5,8 @@ Widget = {}
 Widget.Widget = Class(function(self, scr, pos)
     self.scr = scr
     self.pos = pos or {0,0}
-    --self._viewlist = {}
+    self._viewlist = {}
+    self._visible = true
 end)
 
 -- 将控件添加至窗体
@@ -27,5 +28,23 @@ function Widget.Widget:SetPosition(x, y)
     self:_UpdatePos()
 end
 
+-- 设置隐藏
+function Widget.Widget:SetVisible(visible)
+    self._visible = visible
+    local alpha = 0
+    if visible then
+        alpha = 1
+    end
+    for k,v in pairs(self._viewlist) do
+        v:SetAlpha(alpha)
+    end
+end
+
+-- 获取隐藏参数
+function Widget.Widget:GetVisible()
+    return self._visible
+end
+
 require('widget.GridMenu')
 require('widget.NameCard')
+require('widget.EnemyImg')
